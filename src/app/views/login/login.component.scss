@@ -12,10 +12,17 @@
         font-family: monospace;
         white-space: pre;
 
-        animation:
-            fadeIn 0.3s forwards;
-        /* 👈 delay spostato qui */
+        animation: fadeIn .3s forwards;
         animation-delay: calc(var(--delay) * 1ms);
+    }
+
+    &>.login-button {
+        position: absolute;
+        bottom: 48px;
+        opacity: 0;
+
+        animation: fadeIn .5s forwards;
+        animation-delay: 2s;
     }
 
     @keyframes fadeIn {
@@ -28,6 +35,8 @@
         margin: 0;
         padding: 0;
     }
+
+    
 }
 
 .toggle-theme-container {

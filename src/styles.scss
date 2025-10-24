@@ -27,3 +27,19 @@ body {
     --fg-ciano-color: #00ffff;
     --fg-amber-color: #ffaa00;
 }
+
+button[standard-btn] {
+    color: var(--fg-color);
+    background: transparent;
+    border: 1px solid var(--fg-color);
+    padding: 8px 16px;
+    font-family: "VT323", monospace;
+    font-size: 1rem;
+
+    &:hover {
+        background: var(--fg-color);
+        color: var(--bg-main-color);
+        transition: background .5s, color .5s;
+        cursor: pointer;
+    }
+}
