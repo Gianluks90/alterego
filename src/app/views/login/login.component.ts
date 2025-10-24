@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { appVersion } from '../../../environment/appVersion';
 import { ThemeToggleComponent } from '../../components/theme-toggle/theme-toggle.component';
-import { ThemeService } from '../../components/theme-toggle/theme.service';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginDialogComponent } from '../../components/dialogs/login-dialog/login-dialog.component';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [ThemeToggleComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -23,6 +25,8 @@ export class LoginComponent {
 
   public visibleLines: string[] = [];
   public appVersion = '';
+
+  constructor(private dialog: MatDialog) {}
   
   ngOnInit() {
     this.appVersion = appVersion;
@@ -31,6 +35,16 @@ export class LoginComponent {
       setTimeout(() => {
         this.visibleLines.push(line.text);
       }, line.delay);
+    });
+  }
+
+  public openLoginDialog() {
+    this.dialog.open(LoginDialogComponent, {
+      width: '600px',
+      backdropClass: 'backdrop-blur',
+      panelClass: 'generic-dialog-panel',
+      autoFocus: false,
+      enterAnimationDuration: '0ms',
     });
   }
 }

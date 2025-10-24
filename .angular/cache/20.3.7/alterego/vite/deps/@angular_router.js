@@ -1,13 +1,14 @@
 import {
-  DOCUMENT,
+  Title
+} from "./chunk-7GJM4RGL.js";
+import {
   HashLocationStrategy,
   LOCATION_INITIALIZED,
   Location,
   LocationStrategy,
   PathLocationStrategy,
-  Title,
   ViewportScroller
-} from "./chunk-M4ZW73LH.js";
+} from "./chunk-7YEKPQJH.js";
 import {
   APP_BOOTSTRAP_LISTENER,
   ApplicationRef,
@@ -17,15 +18,18 @@ import {
   Component,
   Console,
   ContentChildren,
+  DOCUMENT,
   DestroyRef,
   Directive,
   ENVIRONMENT_INITIALIZER,
   ElementRef,
   EnvironmentInjector,
   EventEmitter,
+  HostAttributeToken,
   HostBinding,
   HostListener,
-  InjectFlags,
+  INTERNAL_APPLICATION_ERROR_HANDLER,
+  IS_ENABLED_BLOCKING_INITIAL_NAVIGATION,
   Injectable,
   InjectionToken,
   Injector,
@@ -44,6 +48,7 @@ import {
   afterNextRender,
   booleanAttribute,
   createEnvironmentInjector,
+  formatRuntimeError,
   inject,
   input,
   isInjectable,
@@ -53,9 +58,12 @@ import {
   makeEnvironmentProviders,
   performanceMarkFeature,
   provideAppInitializer,
+  publishExternalGlobalUtil,
   reflectComponentType,
   runInInjectionContext,
   setClassMetadata,
+  signal,
+  untracked,
   ɵɵNgOnChangesFeature,
   ɵɵattribute,
   ɵɵcontentQuery,
@@ -74,16 +82,15 @@ import {
   ɵɵloadQuery,
   ɵɵqueryRefresh,
   ɵɵsanitizeUrlOrResourceUrl
-} from "./chunk-OLJ2W2BP.js";
+} from "./chunk-4XPZ3RN5.js";
 import {
   BehaviorSubject,
   ConnectableObservable,
   EMPTY,
   EmptyError,
+  Observable,
   Subject,
   Subscription,
-  __spreadProps,
-  __spreadValues,
   catchError,
   combineLatest,
   concat,
@@ -110,9 +117,14 @@ import {
   takeUntil,
   tap,
   throwError
-} from "./chunk-S35MAB2V.js";
+} from "./chunk-RSS3ODKE.js";
+import {
+  __async,
+  __spreadProps,
+  __spreadValues
+} from "./chunk-WDMUDEB6.js";
 
-// node_modules/@angular/router/fesm2022/router-Dwfin5Au.mjs
+// node_modules/@angular/router/fesm2022/router2.mjs
 var PRIMARY_OUTLET = "primary";
 var RouteTitleKey = Symbol("RouteTitle");
 var ParamsAsMap = class {
@@ -612,7 +624,7 @@ var UrlParser = class {
         outletName = PRIMARY_OUTLET;
       }
       const children = this.parseChildren();
-      segments[outletName] = Object.keys(children).length === 1 ? children[PRIMARY_OUTLET] : new UrlSegmentGroup([], children);
+      segments[outletName] = Object.keys(children).length === 1 && children[PRIMARY_OUTLET] ? children[PRIMARY_OUTLET] : new UrlSegmentGroup([], children);
       this.consumeOptional("//");
     }
     return segments;
@@ -1055,6 +1067,7 @@ var NavigationCancellationCode;
   NavigationCancellationCode2[NavigationCancellationCode2["SupersededByNewNavigation"] = 1] = "SupersededByNewNavigation";
   NavigationCancellationCode2[NavigationCancellationCode2["NoDataFromResolver"] = 2] = "NoDataFromResolver";
   NavigationCancellationCode2[NavigationCancellationCode2["GuardRejected"] = 3] = "GuardRejected";
+  NavigationCancellationCode2[NavigationCancellationCode2["Aborted"] = 4] = "Aborted";
 })(NavigationCancellationCode || (NavigationCancellationCode = {}));
 var NavigationSkippedCode;
 (function(NavigationSkippedCode2) {
@@ -1256,6 +1269,9 @@ var RedirectRequest = class {
     this.navigationBehaviorOptions = navigationBehaviorOptions;
   }
 };
+function isPublicRouterEvent(e) {
+  return !(e instanceof BeforeActivateRoutes) && !(e instanceof RedirectRequest);
+}
 function stringifyEvent(routerEvent) {
   switch (routerEvent.type) {
     case EventType.ActivationEnd:
@@ -1345,14 +1361,16 @@ function validateNode(route, fullPath, requireStandaloneComponents) {
     if (route.children && route.loadChildren) {
       throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': children and loadChildren cannot be used together`);
     }
-    if (route.redirectTo && (route.component || route.loadComponent)) {
-      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': redirectTo and component/loadComponent cannot be used together`);
-    }
     if (route.component && route.loadComponent) {
       throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': component and loadComponent cannot be used together`);
     }
-    if (route.redirectTo && route.canActivate) {
-      throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': redirectTo and canActivate cannot be used together. Redirects happen before activation so canActivate will never be executed.`);
+    if (route.redirectTo) {
+      if (route.component || route.loadComponent) {
+        throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': redirectTo and component/loadComponent cannot be used together`);
+      }
+      if (route.canMatch || route.canActivate) {
+        throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': redirectTo and ${route.canMatch ? "canMatch" : "canActivate"} cannot be used together.Redirects happen before guards are executed.`);
+      }
     }
     if (route.path && route.matcher) {
       throw new RuntimeError(4014, `Invalid configuration of route '${fullPath}': path and matcher cannot be used together`);
@@ -1878,7 +1896,9 @@ var RouterOutlet = class _RouterOutlet {
    *
    * When unset, the value of the token is `undefined` by default.
    */
-  routerOutletData = input(void 0);
+  routerOutletData = input(void 0, ...ngDevMode ? [{
+    debugName: "routerOutletData"
+  }] : []);
   parentContexts = inject(ChildrenOutletContexts);
   location = inject(ViewContainerRef);
   changeDetector = inject(ChangeDetectorRef);
@@ -2049,6 +2069,14 @@ var RouterOutlet = class _RouterOutlet {
     detachEvents: [{
       type: Output,
       args: ["detach"]
+    }],
+    routerOutletData: [{
+      type: Input,
+      args: [{
+        isSignal: true,
+        alias: "routerOutletData",
+        required: false
+      }]
     }]
   });
 })();
@@ -2721,38 +2749,16 @@ var ApplyRedirects = class {
     }
   }
   applyRedirectCommands(segments, redirectTo, posParams, currentSnapshot, injector) {
-    if (typeof redirectTo !== "string") {
-      const redirectToFn = redirectTo;
-      const {
-        queryParams,
-        fragment,
-        routeConfig,
-        url,
-        outlet,
-        params,
-        data,
-        title
-      } = currentSnapshot;
-      const newRedirect = runInInjectionContext(injector, () => redirectToFn({
-        params,
-        data,
-        queryParams,
-        fragment,
-        routeConfig,
-        url,
-        outlet,
-        title
-      }));
-      if (newRedirect instanceof UrlTree) {
-        throw new AbsoluteRedirect(newRedirect);
+    return getRedirectResult(redirectTo, currentSnapshot, injector).pipe(map((redirect) => {
+      if (redirect instanceof UrlTree) {
+        throw new AbsoluteRedirect(redirect);
       }
-      redirectTo = newRedirect;
-    }
-    const newTree = this.applyRedirectCreateUrlTree(redirectTo, this.urlSerializer.parse(redirectTo), segments, posParams);
-    if (redirectTo[0] === "/") {
-      throw new AbsoluteRedirect(newTree);
-    }
-    return newTree;
+      const newTree = this.applyRedirectCreateUrlTree(redirect, this.urlSerializer.parse(redirect), segments, posParams);
+      if (redirect[0] === "/") {
+        throw new AbsoluteRedirect(newTree);
+      }
+      return newTree;
+    }));
   }
   applyRedirectCreateUrlTree(redirectTo, urlTree, segments, posParams) {
     const newRoot = this.createSegmentGroup(redirectTo, urlTree.root, segments, posParams);
@@ -2799,6 +2805,32 @@ var ApplyRedirects = class {
     return redirectToUrlSegment;
   }
 };
+function getRedirectResult(redirectTo, currentSnapshot, injector) {
+  if (typeof redirectTo === "string") {
+    return of(redirectTo);
+  }
+  const redirectToFn = redirectTo;
+  const {
+    queryParams,
+    fragment,
+    routeConfig,
+    url,
+    outlet,
+    params,
+    data,
+    title
+  } = currentSnapshot;
+  return wrapIntoObservable(runInInjectionContext(injector, () => redirectToFn({
+    params,
+    data,
+    queryParams,
+    fragment,
+    routeConfig,
+    url,
+    outlet,
+    title
+  })));
+}
 var noMatch = {
   matched: false,
   consumedSegments: [],
@@ -3071,8 +3103,8 @@ This is currently a dev mode only error but will become a call stack size exceed
     const inherited = getInherited(currentSnapshot, parentRoute, this.paramsInheritanceStrategy);
     currentSnapshot.params = Object.freeze(inherited.params);
     currentSnapshot.data = Object.freeze(inherited.data);
-    const newTree = this.applyRedirects.applyRedirectCommands(consumedSegments, route.redirectTo, positionalParamSegments, currentSnapshot, injector);
-    return this.applyRedirects.lineralizeSegments(route, newTree).pipe(mergeMap((newSegments) => {
+    const newTree$ = this.applyRedirects.applyRedirectCommands(consumedSegments, route.redirectTo, positionalParamSegments, currentSnapshot, injector);
+    return newTree$.pipe(switchMap((newTree) => this.applyRedirects.lineralizeSegments(route, newTree)), mergeMap((newSegments) => {
       return this.processSegment(injector, routes, segmentGroup, newSegments.concat(remainingSegments), outlet, false, parentRoute);
     }));
   }
@@ -3252,11 +3284,14 @@ function runResolve(futureARS, futureRSS, paramsInheritanceStrategy, injector) {
   if (config?.title !== void 0 && !hasStaticTitle(config)) {
     resolve[RouteTitleKey] = config.title;
   }
-  return resolveNode(resolve, futureARS, futureRSS, injector).pipe(map((resolvedData) => {
-    futureARS._resolvedData = resolvedData;
+  return defer(() => {
     futureARS.data = getInherited(futureARS, futureARS.parent, paramsInheritanceStrategy).resolve;
-    return null;
-  }));
+    return resolveNode(resolve, futureARS, futureRSS, injector).pipe(map((resolvedData) => {
+      futureARS._resolvedData = resolvedData;
+      futureARS.data = __spreadValues(__spreadValues({}, futureARS.data), resolvedData);
+      return null;
+    }));
+  });
 }
 function resolveNode(resolve, futureARS, futureRSS, injector) {
   const keys = getDataKeys(resolve);
@@ -3371,7 +3406,7 @@ var RouterConfigLoader = class _RouterConfigLoader {
   onLoadStartListener;
   onLoadEndListener;
   compiler = inject(Compiler);
-  loadComponent(route) {
+  loadComponent(injector, route) {
     if (this.componentLoaders.get(route)) {
       return this.componentLoaders.get(route);
     } else if (route._loadedComponent) {
@@ -3380,7 +3415,7 @@ var RouterConfigLoader = class _RouterConfigLoader {
     if (this.onLoadStartListener) {
       this.onLoadStartListener(route);
     }
-    const loadRunner = wrapIntoObservable(route.loadComponent()).pipe(map(maybeUnwrapDefaultExport), tap((component) => {
+    const loadRunner = wrapIntoObservable(runInInjectionContext(injector, () => route.loadComponent())).pipe(map(maybeUnwrapDefaultExport), switchMap(maybeResolveResources), tap((component) => {
       if (this.onLoadEndListener) {
         this.onLoadEndListener(route);
       }
@@ -3431,7 +3466,7 @@ var RouterConfigLoader = class _RouterConfigLoader {
   }], null, null);
 })();
 function loadChildren(route, compiler, parentInjector, onLoadEndListener) {
-  return wrapIntoObservable(route.loadChildren()).pipe(map(maybeUnwrapDefaultExport), mergeMap((t) => {
+  return wrapIntoObservable(runInInjectionContext(parentInjector, () => route.loadChildren())).pipe(map(maybeUnwrapDefaultExport), switchMap(maybeResolveResources), mergeMap((t) => {
     if (t instanceof NgModuleFactory$1 || Array.isArray(t)) {
       return of(t);
     } else {
@@ -3467,6 +3502,15 @@ function isWrappedDefaultExport(value) {
 }
 function maybeUnwrapDefaultExport(input2) {
   return isWrappedDefaultExport(input2) ? input2["default"] : input2;
+}
+function maybeResolveResources(value) {
+  if (false) {
+    return resolveComponentResources(fetch).catch((error) => {
+      console.error(error);
+      return Promise.resolve();
+    }).then(() => value);
+  }
+  return of(value);
 }
 var UrlHandlingStrategy = class _UrlHandlingStrategy {
   static ɵfac = function UrlHandlingStrategy_Factory(__ngFactoryType__) {
@@ -3519,31 +3563,34 @@ var VIEW_TRANSITION_OPTIONS = new InjectionToken(ngDevMode ? "view transition op
 function createViewTransition(injector, from2, to) {
   const transitionOptions = injector.get(VIEW_TRANSITION_OPTIONS);
   const document = injector.get(DOCUMENT);
-  return injector.get(NgZone).runOutsideAngular(() => {
-    if (!document.startViewTransition || transitionOptions.skipNextTransition) {
-      transitionOptions.skipNextTransition = false;
-      return new Promise((resolve) => setTimeout(resolve));
-    }
-    let resolveViewTransitionStarted;
-    const viewTransitionStarted = new Promise((resolve) => {
-      resolveViewTransitionStarted = resolve;
-    });
-    const transition = document.startViewTransition(() => {
-      resolveViewTransitionStarted();
-      return createRenderPromise(injector);
-    });
-    const {
-      onViewTransitionCreated
-    } = transitionOptions;
-    if (onViewTransitionCreated) {
-      runInInjectionContext(injector, () => onViewTransitionCreated({
-        transition,
-        from: from2,
-        to
-      }));
-    }
-    return viewTransitionStarted;
+  if (!document.startViewTransition || transitionOptions.skipNextTransition) {
+    transitionOptions.skipNextTransition = false;
+    return new Promise((resolve) => setTimeout(resolve));
+  }
+  let resolveViewTransitionStarted;
+  const viewTransitionStarted = new Promise((resolve) => {
+    resolveViewTransitionStarted = resolve;
   });
+  const transition = document.startViewTransition(() => {
+    resolveViewTransitionStarted();
+    return createRenderPromise(injector);
+  });
+  transition.ready.catch((error) => {
+    if (typeof ngDevMode === "undefined" || ngDevMode) {
+      console.error(error);
+    }
+  });
+  const {
+    onViewTransitionCreated
+  } = transitionOptions;
+  if (onViewTransitionCreated) {
+    runInInjectionContext(injector, () => onViewTransitionCreated({
+      transition,
+      from: from2,
+      to
+    }));
+  }
+  return viewTransitionStarted;
 }
 function createRenderPromise(injector) {
   return new Promise((resolve) => {
@@ -3556,7 +3603,13 @@ function createRenderPromise(injector) {
 }
 var NAVIGATION_ERROR_HANDLER = new InjectionToken(typeof ngDevMode === "undefined" || ngDevMode ? "navigation error handler" : "");
 var NavigationTransitions = class _NavigationTransitions {
-  currentNavigation = null;
+  // Some G3 targets expect the navigation object to be mutated (and not getting a new reference on changes).
+  currentNavigation = signal(null, ...ngDevMode ? [{
+    debugName: "currentNavigation",
+    equal: () => false
+  }] : [{
+    equal: () => false
+  }]);
   currentTransition = null;
   lastSuccessfulNavigation = null;
   /**
@@ -3568,7 +3621,7 @@ var NavigationTransitions = class _NavigationTransitions {
   /**
    * Used to abort the current transition with an error.
    */
-  transitionAbortSubject = new Subject();
+  transitionAbortWithErrorSubject = new Subject();
   configLoader = inject(RouterConfigLoader);
   environmentInjector = inject(EnvironmentInjector);
   destroyRef = inject(DestroyRef);
@@ -3619,17 +3672,20 @@ var NavigationTransitions = class _NavigationTransitions {
   }
   handleNavigationRequest(request) {
     const id = ++this.navigationId;
-    this.transitions?.next(__spreadProps(__spreadValues({}, request), {
-      extractedUrl: this.urlHandlingStrategy.extract(request.rawUrl),
-      targetSnapshot: null,
-      targetRouterState: null,
-      guards: {
-        canActivateChecks: [],
-        canDeactivateChecks: []
-      },
-      guardsResult: null,
-      id
-    }));
+    untracked(() => {
+      this.transitions?.next(__spreadProps(__spreadValues({}, request), {
+        extractedUrl: this.urlHandlingStrategy.extract(request.rawUrl),
+        targetSnapshot: null,
+        targetRouterState: null,
+        guards: {
+          canActivateChecks: [],
+          canDeactivateChecks: []
+        },
+        guardsResult: null,
+        abortController: new AbortController(),
+        id
+      }));
+    });
   }
   setupNavigations(router) {
     this.transitions = new BehaviorSubject(null);
@@ -3637,8 +3693,7 @@ var NavigationTransitions = class _NavigationTransitions {
       filter((t) => t !== null),
       // Using switchMap so we cancel executing navigations when a new one comes in
       switchMap((overallTransitionState) => {
-        let completed = false;
-        let errored = false;
+        let completedOrAborted = false;
         return of(overallTransitionState).pipe(
           switchMap((t) => {
             if (this.navigationId > overallTransitionState.id) {
@@ -3647,7 +3702,7 @@ var NavigationTransitions = class _NavigationTransitions {
               return EMPTY;
             }
             this.currentTransition = overallTransitionState;
-            this.currentNavigation = {
+            this.currentNavigation.set({
               id: t.id,
               initialUrl: t.rawUrl,
               extractedUrl: t.extractedUrl,
@@ -3656,8 +3711,9 @@ var NavigationTransitions = class _NavigationTransitions {
               extras: t.extras,
               previousNavigation: !this.lastSuccessfulNavigation ? null : __spreadProps(__spreadValues({}, this.lastSuccessfulNavigation), {
                 previousNavigation: null
-              })
-            };
+              }),
+              abort: () => t.abortController.abort()
+            });
             const urlTransition = !router.navigated || this.isUpdatingInternalState() || this.isUpdatedBrowserUrl();
             const onSameUrlNavigation = t.extras.onSameUrlNavigation ?? router.onSameUrlNavigation;
             if (!urlTransition && onSameUrlNavigation !== "reload") {
@@ -3682,8 +3738,9 @@ var NavigationTransitions = class _NavigationTransitions {
                 tap((t2) => {
                   overallTransitionState.targetSnapshot = t2.targetSnapshot;
                   overallTransitionState.urlAfterRedirects = t2.urlAfterRedirects;
-                  this.currentNavigation = __spreadProps(__spreadValues({}, this.currentNavigation), {
-                    finalUrl: t2.urlAfterRedirects
+                  this.currentNavigation.update((nav) => {
+                    nav.finalUrl = t2.urlAfterRedirects;
+                    return nav;
                   });
                   const routesRecognized = new RoutesRecognized(t2.id, this.urlSerializer.serialize(t2.extractedUrl), this.urlSerializer.serialize(t2.urlAfterRedirects), t2.targetSnapshot);
                   this.events.next(routesRecognized);
@@ -3708,7 +3765,10 @@ var NavigationTransitions = class _NavigationTransitions {
                   replaceUrl: false
                 })
               });
-              this.currentNavigation.finalUrl = extractedUrl;
+              this.currentNavigation.update((nav) => {
+                nav.finalUrl = extractedUrl;
+                return nav;
+              });
               return of(overallTransitionState);
             } else {
               const reason = typeof ngDevMode === "undefined" || ngDevMode ? `Navigation was ignored because the UrlHandlingStrategy indicated neither the current URL ${t.currentRawUrl} nor target URL ${t.rawUrl} should be processed.` : "";
@@ -3771,8 +3831,9 @@ var NavigationTransitions = class _NavigationTransitions {
           switchTap((t) => {
             const loadComponents = (route) => {
               const loaders = [];
-              if (route.routeConfig?.loadComponent && !route.routeConfig._loadedComponent) {
-                loaders.push(this.configLoader.loadComponent(route.routeConfig).pipe(tap((loadedComponent) => {
+              if (route.routeConfig?.loadComponent) {
+                const injector = getClosestRouteInjector(route) ?? this.environmentInjector;
+                loaders.push(this.configLoader.loadComponent(injector, route.routeConfig).pipe(tap((loadedComponent) => {
                   route.component = loadedComponent;
                 }), map(() => void 0)));
               }
@@ -3797,7 +3858,10 @@ var NavigationTransitions = class _NavigationTransitions {
             this.currentTransition = overallTransitionState = __spreadProps(__spreadValues({}, t), {
               targetRouterState
             });
-            this.currentNavigation.targetRouterState = targetRouterState;
+            this.currentNavigation.update((nav) => {
+              nav.targetRouterState = targetRouterState;
+              return nav;
+            });
             return overallTransitionState;
           }),
           tap(() => {
@@ -3808,16 +3872,28 @@ var NavigationTransitions = class _NavigationTransitions {
           // complete, the navigation still finalizes This should never happen, but
           // this is done as a safety measure to avoid surfacing this error (#49567).
           take(1),
+          takeUntil(new Observable((subscriber) => {
+            const abortSignal = overallTransitionState.abortController.signal;
+            const handler = () => subscriber.next();
+            abortSignal.addEventListener("abort", handler);
+            return () => abortSignal.removeEventListener("abort", handler);
+          }).pipe(
+            // Ignore aborts if we are already completed, canceled, or are in the activation stage (we have targetRouterState)
+            filter(() => !completedOrAborted && !overallTransitionState.targetRouterState),
+            tap(() => {
+              this.cancelNavigationTransition(overallTransitionState, overallTransitionState.abortController.signal.reason + "", NavigationCancellationCode.Aborted);
+            })
+          )),
           tap({
             next: (t) => {
-              completed = true;
-              this.lastSuccessfulNavigation = this.currentNavigation;
+              completedOrAborted = true;
+              this.lastSuccessfulNavigation = untracked(this.currentNavigation);
               this.events.next(new NavigationEnd(t.id, this.urlSerializer.serialize(t.extractedUrl), this.urlSerializer.serialize(t.urlAfterRedirects)));
               this.titleStrategy?.updateTitle(t.targetRouterState.snapshot);
               t.resolve(true);
             },
             complete: () => {
-              completed = true;
+              completedOrAborted = true;
             }
           }),
           // There used to be a lot more logic happening directly within the
@@ -3827,16 +3903,16 @@ var NavigationTransitions = class _NavigationTransitions {
           // required in the future to support something like the abort signal of the
           // Navigation API where the navigation gets aborted from outside the
           // transition.
-          takeUntil(this.transitionAbortSubject.pipe(tap((err) => {
+          takeUntil(this.transitionAbortWithErrorSubject.pipe(tap((err) => {
             throw err;
           }))),
           finalize(() => {
-            if (!completed && !errored) {
+            if (!completedOrAborted) {
               const cancelationReason = typeof ngDevMode === "undefined" || ngDevMode ? `Navigation ID ${overallTransitionState.id} is not equal to the current navigation id ${this.navigationId}` : "";
               this.cancelNavigationTransition(overallTransitionState, cancelationReason, NavigationCancellationCode.SupersededByNewNavigation);
             }
             if (this.currentTransition?.id === overallTransitionState.id) {
-              this.currentNavigation = null;
+              this.currentNavigation.set(null);
               this.currentTransition = null;
             }
           }),
@@ -3845,7 +3921,7 @@ var NavigationTransitions = class _NavigationTransitions {
               overallTransitionState.resolve(false);
               return EMPTY;
             }
-            errored = true;
+            completedOrAborted = true;
             if (isNavigationCancelingError(e)) {
               this.events.next(new NavigationCancel(overallTransitionState.id, this.urlSerializer.serialize(overallTransitionState.extractedUrl), e.message, e.cancellationCode));
               if (!isRedirectingNavigationCancelingError(e)) {
@@ -3901,8 +3977,9 @@ var NavigationTransitions = class _NavigationTransitions {
    */
   isUpdatedBrowserUrl() {
     const currentBrowserUrl = this.urlHandlingStrategy.extract(this.urlSerializer.parse(this.location.path(true)));
-    const targetBrowserUrl = this.currentNavigation?.targetBrowserUrl ?? this.currentNavigation?.extractedUrl;
-    return currentBrowserUrl.toString() !== targetBrowserUrl?.toString() && !this.currentNavigation?.extras.skipLocationChange;
+    const currentNavigation = untracked(this.currentNavigation);
+    const targetBrowserUrl = currentNavigation?.targetBrowserUrl ?? currentNavigation?.extractedUrl;
+    return currentBrowserUrl.toString() !== targetBrowserUrl?.toString() && !currentNavigation?.extras.skipLocationChange;
   }
   static ɵfac = function NavigationTransitions_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _NavigationTransitions)();
@@ -4159,7 +4236,7 @@ var HistoryStateManager = class _HistoryStateManager extends StateManager {
       if (this.urlUpdateStrategy === "deferred" && !currentTransition.extras.skipLocationChange) {
         this.setBrowserUrl(this.createBrowserPath(currentTransition), currentTransition);
       }
-    } else if (e instanceof NavigationCancel && (e.code === NavigationCancellationCode.GuardRejected || e.code === NavigationCancellationCode.NoDataFromResolver)) {
+    } else if (e instanceof NavigationCancel && e.code !== NavigationCancellationCode.SupersededByNewNavigation && e.code !== NavigationCancellationCode.Redirect) {
       this.restoreHistory(currentTransition);
     } else if (e instanceof NavigationError) {
       this.restoreHistory(currentTransition, true);
@@ -4286,6 +4363,7 @@ var Router = class _Router {
   urlSerializer = inject(UrlSerializer);
   location = inject(Location);
   urlHandlingStrategy = inject(UrlHandlingStrategy);
+  injector = inject(EnvironmentInjector);
   /**
    * The private `Subject` type for the public events exposed in the getter. This is used internally
    * to push events to. The separate field allows us to expose separate types in the public API
@@ -4338,6 +4416,12 @@ var Router = class _Router {
   componentInputBindingEnabled = !!inject(INPUT_BINDER, {
     optional: true
   });
+  /**
+   * Signal of the current `Navigation` object when the router is navigating, and `null` when idle.
+   *
+   * Note: The current navigation becomes to null after the NavigationEnd event is emitted.
+   */
+  currentNavigation = this.navigationTransitions.currentNavigation.asReadonly();
   constructor() {
     this.resetConfig(this.config);
     this.navigationTransitions.setupNavigations(this).subscribe({
@@ -4352,7 +4436,7 @@ var Router = class _Router {
     const subscription = this.navigationTransitions.events.subscribe((e) => {
       try {
         const currentTransition = this.navigationTransitions.currentTransition;
-        const currentNavigation = this.navigationTransitions.currentNavigation;
+        const currentNavigation = untracked(this.navigationTransitions.currentNavigation);
         if (currentTransition !== null && currentNavigation !== null) {
           this.stateManager.handleRouterEvent(e, currentNavigation);
           if (e instanceof NavigationCancel && e.code !== NavigationCancellationCode.Redirect && e.code !== NavigationCancellationCode.SupersededByNewNavigation) {
@@ -4383,7 +4467,7 @@ var Router = class _Router {
           this._events.next(e);
         }
       } catch (e2) {
-        this.navigationTransitions.transitionAbortSubject.next(e2);
+        this.navigationTransitions.transitionAbortWithErrorSubject.next(e2);
       }
     });
     this.eventsSubscription.add(subscription);
@@ -4433,7 +4517,12 @@ var Router = class _Router {
       }
     }
     const urlTree = this.parseUrl(url);
-    this.scheduleNavigation(urlTree, source, restoredState, extras);
+    this.scheduleNavigation(urlTree, source, restoredState, extras).catch((e) => {
+      if (this.disposed) {
+        return;
+      }
+      this.injector.get(INTERNAL_APPLICATION_ERROR_HANDLER)(e);
+    });
   }
   /** The current URL. */
   get url() {
@@ -4442,9 +4531,11 @@ var Router = class _Router {
   /**
    * Returns the current `Navigation` object when the router is navigating,
    * and `null` when idle.
+   *
+   * @deprecated 20.2 Use the `currentNavigation` signal instead.
    */
   getCurrentNavigation() {
-    return this.navigationTransitions.currentNavigation;
+    return untracked(this.navigationTransitions.currentNavigation);
   }
   /**
    * The `Navigation` object of the most recent navigation to succeed and `null` if there
@@ -4647,7 +4738,9 @@ var Router = class _Router {
   parseUrl(url) {
     try {
       return this.urlSerializer.parse(url);
-    } catch {
+    } catch (e) {
+      this.console.warn(formatRuntimeError(4018, ngDevMode && `Error parsing URL ${url}. Falling back to '/' instead. 
+` + e));
       return this.urlSerializer.parse("/");
     }
   }
@@ -4737,11 +4830,8 @@ function validateCommands(commands) {
     }
   }
 }
-function isPublicRouterEvent(e) {
-  return !(e instanceof BeforeActivateRoutes) && !(e instanceof RedirectRequest);
-}
 
-// node_modules/@angular/router/fesm2022/router_module-DTJgGWLd.mjs
+// node_modules/@angular/router/fesm2022/router_module.mjs
 var RouterLink = class _RouterLink {
   router;
   route;
@@ -4749,14 +4839,26 @@ var RouterLink = class _RouterLink {
   renderer;
   el;
   locationStrategy;
+  /** @nodoc */
+  reactiveHref = signal(null, ...ngDevMode ? [{
+    debugName: "reactiveHref"
+  }] : []);
   /**
    * Represents an `href` attribute value applied to a host element,
-   * when a host element is `<a>`. For other tags, the value is `null`.
+   * when a host element is an `<a>`/`<area>` tag or a compatible custom element.
+   * For other tags, the value is `null`.
    */
-  href = null;
+  get href() {
+    return untracked(this.reactiveHref);
+  }
+  /** @deprecated */
+  set href(value) {
+    this.reactiveHref.set(value);
+  }
   /**
    * Represents the `target` attribute on a host element.
-   * This is only used when the host element is an `<a>` tag.
+   * This is only used when the host element is
+   * an `<a>`/`<area>` tag or a compatible custom element.
    */
   target;
   /**
@@ -4804,11 +4906,15 @@ var RouterLink = class _RouterLink {
    * @see {@link Router#createUrlTree}
    */
   relativeTo;
-  /** Whether a host element is an `<a>` tag. */
+  /** Whether a host element is an `<a>`/`<area>` tag or a compatible custom element. */
   isAnchorElement;
   subscription;
   /** @internal */
   onChanges = new Subject();
+  applicationErrorHandler = inject(INTERNAL_APPLICATION_ERROR_HANDLER);
+  options = inject(ROUTER_CONFIGURATION, {
+    optional: true
+  });
   constructor(router, route, tabIndexAttribute, renderer, el, locationStrategy) {
     this.router = router;
     this.route = route;
@@ -4816,17 +4922,36 @@ var RouterLink = class _RouterLink {
     this.renderer = renderer;
     this.el = el;
     this.locationStrategy = locationStrategy;
+    this.reactiveHref.set(inject(new HostAttributeToken("href"), {
+      optional: true
+    }));
     const tagName = el.nativeElement.tagName?.toLowerCase();
-    this.isAnchorElement = tagName === "a" || tagName === "area";
-    if (this.isAnchorElement) {
-      this.subscription = router.events.subscribe((s) => {
-        if (s instanceof NavigationEnd) {
-          this.updateHref();
-        }
-      });
+    this.isAnchorElement = tagName === "a" || tagName === "area" || !!// Avoid breaking in an SSR context where customElements might not be defined.
+    (typeof customElements === "object" && // observedAttributes is an optional static property/getter on a custom element.
+    // The spec states that this must be an array of strings.
+    customElements.get(tagName)?.observedAttributes?.includes?.("href"));
+    if (!this.isAnchorElement) {
+      this.subscribeToNavigationEventsIfNecessary();
     } else {
       this.setTabIndexIfNotOnNativeEl("0");
     }
+  }
+  subscribeToNavigationEventsIfNecessary() {
+    if (this.subscription !== void 0 || !this.isAnchorElement) {
+      return;
+    }
+    let createSubcription = this.preserveFragment;
+    const dependsOnRouterState = (handling) => handling === "merge" || handling === "preserve";
+    createSubcription ||= dependsOnRouterState(this.queryParamsHandling);
+    createSubcription ||= !this.queryParamsHandling && !dependsOnRouterState(this.options?.defaultQueryParamsHandling);
+    if (!createSubcription) {
+      return;
+    }
+    this.subscription = this.router.events.subscribe((s) => {
+      if (s instanceof NavigationEnd) {
+        this.updateHref();
+      }
+    });
   }
   /**
    * Passed to {@link Router#createUrlTree} as part of the
@@ -4863,10 +4988,11 @@ var RouterLink = class _RouterLink {
   // TODO(atscott): Remove changes parameter in major version as a breaking change.
   ngOnChanges(changes) {
     if (ngDevMode && isUrlTree(this.routerLinkInput) && (this.fragment !== void 0 || this.queryParams || this.queryParamsHandling || this.preserveFragment || this.relativeTo)) {
-      throw new RuntimeError(4016, "Cannot configure queryParams or fragment when using a UrlTree as the routerLink input value.");
+      throw new RuntimeError(4017, "Cannot configure queryParams or fragment when using a UrlTree as the routerLink input value.");
     }
     if (this.isAnchorElement) {
       this.updateHref();
+      this.subscribeToNavigationEventsIfNecessary();
     }
     this.onChanges.next(this);
   }
@@ -4913,7 +5039,9 @@ var RouterLink = class _RouterLink {
       state: this.state,
       info: this.info
     };
-    this.router.navigateByUrl(urlTree, extras);
+    this.router.navigateByUrl(urlTree, extras)?.catch((e) => {
+      this.applicationErrorHandler(e);
+    });
     return !this.isAnchorElement;
   }
   /** @docs-private */
@@ -4922,21 +5050,7 @@ var RouterLink = class _RouterLink {
   }
   updateHref() {
     const urlTree = this.urlTree;
-    this.href = urlTree !== null && this.locationStrategy ? this.locationStrategy?.prepareExternalUrl(this.router.serializeUrl(urlTree)) : null;
-    const sanitizedValue = this.href === null ? null : (
-      // This class represents a directive that can be added to both `<a>` elements,
-      // as well as other elements. As a result, we can't define security context at
-      // compile time. So the security context is deferred to runtime.
-      // The `ɵɵsanitizeUrlOrResourceUrl` selects the necessary sanitizer function
-      // based on the tag and property names. The logic mimics the one from
-      // `packages/compiler/src/schema/dom_security_schema.ts`, which is used at compile time.
-      //
-      // Note: we should investigate whether we can switch to using `@HostBinding('attr.href')`
-      // instead of applying a value via a renderer, after a final merge of the
-      // `RouterLinkWithHref` directive.
-      ɵɵsanitizeUrlOrResourceUrl(this.href, this.el.nativeElement.tagName.toLowerCase(), "href")
-    );
-    this.applyAttributeValue("href", sanitizedValue);
+    this.reactiveHref.set(urlTree !== null && this.locationStrategy ? this.locationStrategy?.prepareExternalUrl(this.router.serializeUrl(urlTree)) ?? "" : null);
   }
   applyAttributeValue(attrName, attrValue) {
     const renderer = this.renderer;
@@ -4969,7 +5083,7 @@ var RouterLink = class _RouterLink {
   static ɵdir = ɵɵdefineDirective({
     type: _RouterLink,
     selectors: [["", "routerLink", ""]],
-    hostVars: 1,
+    hostVars: 2,
     hostBindings: function RouterLink_HostBindings(rf, ctx) {
       if (rf & 1) {
         ɵɵlistener("click", function RouterLink_click_HostBindingHandler($event) {
@@ -4977,7 +5091,7 @@ var RouterLink = class _RouterLink {
         });
       }
       if (rf & 2) {
-        ɵɵattribute("target", ctx.target);
+        ɵɵattribute("href", ctx.reactiveHref(), ɵɵsanitizeUrlOrResourceUrl)("target", ctx.target);
       }
     },
     inputs: {
@@ -5000,7 +5114,10 @@ var RouterLink = class _RouterLink {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(RouterLink, [{
     type: Directive,
     args: [{
-      selector: "[routerLink]"
+      selector: "[routerLink]",
+      host: {
+        "[attr.href]": "reactiveHref()"
+      }
     }]
   }], () => [{
     type: Router
@@ -5371,7 +5488,7 @@ var RouterPreloader = class _RouterPreloader {
         return this.processRoutes(config.injector ?? injector, config.routes);
       }));
       if (route.loadComponent && !route._loadedComponent) {
-        const loadComponent$ = this.loader.loadComponent(route);
+        const loadComponent$ = this.loader.loadComponent(injector, route);
         return from([recursiveLoadChildren$, loadComponent$]).pipe(mergeAll());
       } else {
         return recursiveLoadChildren$;
@@ -5413,7 +5530,7 @@ var RouterScroller = class _RouterScroller {
   routerEventsSubscription;
   scrollEventsSubscription;
   lastId = 0;
-  lastSource = "imperative";
+  lastSource = IMPERATIVE_NAVIGATION;
   restoredId = 0;
   store = {};
   /** @docs-private */
@@ -5452,11 +5569,14 @@ var RouterScroller = class _RouterScroller {
   consumeScrollEvents() {
     return this.transitions.events.subscribe((e) => {
       if (!(e instanceof Scroll)) return;
+      const instantScroll = {
+        behavior: "instant"
+      };
       if (e.position) {
         if (this.options.scrollPositionRestoration === "top") {
-          this.viewportScroller.scrollToPosition([0, 0]);
+          this.viewportScroller.scrollToPosition([0, 0], instantScroll);
         } else if (this.options.scrollPositionRestoration === "enabled") {
-          this.viewportScroller.scrollToPosition(e.position);
+          this.viewportScroller.scrollToPosition(e.position, instantScroll);
         }
       } else {
         if (e.anchor && this.options.anchorScrolling === "enabled") {
@@ -5468,13 +5588,17 @@ var RouterScroller = class _RouterScroller {
     });
   }
   scheduleScrollEvent(routerEvent, anchor) {
-    this.zone.runOutsideAngular(() => {
-      setTimeout(() => {
-        this.zone.run(() => {
-          this.transitions.events.next(new Scroll(routerEvent, this.lastSource === "popstate" ? this.store[this.restoredId] : null, anchor));
-        });
-      }, 0);
-    });
+    this.zone.runOutsideAngular(() => __async(this, null, function* () {
+      yield new Promise((resolve) => {
+        setTimeout(resolve);
+        if (typeof requestAnimationFrame !== "undefined") {
+          requestAnimationFrame(resolve);
+        }
+      });
+      this.zone.run(() => {
+        this.transitions.events.next(new Scroll(routerEvent, this.lastSource === "popstate" ? this.store[this.restoredId] : null, anchor));
+      });
+    }));
   }
   /** @docs-private */
   ngOnDestroy() {
@@ -5504,7 +5628,26 @@ var RouterScroller = class _RouterScroller {
     type: void 0
   }], null);
 })();
+function getLoadedRoutes(route) {
+  return route._loadedRoutes;
+}
+function getRouterInstance(injector) {
+  return injector.get(Router, null, {
+    optional: true
+  });
+}
+function navigateByUrl(router, url) {
+  if (!(router instanceof Router)) {
+    throw new Error("The provided router is not an Angular Router.");
+  }
+  return router.navigateByUrl(url);
+}
 function provideRouter(routes, ...features) {
+  if (typeof ngDevMode === "undefined" || ngDevMode) {
+    publishExternalGlobalUtil("ɵgetLoadedRoutes", getLoadedRoutes);
+    publishExternalGlobalUtil("ɵgetRouterInstance", getRouterInstance);
+    publishExternalGlobalUtil("ɵnavigateByUrl", navigateByUrl);
+  }
   return makeEnvironmentProviders([{
     provide: ROUTES,
     multi: true,
@@ -5578,8 +5721,12 @@ function getBootstrapListener() {
     if (injector.get(INITIAL_NAVIGATION) === 1) {
       router.initialNavigation();
     }
-    injector.get(ROUTER_PRELOADER, null, InjectFlags.Optional)?.setUpPreloading();
-    injector.get(ROUTER_SCROLLER, null, InjectFlags.Optional)?.init();
+    injector.get(ROUTER_PRELOADER, null, {
+      optional: true
+    })?.setUpPreloading();
+    injector.get(ROUTER_SCROLLER, null, {
+      optional: true
+    })?.init();
     router.resetRootComponentType(ref.componentTypes[0]);
     if (!bootstrapDone.closed) {
       bootstrapDone.next();
@@ -5600,6 +5747,9 @@ var INITIAL_NAVIGATION = new InjectionToken(typeof ngDevMode === "undefined" || 
 });
 function withEnabledBlockingInitialNavigation() {
   const providers = [{
+    provide: IS_ENABLED_BLOCKING_INITIAL_NAVIGATION,
+    useValue: true
+  }, {
     provide: INITIAL_NAVIGATION,
     useValue: 0
     /* InitialNavigation.EnabledBlocking */
@@ -5890,7 +6040,7 @@ function mapToCanDeactivate(providers) {
 function mapToResolve(provider) {
   return (...params) => inject(provider).resolve(...params);
 }
-var VERSION = new Version("19.2.15");
+var VERSION = new Version("20.3.7");
 export {
   ActivatedRoute,
   ActivatedRouteSnapshot,
@@ -5973,12 +6123,12 @@ export {
 };
 /*! Bundled license information:
 
-@angular/router/fesm2022/router-Dwfin5Au.mjs:
-@angular/router/fesm2022/router_module-DTJgGWLd.mjs:
+@angular/router/fesm2022/router2.mjs:
+@angular/router/fesm2022/router_module.mjs:
 @angular/router/fesm2022/router.mjs:
   (**
-   * @license Angular v19.2.15
-   * (c) 2010-2025 Google LLC. https://angular.io/
+   * @license Angular v20.3.7
+   * (c) 2010-2025 Google LLC. https://angular.dev/
    * License: MIT
    *)
 */

@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Login</h1>
+<mat-dialog-content>
+    <p>Enter your login credentials. If you do not have credentials, enter new ones and then press Register.</p>
+    <form [formGroup]="form">
+        <label for="email">Email</label>
+        <input standard-input inputmode="email" type="email" id="email" formControlName="email" required>
+        <label for="password">Password</label>
+        <input standard-input type="password" id="password" formControlName="password" required>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions class="dialog-actions">
+    <button standard-btn type="button" (click)="register()" [disabled]="form.invalid">Register</button>
+    <button standard-btn type="button" (click)="login()" [disabled]="form.invalid">Login</button>
+    <button standard-btn mat-dialog-close cdkFocusInitial>Cancel</button>
+</mat-dialog-actions>

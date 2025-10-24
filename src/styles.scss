@@ -1,45 +1,108 @@
-/* You can add global styles to this file, and also import other style files */
-html, body {
-    height: 100%;
-    margin: 0;
+@use '@angular/material' as mat;
 
-    background-color: var(--bg-main-color);
-    color: var(--fg-main-color);
-    font-family: "VT323", monospace;
-    font-size: 16px;
+html {
+  @include mat.theme((color: (primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    ));
 }
 
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
+  color-scheme: dark;
+  margin: 0;
+}
 
-    color: var(--fg-green-color);
+/* You can add global styles to this file, and also import other style files */
+html,
+body {
+  height: 100%;
+  margin: 0;
+
+  background-color: var(--bg-main-color);
+  color: var(--fg-main-color);
+  font-family: "VT323", monospace;
+  font-size: 16px;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+  color: var(--fg-green-color);
 }
 
 :root {
-    --bg-main-color: #121212;
-    --fg-main-color: #ffffff;
+  --bg-main-color: #121212;
+  --fg-main-color: #ffffff;
 
-    --fg-green-color: #00ff41;
-    --fg-ciano-color: #00ffff;
-    --fg-amber-color: #ffaa00;
+  --fg-green-color: #00ff41;
+  --fg-ciano-color: #00ffff;
+  --fg-amber-color: #ffaa00;
+
+  @include mat.dialog-overrides((
+      container-color: var(--bg-main-color),
+      subhead-font: "VT323",
+      subhead-size: 2rem,
+      subhead-weight: 600,
+      supporting-text-font: "VT323",
+      supporting-text-size: 1rem,
+    ));
 }
 
 button[standard-btn] {
-    color: var(--fg-color);
-    background: transparent;
-    border: 1px solid var(--fg-color);
-    padding: 8px 16px;
-    font-family: "VT323", monospace;
-    font-size: 1rem;
+  color: var(--fg-color);
+  background: transparent;
+  border: 1px solid var(--fg-color);
+  padding: 8px 16px;
+  font-family: "VT323", monospace;
+  font-size: 1rem;
 
-    &:hover {
-        background: var(--fg-color);
-        color: var(--bg-main-color);
-        transition: background .5s, color .5s;
-        cursor: pointer;
-    }
+  &:hover {
+    background: var(--fg-color);
+    color: var(--bg-main-color);
+    transition: background .5s, color .5s;
+    cursor: pointer;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+input[standard-input] {
+  background: transparent;
+  border: 1px solid var(--fg-color);
+  padding: 8px 16px;
+  font-family: "VT323", monospace;
+  font-size: 1rem;
+  color: var(--fg-main-color);
+  width: 100%;
+  box-sizing: border-box;
+
+  &::placeholder {
+    color: var(--fg-color);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #FFF;
+  }
+}
+
+// MAT DIALOG OVERRIDES
+.backdrop-blur {
+  backdrop-filter: blur(8px);
+}
+
+.generic-dialog-panel {
+  background-color: var(--bg-main-color);
+  color: var(--fg-main-color);
+  border: 1px solid var(--fg-color);
+  padding: 12px 4px;
 }
