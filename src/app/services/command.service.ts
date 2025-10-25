@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Theme, ThemeService } from '../components/theme-toggle/theme.service';
 import { NotificationService } from './notification.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommandService {
-  constructor(private themeService: ThemeService, private notify: NotificationService) { }
+  constructor(private themeService: ThemeService, private notify: NotificationService, private router: Router) { }
 
   public execute(rawCommand: string): void {
     const parts = rawCommand.trim().toLowerCase().split(/\s+/);
@@ -22,6 +23,10 @@ export class CommandService {
       case '/purge':
         localStorage.removeItem('terminalHistory');
         this.notify.show('[PURGE] Command history deleted from local memory.', 'check');
+        break;
+      
+      case '/nav':
+        this.handleNavigateCommand(arg);
         break;
 
       default:
@@ -44,4 +49,28 @@ export class CommandService {
       this.notify.show(`Invalid theme: ${arg}`, 'warning');
     }
   }
+
+private handleNavigateCommand(arg?: string) {
+  if (!arg) {
+    this.notify.show('Usage: /nav [path]', 'info');
+    return;
+  }
+
+  if (arg === 'back') {
+    window.history.back();
+    return;
+  }
+
+  if (arg === 'home') {
+    this.router.navigateByUrl('/').catch(() => {
+      this.notify.show('Failed to navigate to home.', 'warning');
+    });
+    return;
+  }
+
+  // naviga qualunque path; se non esiste, Angular mostrerà NotFoundComponent
+  this.router.navigateByUrl(arg).catch(() => {
+    this.notify.show(`Failed to navigate to: ${arg}`, 'warning');
+  });
+}
 }

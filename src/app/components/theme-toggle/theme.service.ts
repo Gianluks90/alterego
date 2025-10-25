@@ -18,6 +18,7 @@ export class ThemeService {
     localStorage.setItem('theme', theme);
     document.body.setAttribute('data-theme', theme);
     document.body.style.setProperty('--fg-color', `var(--fg-${theme}-color)`);
+    document.documentElement.style.setProperty('--fg-color', `var(--fg-${theme}-color)`);
     document.body.style.setProperty('color', `var(--fg-${theme}-color)`);
     if (theme === 'ibm') {
       document.body.style.setProperty('background-color', 'var(--bg-ibm-color)');

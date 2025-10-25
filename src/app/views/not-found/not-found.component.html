@@ -1,0 +1,9 @@
+<div class="not-found-main-container">
+    @for(line of lines; track $index) {
+        <div [style.textShadow]="'0 0 8px var(--fg-color)'" [style.--delay]="line.delay">{{ line.text }}</div>
+    }
+
+    <div class="terminal-input-page-container">
+        <app-terminal-input (command)="onExecuteCommand($event)"></app-terminal-input>
+    </div>
+</div>
