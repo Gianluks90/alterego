@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Theme, ThemeService } from '../components/theme-toggle/theme.service';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommandService {
-  constructor(private themeService: ThemeService) { }
+  constructor(private themeService: ThemeService, private notify: NotificationService) { }
 
 public execute(rawCommand: string): void {
   const parts = rawCommand.trim().toLowerCase().split(/\s+/);
@@ -21,7 +22,7 @@ public execute(rawCommand: string): void {
       break;
 
     default:
-      console.warn(`Unknown command: ${rawCommand}`);
+      this.notify.show(`Unknown command: ${command}`, 'warning');
   }
 }
 
@@ -35,7 +36,7 @@ public execute(rawCommand: string): void {
     } else if (themes.includes(arg as Theme)) {
       this.themeService.setTheme(arg as Theme);
     } else {
-      console.warn(`Unknown theme: ${arg}`);
+      this.notify.show(`Invalid theme: ${arg}`, 'warning');
     }
   }
 }

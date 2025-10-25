@@ -44,14 +44,19 @@ body {
   --fg-cyan-color: #00ffff;
   --fg-amber-color: #ffaa00;
 
-  @include mat.dialog-overrides((
-      container-color: var(--bg-main-color),
+  @include mat.dialog-overrides((container-color: var(--bg-main-color),
       subhead-font: "VT323",
       subhead-size: 2rem,
       subhead-weight: 600,
       supporting-text-font: "VT323",
       supporting-text-size: 1rem,
     ));
+
+  @include mat.snack-bar-overrides((
+    container-color: var(--bg-main-color),
+    supporting-text-font: "VT323",
+    supporting-text-size: 1rem,
+  ));
 }
 
 button[standard-btn] {
@@ -108,9 +113,11 @@ input[standard-input] {
   0% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.4;
   }
+
   100% {
     opacity: 1;
   }
@@ -126,4 +133,11 @@ input[standard-input] {
   color: var(--fg-main-color);
   border: 1px solid var(--fg-color);
   padding: 12px 4px;
+}
+
+// MAT SNACKBAR OVERRIDES
+.generic-snackbar {
+  background-color: var(--bg-main-color);
+  color: var(--fg-main-color);
+  border: 1px solid var(--fg-color);
 }
