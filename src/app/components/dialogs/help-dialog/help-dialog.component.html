@@ -1,16 +1,20 @@
-<h1 mat-dialog-title>Basic instructions</h1>
-<mat-dialog-content>
+<h1 mat-dialog-title [style.color]="'var(--fg-color)'">Basic instructions</h1>
+<mat-dialog-content [style.color]="'var(--fg-color)'" class="dialog-content">
     <p>
-        Commands must be typed in the input bar. Commands within <code>&lt;&gt;</code> 
-        indicate an option (valid options are separated by the | character) to be entered after a space. Try some of the following commands:
+        Commands must be typed in the input bar. Commands within <code>&lt;&gt;</code>
+        indicate an option (valid options are separated by the | character) to be entered after a space. Try some of the
+        following commands:
     </p>
-    <p><code>/help</code> - Shows this help message</p>
-    <p><code>/theme &lt;green | cyan | amber&gt;</code> - Changes the application theme. If no theme is specified, it switches to the next one.</p>
+    <p><code>/help</code> or <code>/h</code> - Shows this help message</p>
+    <p><code>/theme &lt;green | cyan | amber&gt;</code> - Changes the application theme. If no theme is specified, it
+        switches to the next one.</p>
     <p><code>/clear</code> - Clears the terminal startup output</p>
+    <p><code>/clear-history</code> or <code>/purge</code> - Clears the command history</p>
+    <p><code>/restart</code> - Restarts the application</p>
     <p><code>/about</code> - Shows information about this application</p>
 
     <p>Press ESC to close any modal.</p>
 </mat-dialog-content>
 <mat-dialog-actions class="dialog-actions">
-    <button standard-btn mat-dialog-close cdkFocusInitial>OK</button>
+    <button standard-btn mat-dialog-close cdkFocusInitial>ESC</button>
 </mat-dialog-actions>

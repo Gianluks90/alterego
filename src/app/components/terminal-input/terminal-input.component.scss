@@ -1,9 +1,10 @@
 .terminal-input-container {
     display: flex;
     align-items: center;
-    gap: 8px;
+    // gap: 8px;
     justify-content: space-between;
     padding: 4px 8px;
+    background-color: var(--bg-main-color);
 
     &>form {
         flex-grow: 1;
@@ -13,7 +14,7 @@
         background: transparent;
         border: none;
         outline: none;
-        color: var(--fg-main-color);
+        color: var(--fg-color);
         font-family: "VT323", monospace;
         font-size: 16px;
     }

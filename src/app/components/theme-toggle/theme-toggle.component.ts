@@ -7,7 +7,7 @@ import { ThemeService } from './theme.service';
   styleUrl: './theme-toggle.component.scss'
 })
 export class ThemeToggleComponent implements OnInit {
-  theme: 'green' | 'cyan' | 'amber' = 'green';
+  theme: 'green' | 'cyan' | 'amber' | 'ibm' = 'green';
 
   constructor(private themeService: ThemeService) {}
 

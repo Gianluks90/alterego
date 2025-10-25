@@ -18,6 +18,12 @@ export class CommandService {
         this.handleThemeCommand(arg);
         break;
 
+      case '/clear-history':
+      case '/purge':
+        localStorage.removeItem('terminalHistory');
+        this.notify.show('[PURGE] Command history deleted from local memory.', 'check');
+        break;
+
       default:
         this.notify.show(`Unknown command: ${command}`, 'warning');
     }
@@ -26,7 +32,7 @@ export class CommandService {
   // Methods
 
   private handleThemeCommand(arg?: string) {
-    const themes: Theme[] = ['green', 'cyan', 'amber'];
+    const themes: Theme[] = ['green', 'cyan', 'amber', 'ibm'];
     const current = this.themeService.currentTheme;
 
     if (!arg) {

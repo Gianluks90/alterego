@@ -7,3 +7,8 @@
         min-width: 100px;
     }
 }
+
+.dialog-content {
+    overflow: auto;
+    max-height: 200px;
+}

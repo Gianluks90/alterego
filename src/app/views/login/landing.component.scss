@@ -20,6 +20,10 @@
         margin-top: 16px !important;
     }
 
+    &>.last-p {
+        margin-top: 32px !important;
+    }
+
     &>.terminal-input-page-container {
         position: absolute;
         bottom: 48px;
@@ -47,6 +51,10 @@
     .login-main-container {
         &>div {
             font-size: .55rem;
+        }
+
+        &>p {
+            font-size: .7rem;
         }
     }
 }
