@@ -2,6 +2,9 @@
     @for (line of appTitleLines; track $index) {
         <div [style.textShadow]="'0 0 8px var(--fg-color)'" [style.--delay]="line.delay">{{ line.text }}</div>
     }
+    @for (line of otherLines; track $index) {
+        <p [style.textShadow]="'0 0 8px var(--fg-color)'" [style.--delay]="line.delay">{{ line.text }}</p>
+    }
     <div class="terminal-input-page-container">
         <app-terminal-input (command)="onExecuteCommand($event)"></app-terminal-input>
     </div>

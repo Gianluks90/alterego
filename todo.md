@@ -10,3 +10,5 @@
 - [ ] Implementare la funzionalità di registrazione utenti
 - [ ] Implementare la funzionalità di login utenti
 - [ ] Creare un model per l'utente (username, email, statistiche, avatar)
+- [x] Creare un componente riusabile per la snackbar di notifica
+- [x] Creare un componente riusabile per la barra terminale

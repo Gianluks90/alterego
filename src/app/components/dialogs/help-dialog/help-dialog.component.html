@@ -1,10 +1,13 @@
-<h1 mat-dialog-title>Terminal command help</h1>
+<h1 mat-dialog-title>Basic instructions</h1>
 <mat-dialog-content>
-    <p>The entire application works based on the commands entered in the terminal that appears on the page. Try some of
-        the following commands:</p>
-    <p><code>/help</code> - Show this help message</p>
-    <p><code>/theme green | cyan | amber</code> - Change the application theme</p>
-    <p><code>/about</code> - Learn more about this application</p>
+    <p>
+        Commands must be typed in the input bar. Commands within <code>&lt;&gt;</code> 
+        indicate an option (valid options are separated by the | character) to be entered after a space. Try some of the following commands:
+    </p>
+    <p><code>/help</code> - Shows this help message</p>
+    <p><code>/theme &lt;green | cyan | amber&gt;</code> - Changes the application theme. If no theme is specified, it switches to the next one.</p>
+    <p><code>/clear</code> - Clears the terminal startup output</p>
+    <p><code>/about</code> - Shows information about this application</p>
 
     <p>Press ESC to close any modal.</p>
 </mat-dialog-content>

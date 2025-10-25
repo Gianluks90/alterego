@@ -8,28 +8,27 @@ import { NotificationService } from './notification.service';
 export class CommandService {
   constructor(private themeService: ThemeService, private notify: NotificationService) { }
 
-public execute(rawCommand: string): void {
-  const parts = rawCommand.trim().toLowerCase().split(/\s+/);
-  const command = parts[0];
-  const arg = parts[1]?.trim();
+  public execute(rawCommand: string): void {
+    const parts = rawCommand.trim().toLowerCase().split(/\s+/);
+    const command = parts[0];
+    const arg = parts[1]?.trim();
 
-  console.log(command, arg);
-  
+    switch (command) {
+      case '/theme':
+        this.handleThemeCommand(arg);
+        break;
 
-  switch (command) {
-    case '/theme':
-      this.handleThemeCommand(arg);
-      break;
-
-    default:
-      this.notify.show(`Unknown command: ${command}`, 'warning');
+      default:
+        this.notify.show(`Unknown command: ${command}`, 'warning');
+    }
   }
-}
+
+  // Methods
 
   private handleThemeCommand(arg?: string) {
     const themes: Theme[] = ['green', 'cyan', 'amber'];
     const current = this.themeService.currentTheme;
-    
+
     if (!arg) {
       const nextIndex = (themes.indexOf(current) + 1) % themes.length;
       this.themeService.setTheme(themes[nextIndex]);

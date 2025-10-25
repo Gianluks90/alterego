@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { appVersion } from '../../../environment/appVersion';
 import { ThemeToggleComponent } from '../../components/theme-toggle/theme-toggle.component';
 import { MatDialog } from '@angular/material/dialog';
-import { LoginDialogComponent } from '../../components/dialogs/login-dialog/login-dialog.component';
 import { TerminalInputComponent } from '../../components/terminal-input/terminal-input.component';
 import { HelpDialogComponent } from '../../components/dialogs/help-dialog/help-dialog.component';
 import { CommandService } from '../../services/command.service';
@@ -22,8 +21,14 @@ export class LoginComponent {
     { text: '██╔══██║██║     ██║   ██╔══╝  ██╔══██╗██╔══╝  ██║   ██║██║   ██║', delay: 1000 },
     { text: '██║  ██║███████╗██║   ███████╗██║  ██║███████╗╚██████╔╝╚██████╔╝', delay: 1200 },
     { text: '╚═╝  ╚═╝╚══════╝╚═╝   ╚══════╝╚═╝  ╚═╝╚══════╝ ╚═════╝  ╚═════╝ ', delay: 1400 },
-    { text: '                                                                ', delay: 1600 },
-    { text: `v. ${appVersion}`, delay: 1800 }
+  ];
+
+  public otherLines = [
+    { text: `ALT OS (2025.10) v. ${appVersion}`, delay: 1800 },
+    { text: 'Notification ................................ [OK]', delay: 1900 },
+    { text: 'Commands initialization ..................... [OK]', delay: 2200 },
+    { text: 'Loading user interface components ........... [OK]', delay: 2400 },
+    { text: 'SYSTEM READY. Type /help for assistance.', delay: 2700 }
   ];
 
   public visibleLines: string[] = [];
@@ -46,7 +51,11 @@ export class LoginComponent {
       case '/help':
         this.openHelpDialog();
         break;
-        
+
+      case '/clear':
+        this.otherLines = this.otherLines.length > 0 ? [this.otherLines[0]] : [];
+        break;
+
       default:
         this.commandService.execute(command);
     }
