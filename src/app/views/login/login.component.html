@@ -2,12 +2,15 @@
     @for (line of appTitleLines; track $index) {
         <div [style.textShadow]="'0 0 8px var(--fg-color)'" [style.--delay]="line.delay">{{ line.text }}</div>
     }
-
-    <button standard-btn type="button" class="login-button" (click)="openLoginDialog()">
-        Authenticate
-    </button>
+    <div class="terminal-input-page-container">
+        <app-terminal-input (command)="onExecuteCommand($event)"></app-terminal-input>
+    </div>
 </div>
+
 
 <div class="toggle-theme-container">
     <app-theme-toggle></app-theme-toggle>
+</div>
+<div class="info-dialog-button-containter">
+    <span class="material-symbols-outlined" (click)="openHelpDialog()">info</span>
 </div>

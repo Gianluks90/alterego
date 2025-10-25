@@ -16,13 +16,15 @@
         animation-delay: calc(var(--delay) * 1ms);
     }
 
-    &>.login-button {
+    &>.terminal-input-page-container {
         position: absolute;
         bottom: 48px;
         opacity: 0;
 
         animation: fadeIn .5s forwards;
         animation-delay: 2s;
+
+        width: 60%;
     }
 
     @keyframes fadeIn {
@@ -49,4 +51,21 @@
     position: absolute;
     top: 24px;
     right: 24px;
+}
+
+.info-dialog-button-containter {
+    position: absolute;
+    top: 20px;
+    left: 24px;
+    text-shadow: 0 0 8px var(--fg-color);
+
+    &>span {
+        cursor: pointer;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .terminal-input-page-container {
+        top: 20px;
+    }
 }

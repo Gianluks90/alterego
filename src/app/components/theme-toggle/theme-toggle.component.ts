@@ -7,7 +7,7 @@ import { ThemeService } from './theme.service';
   styleUrl: './theme-toggle.component.scss'
 })
 export class ThemeToggleComponent implements OnInit {
-  theme: 'green' | 'ciano' | 'amber' = 'green';
+  theme: 'green' | 'cyan' | 'amber' = 'green';
 
   constructor(private themeService: ThemeService) {}
 
@@ -17,8 +17,8 @@ export class ThemeToggleComponent implements OnInit {
   }
 
   toggleTheme() {
-    if (this.theme === 'green') this.theme = 'ciano';
-    else if (this.theme === 'ciano') this.theme = 'amber';
+    if (this.theme === 'green') this.theme = 'cyan';
+    else if (this.theme === 'cyan') this.theme = 'amber';
     else this.theme = 'green';
     this.themeService.setTheme(this.theme);
   }

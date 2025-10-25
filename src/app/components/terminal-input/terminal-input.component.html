@@ -1,0 +1,8 @@
+<div class="terminal-input-container standard-border">
+    <span class="pulse-icon">></span>
+    <form [formGroup]="form">
+        <input type="text" (keydown.enter)="onSubmit()" formControlName="command" autocomplete="off" autocorrect="off"
+            autocapitalize="none" spellcheck="false" autofocus required />
+    </form>
+    <span class="material-symbols-outlined" (click)="onSubmit()">keyboard_return</span>
+</div>

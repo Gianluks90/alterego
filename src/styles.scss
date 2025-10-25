@@ -41,7 +41,7 @@ body {
   --fg-main-color: #ffffff;
 
   --fg-green-color: #00ff41;
-  --fg-ciano-color: #00ffff;
+  --fg-cyan-color: #00ffff;
   --fg-amber-color: #ffaa00;
 
   @include mat.dialog-overrides((
@@ -92,6 +92,27 @@ input[standard-input] {
   &:focus {
     outline: none;
     border-color: #FFF;
+  }
+}
+
+.standard-border {
+  border: 1px solid var(--fg-color);
+  box-shadow: 0 0 8px var(--fg-color);
+}
+
+.pulse-icon {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
   }
 }
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-type Theme = 'green' | 'ciano' | 'amber';
+export type Theme = 'green' | 'cyan' | 'amber';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
@@ -10,7 +10,7 @@ export class ThemeService {
 
   private loadTheme(): Theme {
     const saved = localStorage.getItem('theme');
-    return (saved === 'ciano' || saved === 'amber') ? saved : 'green';
+    return (saved === 'cyan' || saved === 'amber') ? saved : 'green';
   }
 
   setTheme(theme: Theme) {
@@ -21,7 +21,6 @@ export class ThemeService {
     document.body.style.setProperty('color', `var(--fg-${theme}-color)`);
   }
   
-
   get currentTheme(): Theme {
     return this.themeSubject.value;
   }
