@@ -1,0 +1,17 @@
+.app-main-container {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 24px;
+}
+
+.theme-toggle-button-container {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+}

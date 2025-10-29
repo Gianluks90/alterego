@@ -1,0 +1,25 @@
+<div class="home-page-main-container">
+    @for(line of appTitleLines; track $index) {
+        <div class="{{line.class}} term-line" [style.animationDelay.ms]="line.delay">{{line.text}}</div>
+    }
+    @for(line of appSubtitleLines; track $index) {
+        <div class="{{line.class}} term-line" [style.animationDelay.ms]="line.delay">{{line.text}}</div>
+    }
+
+    <div class="home-page-actions-container">
+        @if (user) {
+            <button standard-button type="button" (click)="logOut()">Logout</button>
+        } @else {
+            <button standard-button type="button" [routerLink]="'/auth/login'">Login</button>
+            <button standard-button type="button" [routerLink]="'/auth/register'">Register</button>
+        }
+        <button standard-button type="button" disabled>Games</button>
+        <button standard-button type="button" disabled>Help</button>
+        <button standard-button type="button" disabled>About</button>
+        @if (user?.username === 'gianluks90') {
+            <a href="https://console.firebase.google.com/u/4/project/alterego-2025/firestore/databases/-default-/data/~2Fusers~2FVOqziSjOvuXgjCCBSmfyIVAmxl83" target="_blank" rel="noopener">
+                <button standard-button type="button">Firebase</button>
+            </a>
+        }
+    </div>
+</div>

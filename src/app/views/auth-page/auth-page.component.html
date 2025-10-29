@@ -1,0 +1,29 @@
+<div class="auth-page-main-container">
+    @for(line of authSubtitleLines; track $index) {
+    <div class="{{line.class}} term-line" [style.animationDelay.ms]="line.delay">{{line.text}}</div>
+    }
+    @if (!authLoading) {
+    <form [formGroup]="form">
+        @if (mode === 'register') {
+        <div form-field>
+            <label for="email">Username</label>
+            <input id="email" type="text" formControlName="username" placeholder="Text here" />
+        </div>
+        }
+        <div form-field>
+            <label for="nickname">Email</label>
+            <input id="nickname" type="email" formControlName="email" placeholder="Text here" />
+        </div>
+        <div form-field>
+            <label for="password">Password</label>
+            <input id="password" type="password" formControlName="password" placeholder="Text here" />
+        </div>
+    </form>
+    }
+
+
+    <div class="auth-page-actions-container">
+        <button standard-button type="button" [disabled]="form.invalid" (click)="onSubmit()">{{mode === 'login' ? 'Login' : 'Register'}}</button>
+        <button standard-button type="button" [routerLink]="['/']">Exit</button>
+    </div>
+</div>
