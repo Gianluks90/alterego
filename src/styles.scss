@@ -84,6 +84,37 @@ button[standard-button] {
     }
 }
 
+// Dialogs
+
+.dialog-container {
+    background-color: var(--bg-main-color);
+    border: 1px solid var(--fg-color);
+    padding: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dialog-backdrop {
+    backdrop-filter: blur(8px);
+}
+
+div[dialog-main-container] {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    h1, h2, h3, h4, h5, h6 {
+        margin: 0;
+        text-transform: uppercase;
+    }
+    
+    div[dialog-actions-container] {
+        margin-top: 16px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+    }
+}
+
 // Forms
 
 form {

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { getAuth, setPersistence, browserLocalPersistence, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { FirebaseService } from '../../services/firebase.service';
+import { appTitleLines } from '../../../environment/titleLines';
 
 @Component({
   selector: 'app-auth-page',
@@ -16,6 +17,7 @@ export class AuthPageComponent {
   public mode: 'login' | 'register' = 'login';
   public form: FormGroup = new FormGroup({});
   public authLoading: boolean = false;
+  public titleLines = appTitleLines;
 
   constructor(
     private route: ActivatedRoute,
