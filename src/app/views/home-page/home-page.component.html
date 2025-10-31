@@ -14,8 +14,8 @@
             <button standard-button type="button" [routerLink]="'/auth/register'">Register</button>
         }
         <button standard-button type="button" disabled>Games</button>
-        <button standard-button type="button" (click)="helpDialogOpen()">Help</button>
-        <button standard-button type="button" disabled>About</button>
+        <button standard-button type="button" [disabled]="!user" (click)="helpDialogOpen()">Help</button>
+        <button standard-button type="button" (click)="aboutDialogOpen()">About</button>
         @if (user?.username === 'gianluks90') {
             <a href="https://console.firebase.google.com/u/4/project/alterego-2025/firestore/databases/-default-/data/~2Fusers~2FVOqziSjOvuXgjCCBSmfyIVAmxl83" target="_blank" rel="noopener">
                 <button standard-button type="button">Firebase</button>

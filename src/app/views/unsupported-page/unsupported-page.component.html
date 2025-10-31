@@ -1,0 +1,5 @@
+<div class="unsupported-overlay">
+    @for(line of errorLines; track $index) {
+        <div class="{{line.class}} term-line" [style.animationDelay.ms]="line.delay">{{line.text}}</div>
+    }
+</div>

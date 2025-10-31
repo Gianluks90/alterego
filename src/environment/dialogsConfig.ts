@@ -1,3 +1,5 @@
+import { max } from "rxjs";
+
 export const dialogsConfig = {
     panelClass: 'dialog-container',
     backdropClass: 'dialog-backdrop',

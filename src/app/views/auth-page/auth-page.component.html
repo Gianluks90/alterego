@@ -6,7 +6,7 @@
             <div class="{{line.class}} term-line">{{line.text}}</div>
         }
         </div>
-        <div class="mode-line">{{mode === 'login' ? '/login' : '/register'}}</div>
+        <div class="mode-line">/auth{{mode === 'login' ? '/login' : '/register'}}</div>
     </div>
 
     @for(line of authSubtitleLines; track $index) {

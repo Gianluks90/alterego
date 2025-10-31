@@ -1,0 +1,34 @@
+<div dialog-main-container>
+    <h1>ABOUT</h1>
+
+    <pre class="container-log">
+[INITIALIZING SYSTEM INFO] ...................... [OK]
+[LOADING MODULE] alterego.core
+-------------------------------------------------------
+ PROGRAM NAME:     ALTEREGO
+ VERSION:          {{ appVersion }}
+ STATUS:           OPERATIONAL
+ LAST CALIBRATION: SUCCESSFUL
+-------------------------------------------------------
+ SYSTEM PURPOSE:
+  Designed to assist field agents in hostile or
+  unpredictable environments. Provides real-time
+  monitoring, mission control, and survival tracking.
+
+ NOTE:
+  All transmissions are logged and archived.
+  Human error is statistically inevitable.
+
+ PRIORITY PROTOCOL:
+  The central AI reserves the right to override
+  manual inputs in case of threat detection.
+
+> REMAIN CALM, AGENT.
+> OBJECTIVE: SURVIVAL.
+-------------------------------------------------------
+  </pre>
+
+    <div dialog-actions-container>
+        <button standard-button type="button" (click)="dialogRef.close()">ESC</button>
+    </div>
+</div>

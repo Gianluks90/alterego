@@ -1,0 +1,32 @@
+.unsupported-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: var(--bg-main-color);
+    color: var(--fg-color, #00ff88);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 9999;
+    font-family: monospace;
+    gap: 8px;
+    padding: 24px;
+
+    .term-line {
+        align-self: flex-start;
+        opacity: 0;
+        font-size: 1.2rem;
+        animation: fadeIn 0.4s ease-out forwards;
+    }
+
+    .error-line {
+        color: var(--error-color);
+        text-shadow: 0 0 8px var(--error-color);
+    }
+
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+        }
+    }
+}
