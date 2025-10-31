@@ -122,6 +122,26 @@ button[icon-button] {
     }
 }
 
+input[standard-input] {
+    border: 1px solid var(--fg-color);
+    background-color: var(--bg-main-color);
+    padding: 8px 12px;
+    font-size: 1.2rem;
+    color: var(--fg-color);
+    width: 100%;
+
+    &:focus {
+        outline: none;
+        border-color: var(--fg-color);
+        box-shadow: 0 0 8px var(--fg-color);
+    }
+
+    &::placeholder {
+        color: var(--fg-color);
+        opacity: 0.7;
+    }
+}
+
 // Dialogs
 
 .dialog-container {
@@ -164,7 +184,7 @@ div[dialog-main-container] {
 
 // Forms
 
-form {
+form[standard-form] {
     width: 100%;
     display: flex;
     flex-direction: column;

@@ -1,5 +1,5 @@
 <div dialog-main-container>
-    <h1>Join existing game</h1>
+    <h1>Join existing mission</h1>
 
     <pre class="container-log">
 [ACCESSING EXISTING SESSION] .................... [OK]
@@ -7,7 +7,7 @@
 -------------------------------------------------------
  AGENT, to join an active operation you must provide:
 
-  - GAME ID     : unique identifier of the mission
+  - Mission ID  : unique identifier of the mission
   - PASSWORD    : access key assigned by the host
 
 [NOTE] Unauthorized access attempts are logged and reported.
@@ -16,9 +16,9 @@
 </pre>
 
 
-  <form [formGroup]="form">
+  <form standard-form [formGroup]="form">
     <div form-field>
-        <label for="id">Game ID</label>
+        <label for="id">Mission ID</label>
         <input id="id" type="text" formControlName="id" autocorrect="off" autocomplete="new-password" placeholder="Text here" />
     </div>
     <div form-field>

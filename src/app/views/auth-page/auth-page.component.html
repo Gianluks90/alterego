@@ -12,7 +12,7 @@
     <div class="{{line.class}} term-line" [style.animationDelay.ms]="line.delay">{{line.text}}</div>
     }
     @if (!authLoading) {
-    <form [formGroup]="form">
+    <form standard-form [formGroup]="form">
         @if (mode === 'register') {
         <div form-field>
             <label for="email">Username</label>

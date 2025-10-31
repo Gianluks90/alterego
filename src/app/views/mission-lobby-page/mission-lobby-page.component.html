@@ -1,0 +1,53 @@
+<div class="game-lobby-page-main-container">
+    <div class="breadcrumb-container">
+        <div>
+            @for(line of titleLines; track $index) {
+            <div class="{{line.class}} term-line">{{line.text}}</div>
+            }
+        </div>
+        <div class="mode-line">/missions/{{missionId}}/lobby</div>
+    </div>
+
+    <div class="game-lobby-page-content-container">
+        <section>
+            <div class="section-title">Agent setup [private]</div>
+        </section>
+        <section class="game-lobby-page-chat-container">
+            <div class="section-title">
+                <span>Lobby chat [public]</span>
+                <div class="chat-log-actions">
+                    <button icon-button type="button" (click)="openChatHelpDialog()">
+                        <span title="chat commands help" class="material-symbols-outlined">info</span>
+                    </button>
+                    @if (player?.uid === mission?.createdBy) {
+                    <button icon-button type="button" (click)="openDeleteLogsDialog()">
+                        <span title="delete chat logs" class="material-symbols-outlined">delete</span>
+                    </button>
+                }
+                </div>
+                
+            </div>
+            <div class="chat-content-container">
+                <div class="chat-log">
+                    @for(log of mission?.chatLog; track $index) {
+                        <div class="{{log.class}} chat-message">[{{log.timestamp.toDate() | date:'d/M/yy HH:mm':'Europe/Rome'}}] ${{log.senderPlayer}} "{{log.message}}"</div>
+                    } @empty {
+                        <p>No messages</p>
+                    }
+                </div>
+                <form [formGroup]="chatForm" class="chat-input">
+                    <span class="material-symbols-outlined">chevron_right</span>
+                    <input class="chat-log-input" type="text" formControlName="message" placeholder="Type your message here..." (keydown.enter)="sendMessage()"/>
+                    <button icon-button class="material-symbols-outlined" type="button" (click)="sendMessage()" [disabled]="chatForm.invalid">keyboard_return</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <div class="game-lobby-page-actions-container">
+        <button standard-button type="button" disabled>Ready {{mission?.players?.length}}/{{mission?.playersLimit}}</button>
+        <button standard-button type="button" disabled>Help</button>
+        <button standard-button type="button" disabled>Leave</button>
+        <button standard-button type="button" [routerLink]="['/missions']">Exit</button>
+    </div>
+</div>

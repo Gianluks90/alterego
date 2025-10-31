@@ -1,8 +1,8 @@
 <div dialog-main-container>
-    <h1>Create new game</h1>
+    <h1>Create new mission</h1>
 
     <pre class="container-log">
-[INITIATING GAME CREATION] ...................... [OK]
+[INITIATING MISSION CREATION] ................... [OK]
 [SECURE CHANNEL ESTABLISHED] .................... [OK]
 -------------------------------------------------------
  AGENT, enter the following details:
@@ -16,9 +16,9 @@
 -------------------------------------------------------
   </pre>
 
-  <form [formGroup]="form">
+  <form standard-form [formGroup]="form">
     <div form-field>
-        <label for="name">Game name</label>
+        <label for="name">Mission name</label>
         <input id="name" type="text" formControlName="name" aria-autocomplete="none" autocomplete="new-password" autocorrect="off" placeholder="Text here" />
     </div>
     <div form-field>

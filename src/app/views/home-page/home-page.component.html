@@ -13,7 +13,7 @@
             <button standard-button type="button" [routerLink]="'/auth/login'">Login</button>
             <button standard-button type="button" [routerLink]="'/auth/register'">Register</button>
         }
-        <button standard-button type="button" [disabled]="!user" [routerLink]="'/games'">Games</button>
+        <button standard-button type="button" [disabled]="!user" [routerLink]="'/missions'">Missions</button>
         <button standard-button type="button" [disabled]="!user" (click)="helpDialogOpen()">Help</button>
         <button standard-button type="button" (click)="aboutDialogOpen()">About</button>
         @if (user?.username === 'gianluks90') {

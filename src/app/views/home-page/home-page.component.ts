@@ -11,6 +11,7 @@ import { HelpDialogComponent } from '../../components/dialogs/help-dialog/help-d
 import { dialogsConfig, fullSizeDialog, smallSizeDialog } from '../../../environment/dialogsConfig';
 import { AboutDialogComponent } from '../../components/dialogs/about-dialog/about-dialog.component';
 import { NotificationService } from '../../services/notification.service';
+import { DialogResult } from '../../../models/dialogResult';
 
 @Component({
   selector: 'app-home-page',
@@ -23,7 +24,7 @@ export class HomePageComponent {
   public user: AppUser | null = null;
   public appTitleLines: TermLine[] = appTitleLines;
   private dialog = inject(Dialog);
-  private dialogRef: DialogRef<any, any> | null = null;
+  private dialogRef: DialogRef<DialogResult, any> | null = null;
 
   constructor(
     private firebaseService: FirebaseService,

@@ -1,8 +1,8 @@
 import { Component, effect, HostListener, inject } from '@angular/core';
 import { appTitleLines } from '../../../environment/titleLines';
 import { Router, RouterLink } from '@angular/router';
-import { GamesService } from '../../services/games.service';
-import { Game } from '../../../models/game';
+import { MissionService } from '../../services/mission.service';
+import { Mission } from '../../../models/mission';
 import { FirebaseService } from '../../services/firebase.service';
 import { TermLine } from '../../../models/termLine';
 import { NewGameDialogComponent } from '../../components/dialogs/new-game-dialog/new-game-dialog.component';
@@ -16,30 +16,30 @@ import { DialogResult } from '../../../models/dialogResult';
 import { DeleteDialogComponent } from '../../components/dialogs/delete-dialog/delete-dialog.component';
 
 @Component({
-  selector: 'app-games-list-page',
+  selector: 'app-missions-list-page',
   imports: [RouterLink, UpperCasePipe],
-  templateUrl: './games-list-page.component.html',
-  styleUrl: './games-list-page.component.scss'
+  templateUrl: './missions-list-page.component.html',
+  styleUrl: './missions-list-page.component.scss'
 })
-export class GamesListPageComponent {
+export class MissionsListPageComponent {
   public titleLines = appTitleLines;
   public user: AppUser | null = null;
-  public games: Game[] | null = null;
+  public missions: Mission[] | null = null;
   private dialog = inject(Dialog);
   private dialogRef: DialogRef<DialogResult, any> | null = null;
 
   constructor(
-    private gamesService: GamesService,
+    private missionService: MissionService,
     private firebaseService: FirebaseService,
     private notificationService: NotificationService,
     private router: Router
   ) {
 
     effect(() => {
-      this.games = this.gamesService.$games();
-      if (this.games && this.games.length === 0) {
+      this.missions = this.missionService.$missions();
+      if (this.missions && this.missions.length === 0) {
         setTimeout(() => {
-          this.noGamesLines.push({ text: `> No games found. Create a new game to get started!`, delay: 600, class: 'subtitle-line' });
+          this.noMissionsLines.push({ text: `> No missions found. Create a new mission to get started!`, delay: 600, class: 'subtitle-line' });
         }, 2000);
       }
     })
@@ -47,14 +47,14 @@ export class GamesListPageComponent {
     effect(() => {
       this.user = this.firebaseService.$user();
       if (this.user) {
-        this.gamesService.getMyGames(this.user.uid);
+        this.missionService.getMyMissions(this.user.uid);
       }
     });
   }
 
-  public noGamesLines: TermLine[] = [
-    { text: 'Games list view initialized...', delay: 200, class: 'subtitle-line' },
-    { text: 'Fetching your games from the server ..................... [  OK  ]', delay: 400, class: 'subtitle-line' },
+  public noMissionsLines: TermLine[] = [
+    { text: 'Missions list view initialized...', delay: 200, class: 'subtitle-line' },
+    { text: 'Fetching your missions from the server ..................... [  OK  ]', delay: 400, class: 'subtitle-line' },
   ];
 
   public windowSize: number = window.innerWidth;
@@ -72,10 +72,10 @@ export class GamesListPageComponent {
 
     this.dialogRef.closed.subscribe((result) => {
       if (result?.status === 'confirmed') {
-        this.gamesService.createNewGame(result.data, this.firebaseService.$user()!.uid).then(() => {
-          this.notificationService.notify('Game created successfully!', 'check');
+        this.missionService.createNewMission(result.data, this.firebaseService.$user()!.uid).then(() => {
+          this.notificationService.notify('Mission created successfully!', 'check');
         }).catch((error) => {
-          this.notificationService.notify('Error creating game.', 'dangerous');
+          this.notificationService.notify('Error creating mission.', 'dangerous');
         });
       }
     });
@@ -89,10 +89,10 @@ export class GamesListPageComponent {
 
     this.dialogRef.closed.subscribe((result) => {
       if (result?.status === 'confirmed') {
-        this.gamesService.joinGame(result.data, this.firebaseService.$user()!.uid).then(() => {
-          this.notificationService.notify('Joined game successfully!', 'check');
+        this.missionService.joinMission(result.data, this.firebaseService.$user()!.uid).then(() => {
+          this.notificationService.notify('Joined mission successfully!', 'check');
         }).catch((error) => {
-          this.notificationService.notify('Error joining game.', 'dangerous');
+          this.notificationService.notify('Error joining mission.', 'dangerous');
         });
       }
     });
@@ -107,26 +107,26 @@ export class GamesListPageComponent {
 
     this.dialogRef.closed.subscribe((result) => {
       if (result?.status === 'confirmed') {
-        this.gamesService.deleteGame(gameId).then(() => {
-          this.notificationService.notify('Game deleted successfully!', 'check');
+        this.missionService.deleteMission(gameId).then(() => {
+          this.notificationService.notify('Mission deleted successfully!', 'check');
         }).catch((error) => {
-          this.notificationService.notify('Error deleting game.', 'dangerous');
+          this.notificationService.notify('Error deleting mission.', 'dangerous');
         });
       }
       if (result?.status === 'cancelled') {
-        this.notificationService.notify('Game deletion cancelled.', 'info');
+        this.notificationService.notify('Mission deletion cancelled.', 'info');
       }
     });
   }
 
-  public nav(game: Game): void {
-    switch (game.status) {
+  public nav(mission: Mission): void {
+    switch (mission.status) {
       case 'waiting':
-        this.router.navigate(['/games', game.id, 'lobby']);
+        this.router.navigate(['/missions', mission.id, 'lobby'], { state: { missionId: mission.id } });
         break;
 
       case 'in_progress':
-        this.router.navigate(['/games', game.id, 'play']);
+        this.router.navigate(['/missions', mission.id, 'play'], { state: { missionId: mission.id } });
         break;
 
       case 'finished':

@@ -1,0 +1,32 @@
+<div dialog-main-container>
+  <h1>CHAT HELP</h1>
+
+  <pre class="container-log">
+[SECURE CHANNEL] ................................. [OK]
+[PROTOCOL HANDSHAKE] ............................. [OK]
+-------------------------------------------------------
+ AGENT,
+ the ALTEREGO communication system is online.
+ You may transmit standard or encoded messages
+ using the following directives:
+
+  /shout &lt;message&gt;
+     Broadcasts a priority alert (uppercased). Visible to 
+     all agents.
+     Example: /shout enemy spotted
+        turn into "ENEMY SPOTTED"
+
+ Unauthorized commands will be ignored by the
+ central relay. Misuse may trigger countermeasures.
+
+-------------------------------------------------------
+ > Maintain clarity in all transmissions.
+ > Discretion preserves survival.
+-------------------------------------------------------
+ [ALTEREGO-COM // Access level 2 :: Communication Node]
+  </pre>
+
+  <div dialog-actions-container>
+    <button standard-button type="button" (click)="dialogRef.close()">ESC</button>
+  </div>
+</div>
