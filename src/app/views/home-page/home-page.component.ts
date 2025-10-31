@@ -10,6 +10,7 @@ import { Dialog, DialogModule, DialogRef } from '@angular/cdk/dialog';
 import { HelpDialogComponent } from '../../components/dialogs/help-dialog/help-dialog.component';
 import { dialogsConfig, fullSizeDialog, smallSizeDialog } from '../../../environment/dialogsConfig';
 import { AboutDialogComponent } from '../../components/dialogs/about-dialog/about-dialog.component';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-home-page',
@@ -22,24 +23,26 @@ export class HomePageComponent {
   public user: AppUser | null = null;
   public appTitleLines: TermLine[] = appTitleLines;
   private dialog = inject(Dialog);
-  private dialogRef: DialogRef<HelpDialogComponent, any> | null = null;
+  private dialogRef: DialogRef<any, any> | null = null;
 
   constructor(
     private firebaseService: FirebaseService,
+    private notificationService: NotificationService,
     private router: Router
   ) {
     effect(() => {
       this.user = this.firebaseService.$user();
       if (this.user) {
-        this.appSubtitleLines.push({ text: `> ${this.user.username} logged in`, delay: 2500, class: 'subtitle-line' });
+        this.notificationService.notify(`Welcome back, ${this.user.username}!`);
+        this.appSubtitleLines.push({ text: `> ${this.user.username} logged in`, delay: 4000, class: 'subtitle-line' });
       }
     });
   }
 
   public appSubtitleLines: TermLine[] = [
-    { text: `ALT OS (2025.10) v. ${appVersion}`, delay: 1800, class: 'subtitle-line' },
-    { text: 'Boot completed ................................ [  OK  ]', delay: 2000, class: 'subtitle-line' },
-    { text: 'UI components ready ........................... [  OK  ]', delay: 2200, class: 'subtitle-line' },
+    { text: `ALT OS (2025.10) v. ${appVersion}`, delay: 3200, class: 'subtitle-line' },
+    { text: 'Boot completed ................................ [  OK  ]', delay: 3400, class: 'subtitle-line' },
+    { text: 'UI components ready ........................... [  OK  ]', delay: 3600, class: 'subtitle-line' },
   ];
 
   public logOut(): void {

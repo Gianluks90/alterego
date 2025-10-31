@@ -4,6 +4,7 @@ import { ThemeToggleService } from './services/theme-toggle.service';
 import { ThemeToggleButtonComponent } from './components/theme-toggle-button/theme-toggle-button.component';
 import { FirebaseService } from './services/firebase.service';
 import { UnsupportedPageComponent } from './views/unsupported-page/unsupported-page.component';
+import { NotificationService } from './services/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -16,9 +17,9 @@ export class AppComponent {
   public isUnsupported = false;
 
   constructor(
-    private firebaseService: FirebaseService,
-    private themeService: ThemeToggleService,
-    private router: Router
+    private firebaseService: FirebaseService, // Used to initialize Firebase
+    private notificationService: NotificationService, // Used to initialize Notification Service
+    private themeService: ThemeToggleService
   ) { } 
 
   ngOnInit() {

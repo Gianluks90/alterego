@@ -1,0 +1,47 @@
+<div class="games-list-page-main-container">
+    <div class="breadcrumb-container">
+        <div>
+            @for(line of titleLines; track $index) {
+                <div class="{{line.class}} term-line">{{line.text}}</div>
+            }
+        </div>
+        <div class="mode-line">/games</div>
+    </div>
+
+    <div>
+        @if(games && games.length === 0) {
+            @for(line of noGamesLines; track $index) {
+                <div class="{{line.class}} term-line" [style.animationDelay.ms]="line.delay">{{line.text}}</div>
+            }
+        }
+    </div>
+
+    @defer(when games) {
+        @for(game of games; track game.id) {
+            <div class="game-main-container">
+                <p>#{{$index + 1}}</p>
+                <p>id={{game.id}}</p>
+                <p>name={{game.name | uppercase}}</p>
+                <p>Status={{game.status | uppercase}}</p>
+                <p>Players={{game.players.length}}/{{game.playersLimit}}</p>
+
+                <div class="game-actions">
+                    @if (user?.uid === game.createdBy) {
+                        <button icon-button type="button" (click)="openDeleteGameDialog(game.id)">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    }
+                    <button icon-button type="button" (click)="nav(game)">
+                        <span class="material-symbols-outlined">{{game.status === 'waiting' ? 'edit' : 'play_arrow'}}</span>
+                    </button>
+                </div>
+            </div>
+        }
+    }
+
+    <div class="games-list-page-actions-container">
+        <button standard-button type="button" [disabled]="games && games.length >= 3" (click)="openNewGameDialog()">Create</button>
+        <button standard-button type="button" (click)="openJoinGameDialog()">Join</button>
+        <button standard-button type="button" [routerLink]="['/']">Exit</button>
+    </div>
+</div>

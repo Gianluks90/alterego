@@ -1,0 +1,34 @@
+<div dialog-main-container>
+    <h1>Join existing game</h1>
+
+    <pre class="container-log">
+[ACCESSING EXISTING SESSION] .................... [OK]
+[SECURITY CHANNEL ESTABLISHED] .................. [OK]
+-------------------------------------------------------
+ AGENT, to join an active operation you must provide:
+
+  - GAME ID     : unique identifier of the mission
+  - PASSWORD    : access key assigned by the host
+
+[NOTE] Unauthorized access attempts are logged and reported.
+[STATUS] Awaiting verification...
+-------------------------------------------------------
+</pre>
+
+
+  <form [formGroup]="form">
+    <div form-field>
+        <label for="id">Game ID</label>
+        <input id="id" type="text" formControlName="id" autocorrect="off" autocomplete="new-password" placeholder="Text here" />
+    </div>
+    <div form-field>
+        <label for="password">Password</label>
+        <input id="password" type="password" formControlName="password" autocorrect="off" autocomplete="new-password" placeholder="Password here" />
+    </div>
+  </form>
+
+    <div dialog-actions-container>
+        <button standard-button type="button" [disabled]="form.invalid" (click)="confirm()">Join</button>
+        <button standard-button type="button" (click)="cancel()">ESC</button>
+    </div>
+</div>

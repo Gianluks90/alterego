@@ -58,6 +58,13 @@ body {
     --bg-main-color: #1800d1;
 }
 
+.subtitle-line {
+    font-size: 1.3rem;
+    margin-top: 8px;
+    align-self: flex-start;
+    text-shadow: 0 0 4px var(--fg-color);
+}
+
 // Components
 
 button[standard-button] {
@@ -87,6 +94,34 @@ button[standard-button] {
     }
 }
 
+button[icon-button] {
+    border: none;
+    background: none;
+    color: var(--fg-color);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    padding: 0;
+    margin: 0;
+
+    &>.material-symbols-outlined {
+        font-size: 1.2rem;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        background-color: transparent;
+        color: var(--fg-color);
+    }
+}
+
 // Dialogs
 
 .dialog-container {
@@ -94,6 +129,9 @@ button[standard-button] {
     border: 1px solid var(--fg-color);
     padding: 16px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: auto;
+    max-width: 600px !important;
+    max-height: 650px !important;
 }
 
 .dialog-backdrop {
@@ -105,13 +143,19 @@ div[dialog-main-container] {
     flex-direction: column;
     gap: 8px;
 
-    h1, h2, h3, h4, h5, h6 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
         margin: 0;
         text-transform: uppercase;
     }
-    
+
+
     div[dialog-actions-container] {
-        margin-top: 16px;
+        margin: 16px 0;
         display: flex;
         justify-content: flex-end;
         gap: 8px;
@@ -159,6 +203,16 @@ form {
                 color: var(--fg-color);
                 opacity: 0.7;
             }
+        }
+
+        input:-webkit-autofill,
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:hover {
+            background-color: var(--bg-main-color) !important;
+            color: var(--fg-color) !important;
+            box-shadow: 0 0 8px var(--fg-color) !important;
+            -webkit-text-fill-color: var(--fg-color) !important;
+            transition: background-color 5000s ease-in-out 0s;
         }
     }
 }

@@ -19,13 +19,6 @@
     white-space: pre;
 }
 
-.subtitle-line {
-    font-size: 1.5rem;
-    margin-top: 16px;
-    align-self: flex-start;
-    text-shadow: 0 0 4px var(--fg-color);
-}
-
 .home-page-actions-container {
     position: fixed;
     bottom: 24px;
@@ -34,7 +27,7 @@
     opacity: 0;
 
     animation: fadeInUp 0.5s forwards;
-    animation-delay: 2000ms;
+    animation-delay: 3000ms;
 }
 
 @keyframes fadeInUp {

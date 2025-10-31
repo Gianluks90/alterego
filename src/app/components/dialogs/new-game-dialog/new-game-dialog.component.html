@@ -1,0 +1,38 @@
+<div dialog-main-container>
+    <h1>Create new game</h1>
+
+    <pre class="container-log">
+[INITIATING GAME CREATION] ...................... [OK]
+[SECURE CHANNEL ESTABLISHED] .................... [OK]
+-------------------------------------------------------
+ AGENT, enter the following details:
+
+- NAME          : choose an identifier for the mission
+- PLAYERS LIMIT : set the maximum number of agents (2-6)
+- PASSWORD      : secure your session
+
+[NOTICE] All fields must be completed to proceed.
+[STATUS] Awaiting input...
+-------------------------------------------------------
+  </pre>
+
+  <form [formGroup]="form">
+    <div form-field>
+        <label for="name">Game name</label>
+        <input id="name" type="text" formControlName="name" aria-autocomplete="none" autocomplete="new-password" autocorrect="off" placeholder="Text here" />
+    </div>
+    <div form-field>
+        <label for="playersLimit">Players limit</label>
+        <input id="playersLimit" type="number" inputmode="numeric" min="2" max="6" formControlName="playersLimit" placeholder="2"  />
+    </div>
+    <div form-field>
+        <label for="password">Password</label>
+        <input id="password" type="password" formControlName="password" autocorrect="off" placeholder="Password here" />
+    </div>
+  </form>
+
+    <div dialog-actions-container>
+        <button standard-button type="button" [disabled]="form.invalid" (click)="confirm()">Create</button>
+        <button standard-button type="button" (click)="cancel()">ESC</button>
+    </div>
+</div>

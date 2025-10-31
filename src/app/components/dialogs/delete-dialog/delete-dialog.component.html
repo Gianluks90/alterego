@@ -1,0 +1,21 @@
+<div dialog-main-container>
+    <h1>CONFIRM DELETE</h1>
+
+    <pre class="container-log">
+[WARNING] Critical deletion protocol initiated.
+-------------------------------------------------------
+  The selected entity will be permanently removed 
+  from system memory.
+
+  This process cannot be reversed once confirmed.
+  Proceed only if the operation has been authorized.
+
+[NOTICE] All dependent data will be lost.
+[STATUS] Awaiting final confirmation...
+-------------------------------------------------------
+    </pre>
+    <div dialog-actions-container>
+        <button standard-button type="button" (click)="confirm()">confirm</button>
+        <button standard-button type="button" (click)="cancel()">cancel</button>
+    </div>
+</div>
