@@ -5,7 +5,7 @@ import { FirebaseService } from '../../services/firebase.service';
 import { TermLine } from '../../../models/termLine';
 import { Router, RouterLink } from '@angular/router';
 import { getAuth } from 'firebase/auth';
-import { appTitleLines } from '../../../environment/titleLines';
+import { APP_TITLE_LINES } from '../../../environment/titleLines';
 import { Dialog, DialogModule, DialogRef } from '@angular/cdk/dialog';
 import { HelpDialogComponent } from '../../components/dialogs/help-dialog/help-dialog.component';
 import { dialogsConfig, fullSizeDialog, smallSizeDialog } from '../../../environment/dialogsConfig';
@@ -22,7 +22,7 @@ import { DialogResult } from '../../../models/dialogResult';
 export class HomePageComponent {
 
   public user: AppUser | null = null;
-  public appTitleLines: TermLine[] = appTitleLines;
+  public appTitleLines: TermLine[] = APP_TITLE_LINES;
   private dialog = inject(Dialog);
   private dialogRef: DialogRef<DialogResult, any> | null = null;
 

@@ -1,5 +1,5 @@
 import { Component, effect, HostListener, inject } from '@angular/core';
-import { appTitleLines } from '../../../environment/titleLines';
+import { APP_TITLE_LINES } from '../../../environment/titleLines';
 import { Router, RouterLink } from '@angular/router';
 import { MissionService } from '../../services/mission.service';
 import { Mission } from '../../../models/mission';
@@ -22,7 +22,7 @@ import { DeleteDialogComponent } from '../../components/dialogs/delete-dialog/de
   styleUrl: './missions-list-page.component.scss'
 })
 export class MissionsListPageComponent {
-  public titleLines = appTitleLines;
+  public titleLines = APP_TITLE_LINES;
   public user: AppUser | null = null;
   public missions: Mission[] | null = null;
   private dialog = inject(Dialog);
@@ -89,7 +89,7 @@ export class MissionsListPageComponent {
 
     this.dialogRef.closed.subscribe((result) => {
       if (result?.status === 'confirmed') {
-        this.missionService.joinMission(result.data, this.firebaseService.$user()!.uid).then(() => {
+        this.missionService.joinMission(result.data.id, this.firebaseService.$user()!.uid).then(() => {
           this.notificationService.notify('Joined mission successfully!', 'check');
         }).catch((error) => {
           this.notificationService.notify('Error joining mission.', 'dangerous');

@@ -1,7 +1,7 @@
 import { Injectable, signal, WritableSignal } from '@angular/core';
 import { FirebaseService } from './firebase.service';
 import { Mission, MissionChatMessage } from '../../models/mission';
-import { arrayRemove, arrayUnion, collection, deleteDoc, doc, onSnapshot, query, setDoc, Timestamp, where } from 'firebase/firestore';
+import { arrayRemove, arrayUnion, collection, deleteDoc, doc, getDoc, onSnapshot, query, setDoc, Timestamp, where } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -79,6 +79,8 @@ export class MissionService {
     await deleteDoc(docRef)
   }
 
+  // LOBBY CHAT LOG
+
   public async newChatLog(logData: MissionChatMessage, missionId: string): Promise<void> {
     const docRef = doc(this.firebaseService.database, 'missions', missionId);
     return await setDoc(docRef, {
@@ -90,6 +92,28 @@ export class MissionService {
     const docRef = doc(this.firebaseService.database, 'missions', missionId);
     return await setDoc(docRef, {
       chatLog: []
+    }, { merge: true });
+  }
+
+  // AGENT SETUP
+
+  public async selectCompany(missionId: string, playerId: string, company: string): Promise<void> {
+    const docRef = doc(this.firebaseService.database, 'missions', missionId);
+    const missionSnap = await getDoc(docRef);
+    if (!missionSnap.exists()) return;
+
+    const missionData = missionSnap.data() as Mission;
+    const updatedPlayersData = missionData.playersData.map(playerData => {
+      if (playerData.uid === playerId) {
+        return {
+          ...playerData,
+          company: company
+        };
+      }
+      return playerData;
+    });
+    return await setDoc(docRef, {
+      playersData: updatedPlayersData
     }, { merge: true });
   }
 }

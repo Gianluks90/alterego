@@ -1,12 +1,12 @@
 import { Component, effect, HostListener, inject } from '@angular/core';
-import { appTitleLines } from '../../../environment/titleLines';
+import { APP_TITLE_LINES } from '../../../environment/titleLines';
 import { RouterLink } from '@angular/router';
 import { Mission } from '../../../models/mission';
 import { MissionService } from '../../services/mission.service';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Timestamp } from 'firebase/firestore';
 import { FirebaseService } from '../../services/firebase.service';
-import { DatePipe } from '@angular/common';
+import { DatePipe, UpperCasePipe } from '@angular/common';
 import { Player } from '../../../models/player';
 import { Dialog, DialogRef } from '@angular/cdk/dialog';
 import { DialogResult } from '../../../models/dialogResult';
@@ -17,17 +17,43 @@ import { ChatHelpDialogComponent } from '../../components/dialogs/chat-help-dial
 
 @Component({
   selector: 'app-mission-lobby-page',
-  imports: [RouterLink, FormsModule, ReactiveFormsModule, DatePipe],
+  imports: [RouterLink, FormsModule, ReactiveFormsModule, DatePipe, UpperCasePipe],
   templateUrl: './mission-lobby-page.component.html',
   styleUrl: './mission-lobby-page.component.scss'
 })
 export class MissionLobbyPageComponent {
-  public titleLines = appTitleLines;
-  public missionId: string | null = null;
-  public mission: Mission | null = null;
-  public player: Player | null = null;
+  public titleLines = APP_TITLE_LINES;
   private dialog = inject(Dialog);
   private dialogRef: DialogRef<DialogResult, any> | null = null;
+
+  public missionId: string | null = null;
+  public mission: Mission | null = null;
+
+  public player: Player | null = null;
+  public companies: string[] = ['floratek', 'looptrace-industries', 'neurocord-systems', 'onyx-defence-corp', 'solvance'];
+  public archetypes: string[] = ['Scientist', 'Soldier', 'Technician', 'Explorer', 'Captain', 'Pilot', 'Medic'];
+  public roles: string[] = [];
+
+  // TODO Temporaneo
+  public randomArchetypes: string[] = (() => {
+    const allRoles = import('../../../environment/roles').then(module => {
+      const rolesArray = module.ROLES;
+    });
+    if (this.archetypes.length < 2) return [...this.archetypes];
+    const firstIndex = Math.floor(Math.random() * this.archetypes.length);
+    let secondIndex: number;
+    do {
+      secondIndex = Math.floor(Math.random() * this.archetypes.length);
+    } while (secondIndex === firstIndex);
+    return [this.archetypes[firstIndex], this.archetypes[secondIndex]];
+  })();
+
+  public form: FormGroup = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    surname: new FormControl('', [Validators.required]),
+    archetype: new FormControl('', [Validators.required]),
+    role: new FormControl('', [Validators.required])
+  });
 
   public windowSize: number = window.innerWidth;
   @HostListener('window:resize', ['$event'])
@@ -62,9 +88,6 @@ export class MissionLobbyPageComponent {
 
     effect(() => {
       this.mission = this.missionService.$selectedMission();
-    });
-
-    effect(() => {
       if (this.firebaseService.$user()) {
         this.mission?.playersData.find(playerData => {
           if (playerData.uid === this.firebaseService.$user()!.uid) {
@@ -76,36 +99,50 @@ export class MissionLobbyPageComponent {
         });
       }
     });
+
+    this.form.get('archetype')?.valueChanges.subscribe(value => {
+      const ROLES = import('../../../environment/roles').then(module => {
+        const rolesArray = module.ROLES;
+        this.roles = rolesArray
+          .filter(role => role.archetype === value)
+          .flatMap(role => role.list);
+      });
+    });
   }
 
   // AGENT SETUP
 
+  public selectCompany(company: string): void {
+    if (!this.player || !this.missionId) return;
+    this.missionService.selectCompany(this.missionId, this.player.uid, company).then(() => {
+      this.notificationService.notify(`You have selected ${company} as your company.`, 'check');
+    });
+  }
+
+  public randomize(what: 'name' | 'surname'): void {
+    if (!this.player || !this.missionId) return;
+
+    const agentNames = import('../../../environment/agentsNamesSurnames').then(module => {
+      const namesArray = module.AGENT_NAME;
+      const surnamesArray = module.AGENT_SURNAME;
+
+      switch (what) {
+        case 'name':
+          this.form.get('name')?.setValue(namesArray[Math.floor(Math.random() * namesArray.length)]);
+          break;
+
+        case 'surname':
+          this.form.get('surname')?.setValue(surnamesArray[Math.floor(Math.random() * surnamesArray.length)]);
+          break;
+      }
+    });
+  }
+
+  public selectArchetype(archetype: string): void {
+    this.form.get('archetype')?.setValue(archetype);
+  }
+
   // CHAT LOG
-
-  // public sendMessage(): void {
-  //   if (!this.player) return;
-
-  //   const commands: string[] = ['/shout'];
-  //   if (commands.includes(this.chatForm.value.message.trim().toLowerCase())) {
-  //     this.chatForm.patchValue({
-  //       class: 'shout-message'
-  //     });
-  //   }
-
-  //   this.chatForm.patchValue({
-  //     timestamp: Timestamp.now(),
-  //     senderPlayer: 'Agent_' + (this.player?.order + 1),
-  //     message: this.chatForm.get('class')?.value !== '' ? this.chatForm.get('message')?.value.split(' ')[1] : this.chatForm.value.message
-  //   });
-
-  //   this.missionService.newChatLog(this.chatForm.value, this.missionId!).then(() => {
-  //     this.chatForm.reset();
-  //     this.chatForm.patchValue({
-  //       senderPlayer: 'Agent_' + this.player?.order + 1,
-  //       timestamp: Timestamp.now()
-  //     });
-  //   });
-  // }
 
   public sendMessage(): void {
     if (!this.player || this.chatForm.invalid) return;

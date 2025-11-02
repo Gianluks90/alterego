@@ -142,6 +142,22 @@ input[standard-input] {
     }
 }
 
+select[standard-select] {
+    appearance: none;
+    border: 1px solid var(--fg-color);
+    background-color: var(--bg-main-color);
+    padding: 8px 12px;
+    font-size: 1.2rem;
+    color: var(--fg-color);
+    width: 100%;
+
+    &:focus {
+        outline: none;
+        border-color: var(--fg-color);
+        box-shadow: 0 0 8px var(--fg-color);
+    }
+}
+
 // Dialogs
 
 .dialog-container {
