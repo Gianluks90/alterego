@@ -63,7 +63,14 @@ export class MissionService {
   public async joinMission(missionId: string, userId: string): Promise<void> {
     const docRef = doc(this.firebaseService.database, 'missions', missionId);
     return await setDoc(docRef, {
-      players: arrayUnion(userId)
+      players: arrayUnion(userId),
+      playersData: arrayUnion({
+        uid: userId,
+        name: '',
+        surname: '',
+        role: '',
+        company: ''
+      })
     }, { merge: true });
   }
 
