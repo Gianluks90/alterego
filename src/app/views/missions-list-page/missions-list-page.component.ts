@@ -7,7 +7,7 @@ import { FirebaseService } from '../../services/firebase.service';
 import { TermLine } from '../../../models/termLine';
 import { NewGameDialogComponent } from '../../components/dialogs/new-game-dialog/new-game-dialog.component';
 import { Dialog, DialogRef } from '@angular/cdk/dialog';
-import { dialogsConfig, fullSizeDialog, smallSizeDialog } from '../../../environment/dialogsConfig';
+import { DIALOGS_CONFIG, FULL_SIZE_DIALOG, SMALL_SIZE_DIALOG } from '../../../environment/dialogsConfig';
 import { UpperCasePipe } from '@angular/common';
 import { JoinGameDialogComponent } from '../../components/dialogs/join-game-dialog/join-game-dialog.component';
 import { NotificationService } from '../../services/notification.service';
@@ -61,13 +61,13 @@ export class MissionsListPageComponent {
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.windowSize = event.target.innerWidth;
-    this.dialogRef?.updateSize(this.windowSize <= 768 ? fullSizeDialog : smallSizeDialog);
+    this.dialogRef?.updateSize(this.windowSize <= 768 ? FULL_SIZE_DIALOG : SMALL_SIZE_DIALOG);
   }
 
   public openNewGameDialog(): void {
     this.dialogRef = this.dialog.open(NewGameDialogComponent, {
-      width: this.windowSize <= 768 ? fullSizeDialog : smallSizeDialog,
-      ...dialogsConfig,
+      width: this.windowSize <= 768 ? FULL_SIZE_DIALOG : SMALL_SIZE_DIALOG,
+      ...DIALOGS_CONFIG,
     });
 
     this.dialogRef.closed.subscribe((result) => {
@@ -83,8 +83,8 @@ export class MissionsListPageComponent {
 
   public openJoinGameDialog(): void {
     this.dialogRef = this.dialog.open(JoinGameDialogComponent, {
-      width: this.windowSize <= 768 ? fullSizeDialog : smallSizeDialog,
-      ...dialogsConfig,
+      width: this.windowSize <= 768 ? FULL_SIZE_DIALOG : SMALL_SIZE_DIALOG,
+      ...DIALOGS_CONFIG,
     });
 
     this.dialogRef.closed.subscribe((result) => {
@@ -100,8 +100,8 @@ export class MissionsListPageComponent {
 
   public openDeleteGameDialog(gameId: string): void {
     this.dialogRef = this.dialog.open(DeleteDialogComponent, {
-      width: this.windowSize <= 768 ? fullSizeDialog : smallSizeDialog,
-      ...dialogsConfig,
+      width: this.windowSize <= 768 ? FULL_SIZE_DIALOG : SMALL_SIZE_DIALOG,
+      ...DIALOGS_CONFIG,
       disableClose: true,
     });
 

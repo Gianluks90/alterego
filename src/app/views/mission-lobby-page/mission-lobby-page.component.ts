@@ -10,14 +10,17 @@ import { DatePipe, UpperCasePipe } from '@angular/common';
 import { Player } from '../../../models/player';
 import { Dialog, DialogRef } from '@angular/cdk/dialog';
 import { DialogResult } from '../../../models/dialogResult';
-import { dialogsConfig, fullSizeDialog, smallSizeDialog } from '../../../environment/dialogsConfig';
+import { DIALOGS_CONFIG, FULL_SIZE_DIALOG, SMALL_SIZE_DIALOG } from '../../../environment/dialogsConfig';
 import { DeleteDialogComponent } from '../../components/dialogs/delete-dialog/delete-dialog.component';
 import { NotificationService } from '../../services/notification.service';
 import { ChatHelpDialogComponent } from '../../components/dialogs/chat-help-dialog/chat-help-dialog.component';
+import { ARCHETYPES_DICT_ICONS } from '../../../environment/roles';
+import { ReplaceDashPipe } from '../../pipes/replace-dash.pipe';
+import { AgentLabelPipe } from '../../pipes/agent-label.pipe';
 
 @Component({
   selector: 'app-mission-lobby-page',
-  imports: [RouterLink, FormsModule, ReactiveFormsModule, DatePipe, UpperCasePipe],
+  imports: [RouterLink, FormsModule, ReactiveFormsModule, DatePipe, UpperCasePipe, ReplaceDashPipe, AgentLabelPipe],
   templateUrl: './mission-lobby-page.component.html',
   styleUrl: './mission-lobby-page.component.scss'
 })
@@ -32,6 +35,7 @@ export class MissionLobbyPageComponent {
   public player: Player | null = null;
   public companies: string[] = ['floratek', 'looptrace-industries', 'neurocord-systems', 'onyx-defence-corp', 'solvance'];
   public archetypes: string[] = ['Scientist', 'Soldier', 'Technician', 'Explorer', 'Captain', 'Pilot', 'Medic'];
+  public archetypesIcons: { [key: string]: string } = ARCHETYPES_DICT_ICONS;
   public roles: string[] = [];
 
   // TODO Temporaneo
@@ -59,7 +63,7 @@ export class MissionLobbyPageComponent {
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.windowSize = event.target.innerWidth;
-    this.dialogRef?.updateSize(this.windowSize <= 768 ? fullSizeDialog : smallSizeDialog);
+    this.dialogRef?.updateSize(this.windowSize <= 768 ? FULL_SIZE_DIALOG : SMALL_SIZE_DIALOG);
   }
 
   public chatForm: FormGroup = new FormGroup({
@@ -89,11 +93,12 @@ export class MissionLobbyPageComponent {
     effect(() => {
       this.mission = this.missionService.$selectedMission();
       if (this.firebaseService.$user()) {
-        this.mission?.playersData.find(playerData => {
-          if (playerData.uid === this.firebaseService.$user()!.uid) {
-            this.player = {
-              ...playerData,
-              order: this.mission?.players.indexOf(playerData.uid) ?? -1
+        this.mission?.players.find(p => {
+          if (p === this.firebaseService.$user()!.uid) {
+            this.missionService.getPlayerData(this.missionId!, p);
+            if (this.mission) {
+              this.player = this.missionService.$selectedPlayerData();
+              this.initOrder();
             }
           }
         });
@@ -112,10 +117,46 @@ export class MissionLobbyPageComponent {
 
   // AGENT SETUP
 
+  private initOrder(): void {
+    if (!this.mission || !this.mission.playersData) return;
+
+    const currentPlayer = this.mission.playersData.find(p => p.uid === this.player?.uid);
+    if (!currentPlayer) return;
+
+    // già ha un ordine valido → non fare niente
+    if (typeof currentPlayer.order === 'number'
+      && currentPlayer.order >= 1
+      && currentPlayer.order <= this.mission.playersLimit) return;
+
+    // calcola gli ordini già assegnati
+    const assigned = new Set<number>(
+      this.mission.playersData
+        .map(p => p.order)
+        .filter(o => typeof o === 'number')
+    );
+
+    // trova i liberi
+    const available: number[] = [];
+    for (let i = 1; i <= this.mission.playersLimit; i++) {
+      if (!assigned.has(i)) available.push(i);
+    }
+
+    if (!available.length) return; // non dovrebbe succedere
+
+    // prendi uno a caso
+    const order = available[Math.floor(Math.random() * available.length)];
+
+    // salva localmente (se ti serve)
+    currentPlayer.order = order;
+
+    // aggiorna backend
+    this.missionService.assignPlayerOrder(this.missionId!, currentPlayer.uid, order);
+  }
+
   public selectCompany(company: string): void {
     if (!this.player || !this.missionId) return;
     this.missionService.selectCompany(this.missionId, this.player.uid, company).then(() => {
-      this.notificationService.notify(`You have selected ${company} as your company.`, 'check');
+      this.notificationService.notify(`You have selected ${company.replace('-', ' ').toUpperCase()} as your company.`, 'check');
     });
   }
 
@@ -184,15 +225,15 @@ export class MissionLobbyPageComponent {
 
   public openChatHelpDialog(): void {
     this.dialogRef = this.dialog.open(ChatHelpDialogComponent, {
-      width: this.windowSize <= 768 ? fullSizeDialog : smallSizeDialog,
-      ...dialogsConfig
+      width: this.windowSize <= 768 ? FULL_SIZE_DIALOG : SMALL_SIZE_DIALOG,
+      ...DIALOGS_CONFIG
     });
   }
 
   public openDeleteLogsDialog(): void {
     this.dialogRef = this.dialog.open(DeleteDialogComponent, {
-      width: this.windowSize <= 768 ? fullSizeDialog : smallSizeDialog,
-      ...dialogsConfig,
+      width: this.windowSize <= 768 ? FULL_SIZE_DIALOG : SMALL_SIZE_DIALOG,
+      ...DIALOGS_CONFIG,
       disableClose: true,
     });
 

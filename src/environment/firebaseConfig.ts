@@ -1,4 +1,4 @@
-export const firabseConfig = {
+export const FIREBASE_CONFIG = {
     apiKey: "AIzaSyAi-2vn4AIjtv8YFL8dVp2l7-MSDOxLEHM",
     authDomain: "alterego-2025.firebaseapp.com",
     projectId: "alterego-2025",

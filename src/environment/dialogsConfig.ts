@@ -1,4 +1,4 @@
-export const dialogsConfig = {
+export const DIALOGS_CONFIG = {
     panelClass: 'dialog-container',
     backdropClass: 'dialog-backdrop',
     autofocus: false,
@@ -6,6 +6,6 @@ export const dialogsConfig = {
     overflow: 'auto'
 }
 
-export const fullSizeDialog = "90%";
-export const largeSizeDialog = "70%";
-export const smallSizeDialog = "50%";
+export const FULL_SIZE_DIALOG = "90%";
+export const LARGE_SIZE_DIALOG = "70%";
+export const SMALL_SIZE_DIALOG = "50%";

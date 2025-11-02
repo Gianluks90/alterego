@@ -1,6 +1,6 @@
 import { DialogRef } from '@angular/cdk/dialog';
 import { Component, inject } from '@angular/core';
-import { appVersion } from '../../../../environment/appVersion';
+import { APP_VERSION } from '../../../../environment/appVersion';
 import { HelpDialogComponent } from '../help-dialog/help-dialog.component';
 
 @Component({
@@ -11,5 +11,5 @@ import { HelpDialogComponent } from '../help-dialog/help-dialog.component';
 })
 export class AboutDialogComponent {
   public dialogRef = inject<DialogRef<HelpDialogComponent>>(DialogRef);
-  public appVersion: string = appVersion;
+  public appVersion: string = APP_VERSION;
 }

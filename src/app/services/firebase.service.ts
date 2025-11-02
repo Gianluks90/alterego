@@ -2,7 +2,7 @@ import { effect, Injectable, signal, WritableSignal } from '@angular/core';
 import { addDoc, collection, doc, DocumentData, Firestore, getFirestore, onSnapshot, setDoc, Timestamp } from 'firebase/firestore';
 import { initializeApp } from "firebase/app";
 import { getAuth } from 'firebase/auth';
-import { firabseConfig } from '../../environment/firebaseConfig';
+import { FIREBASE_CONFIG } from '../../environment/firebaseConfig';
 import { AppUser } from '../../models/appUser';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class FirebaseService {
   public user: AppUser | null = null;
 
   constructor() {
-    const app = initializeApp(firabseConfig);
+    const app = initializeApp(FIREBASE_CONFIG);
     this.database = getFirestore(app);
 
     getAuth().onAuthStateChanged(async user => {

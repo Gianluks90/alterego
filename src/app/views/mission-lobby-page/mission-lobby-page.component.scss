@@ -263,10 +263,18 @@
                     align-items: center;
                     justify-content: center;
                     background-color: var(--fg-color);
+                    color: var(--bg-main-color);
     
                     &>.company-logo {
                         width: 80px;
                         height: 80px;
+                    }
+
+                    &>.company-logo.material-symbols-outlined {
+                        width: auto;
+                        height: auto;
+                        font-size: 2rem;
+                        align-self: center;
                     }
                 }
 
