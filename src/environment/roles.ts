@@ -77,6 +77,6 @@ export const ARCHETYPES_DICT_ICONS: { [key: string]: string } = {
     'Technician': 'build',
     'Explorer': 'explore',
     'Captain': 'social_leaderboard',
-    'Pilot': 'piloting',
+    'Pilot': 'send',
     'Medic': 'health_cross'
 };
