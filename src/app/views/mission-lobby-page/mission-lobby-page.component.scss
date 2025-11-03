@@ -152,6 +152,10 @@
     flex-direction: column;
     gap: 8px;
 
+    p {
+        padding: 24px;
+    }
+
     .agent-setup-content-container {
         height: 100%;
         display: flex;

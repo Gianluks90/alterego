@@ -1,0 +1,93 @@
+[
+    {
+        "id": 1,
+        "name": "scientist",
+        "description": "",
+        "roles": [
+            "Researcher",
+            "Biochemist",
+            "Physicist",
+            "Astrobiologist",
+            "Geneticist"
+        ],
+        "actions": []
+    },
+    {
+        "id": 2,
+        "name": "soldier",
+        "description": "",
+        "roles": [
+            "Infantryman",
+            "Sniper",
+            "Heavy Gunner",
+            "Grenadier",
+            "Squad Leader"
+        ],
+        "actions": []
+    },
+    {
+        "id": 3,
+        "name": "technician",
+        "description": "",
+        "roles": [
+            "Engineer",
+            "Hacker",
+            "Mechanic",
+            "Robotics Specialist",
+            "Systems Analyst"
+        ],
+        "actions": []
+    },
+    {
+        "id": 4,
+        "name": "explorer",
+        "description": "",
+        "roles": [
+            "Scout",
+            "Pathfinder",
+            "Cartographer",
+            "Survivalist",
+            "Xenolinguist"
+        ],
+        "actions": []
+    },
+    {
+        "id": 5,
+        "name": "captain",
+        "description": "",
+        "roles": [
+            "Commander",
+            "Strategist",
+            "Diplomat",
+            "Tactician",
+            "Fleet Leader"
+        ],
+        "actions": []
+    },
+    {
+        "id": 6,
+        "name": "pilot",
+        "description": "",
+        "roles": [
+            "Fighter Pilot",
+            "Transport Pilot",
+            "Test Pilot",
+            "Shuttle Pilot",
+            "Navigator"
+        ],
+        "actions": []
+    },
+    {
+        "id": 7,
+        "name": "medic",
+        "description": "",
+        "roles": [
+            "Field Medic",
+            "Surgeon",
+            "Paramedic",
+            "Medical Officer",
+            "Psychiatrist"
+        ],
+        "actions": []
+    }
+]

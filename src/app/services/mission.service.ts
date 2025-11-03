@@ -69,6 +69,9 @@ export class MissionService {
         createdAt: Timestamp.now(),
         players: [userId],
         chatLog: [],
+        archetypeIds: [
+          1,2,3,4,5,6,7
+        ],
         status: 'waiting'
       }),
 
@@ -77,7 +80,8 @@ export class MissionService {
         name: '',
         surname: '',
         role: '',
-        company: ''
+        company: '',
+        status: 'pending'
       })
     ]).catch((error) => {
       console.error('Error creating new mission: ', error);
@@ -98,7 +102,8 @@ export class MissionService {
         name: '',
         surname: '',
         role: '',
-        company: ''
+        company: '',
+        status: 'pending'
       })
     ]).catch((error) => {
       console.error('Error joining mission: ', error);
@@ -160,7 +165,8 @@ export class MissionService {
       surname: data.surname,
       role: data.role,
       archetype: data.archetype,
-      company: data.company
+      company: data.company,
+      status: 'ready'
     }, { merge: true });
   }
 }

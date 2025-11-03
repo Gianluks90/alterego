@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "name": "floratek",
+        "label": "FloraTek",
+        "description": ""
+    },
+    {
+        "id": 2,
+        "name": "looptrace-industries",
+        "label": "Looptrace Industries",
+        "description": ""
+    },
+    {
+        "id": 3,
+        "name": "neurocord-systems",
+        "label": "Neurocord Systems",
+        "description": ""
+    },
+    {
+        "id": 4,
+        "name": "onyx-defence-corp",
+        "label": "Onyx Defence Corp",
+        "description": ""
+    },
+    {
+        "id": 5,
+        "name": "solvance",
+        "label": "Solvance",
+        "description": ""
+    }
+]

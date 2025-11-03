@@ -7,7 +7,7 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
 import { Timestamp } from 'firebase/firestore';
 import { FirebaseService } from '../../services/firebase.service';
 import { DatePipe, UpperCasePipe } from '@angular/common';
-import { Player } from '../../../models/player';
+import { Archetype, Player } from '../../../models/player';
 import { Dialog, DialogRef } from '@angular/cdk/dialog';
 import { DialogResult } from '../../../models/dialogResult';
 import { DIALOGS_CONFIG, FULL_SIZE_DIALOG, SMALL_SIZE_DIALOG } from '../../../environment/dialogsConfig';
@@ -19,10 +19,24 @@ import { ReplaceDashPipe } from '../../pipes/replace-dash.pipe';
 import { AgentLabelPipe } from '../../pipes/agent-label.pipe';
 import { AgentTagComponent } from '../../components/agent-tag/agent-tag.component';
 import { ConfirmDialogComponent } from '../../components/dialogs/confirm-dialog/confirm-dialog.component';
+import { AssignedOrderDialogComponent } from '../../components/dialogs/assigned-order-dialog/assigned-order-dialog.component';
+import { CdkMenuTrigger, CdkMenu, CdkMenuItem } from '@angular/cdk/menu';
 
 @Component({
   selector: 'app-mission-lobby-page',
-  imports: [RouterLink, FormsModule, ReactiveFormsModule, AgentTagComponent, DatePipe, UpperCasePipe, ReplaceDashPipe, AgentLabelPipe],
+  imports: [    
+    RouterLink,
+    FormsModule,
+    ReactiveFormsModule,
+    AgentTagComponent,
+    DatePipe,
+    UpperCasePipe,
+    ReplaceDashPipe,
+    AgentLabelPipe,
+    CdkMenuTrigger,
+    CdkMenu,
+    CdkMenuItem
+  ],
   templateUrl: './mission-lobby-page.component.html',
   styleUrl: './mission-lobby-page.component.scss'
 })
@@ -35,24 +49,12 @@ export class MissionLobbyPageComponent {
   public mission: Mission | null = null;
 
   public player: Player | null = null;
-  public companies: string[] = ['floratek', 'looptrace-industries', 'neurocord-systems', 'onyx-defence-corp', 'solvance'];
-  public archetypes: string[] = ['Scientist', 'Soldier', 'Technician', 'Explorer', 'Captain', 'Pilot', 'Medic'];
+  public companies: string[] = [];
   public archetypesIcons: { [key: string]: string } = ARCHETYPES_DICT_ICONS;
   public roles: string[] = [];
 
-  // TODO Temporaneo
-  public randomArchetypes: string[] = (() => {
-    const allRoles = import('../../../environment/roles').then(module => {
-      const rolesArray = module.ROLES;
-    });
-    if (this.archetypes.length < 2) return [...this.archetypes];
-    const firstIndex = Math.floor(Math.random() * this.archetypes.length);
-    let secondIndex: number;
-    do {
-      secondIndex = Math.floor(Math.random() * this.archetypes.length);
-    } while (secondIndex === firstIndex);
-    return [this.archetypes[firstIndex], this.archetypes[secondIndex]];
-  })();
+  private readonly LS_KEY = (uid: string) => `archetypes_${uid}`;
+  public randomArchetypes: Archetype[] = [];
 
   public form: FormGroup = new FormGroup({
     company: new FormControl('', [Validators.required]),
@@ -79,8 +81,8 @@ export class MissionLobbyPageComponent {
   constructor(
     private firebaseService: FirebaseService,
     private missionService: MissionService,
-    private fb: FormBuilder,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private fb: FormBuilder
   ) {
     const navigation = history.state;
     if (navigation && navigation.missionId) {
@@ -90,6 +92,12 @@ export class MissionLobbyPageComponent {
     effect(() => {
       if (this.missionId) {
         this.missionService.getMissionById(this.missionId);
+
+        fetch('../../../configs/companiesConfig.json')
+          .then(response => response.json())
+          .then((companies: { name: string, label: string, description: string }[]) => {
+            this.companies = companies.map(company => company.name);
+          });
       }
     });
 
@@ -101,7 +109,10 @@ export class MissionLobbyPageComponent {
             this.missionService.getPlayerData(this.missionId!, p);
             if (this.mission) {
               this.player = this.missionService.$selectedPlayerData();
-              this.initOrder();
+              if (this.player) {
+                this.initOrder();
+                this.initArchetypesSelection();
+              }
             }
           }
         });
@@ -144,7 +155,51 @@ export class MissionLobbyPageComponent {
     if (!available.length) return;
     const order = available[Math.floor(Math.random() * available.length)];
     currentPlayer.order = order;
-    this.missionService.assignPlayerOrder(this.missionId!, currentPlayer.uid, order);
+    this.missionService.assignPlayerOrder(this.missionId!, currentPlayer.uid, order).then(() => {
+      const dialogRef = this.dialog.open(AssignedOrderDialogComponent, {
+        width: this.windowSize <= 768 ? FULL_SIZE_DIALOG : SMALL_SIZE_DIALOG,
+        ...DIALOGS_CONFIG,
+        data: { order: order }
+      });
+    })
+  }
+
+  private initArchetypesSelection(): void {
+    if (!this.mission || !this.player) return;
+
+    if (this.player?.archetype) {
+      this.randomArchetypes = [];
+      return;
+    }
+
+    const saved = localStorage.getItem(this.LS_KEY(this.player!.uid));
+    if (saved) {
+      this.randomArchetypes = JSON.parse(saved) as Archetype[];
+    } else {
+      this.drawRandomArchetypes();
+    }
+  }
+
+  private async drawRandomArchetypes(): Promise<void> {
+    if (!this.mission?.archetypeIds || this.mission.archetypeIds.length === 0) return;
+    const available = [...this.mission.archetypeIds];
+    const first = this.pickRandom(available);
+    let second = this.pickRandom(available);
+
+    while (second === first && available.length > 1) {
+      second = this.pickRandom(available);
+    }
+
+    await fetch('../../../configs/archetypesConfig.json')
+      .then(response => response.json())
+      .then((archetypes: Archetype[]) => {
+        this.randomArchetypes = archetypes.filter(a => a.id === first || a.id === second);
+        localStorage.setItem(this.LS_KEY(this.player!.uid), JSON.stringify(this.randomArchetypes));
+      })
+  }
+
+  private pickRandom(arr: number[]): number {
+    return arr[Math.floor(Math.random() * arr.length)];
   }
 
   public selectCompany(company: string): void {
@@ -170,8 +225,19 @@ export class MissionLobbyPageComponent {
     });
   }
 
-  public selectArchetype(archetype: string): void {
-    this.form.get('archetype')?.setValue(archetype);
+  public selectArchetype(archetype: Archetype): void {
+    this.form.get('archetype')?.setValue(archetype.id);
+    fetch('../../../configs/archetypesConfig.json')
+      .then(response => response.json())
+      .then((archetypes: Archetype[]) => {
+        this.roles = archetypes
+          .find(a => a.id === archetype.id)!
+          .roles;
+      })
+  }
+
+  public selectRole(role: string): void {
+    this.form.get('role')?.setValue(role);
   }
 
   public openSaveConfirmDialog(): void {
@@ -183,7 +249,16 @@ export class MissionLobbyPageComponent {
 
     this.dialogRef.closed.subscribe((result) => {
       if (result?.status === 'confirmed' && this.player && this.missionId) {
-        this.missionService.completeAgentSetup(this.missionId, this.player.uid, this.form.value).then(() => {
+        const archetypeId = this.form.value.archetype;
+        const selectedArchetype = this.randomArchetypes.find(a => a.id === archetypeId);
+
+        const payload = {
+          ...this.form.value,
+          archetype: selectedArchetype ?? null
+        };
+
+        this.missionService.completeAgentSetup(this.missionId, this.player.uid, payload).then(() => {
+          localStorage.removeItem(this.LS_KEY(this.player!.uid));
           this.notificationService.notify('Agent setup saved successfully!', 'check');
         });
       } else {

@@ -8,6 +8,7 @@ export interface Mission {
   createdBy: string;
   createdAt: Timestamp;
   playersLimit: number;
+  archetypeIds: number[];
   players: string[];
   playersData: Player[];
   chatLog: MissionChatMessage[];

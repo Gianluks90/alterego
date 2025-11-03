@@ -56,32 +56,27 @@
                         <h3>Archetype</h3>
                         <div class="info-container">
                             @for(archetype of randomArchetypes; track $index) {
-                                <div class="archetype-container" (click)="selectArchetype(archetype)" [class.selected]="
-                                    (player.archetype || form.value.archetype) === archetype
-                                ">
-                            
-                                    <h1>{{archetype}}</h1>
-                                    <span class="material-symbols-outlined">{{archetypesIcons[archetype]}}</span>
+                                <div class="archetype-container" (click)="selectArchetype(archetype)"
+                                    [class.selected]="form.value.archetype === archetype.id">
+                                    <h1>{{archetype.name}}</h1>
+                                    <span class="material-symbols-outlined">{{archetypesIcons[archetype.name]}}</span>
                                 </div>
                             }
-                        </div>
+                            </div>
                     }
-                    <h3>Role</h3>
-                    <form [formGroup]="form">
-                        <select standard-select formControlName="role">
-                            <option value="">
-                                {{ player.role ? player.role : 'Select a role' }}
-                            </option>
-                    
-                            @for(role of roles; track $index) {
-                            <option [value]="role" [selected]="role === (player.role || form.value.role)">
-                                {{ role }}
-                            </option>
-                            }
-                        </select>
-                    
-                    </form>
-                </div>
+                        <h3>Role</h3>
+                        <button standard-button menu-button type="button" [cdkMenuTriggerFor]="menu">{{ form.value.role || 'Select a role'
+                            }}</button>
+                        <ng-template #menu>
+                            <div standard-menu cdkMenu>
+                                @for (role of roles; track $index) {
+                                <button standard-button cdkMenuItem (click)="selectRole(role)">
+                                    {{ role }}
+                                </button>
+                                }
+                            </div>
+                        </ng-template>
+                    </div>
 
                 <!-- AGENT SETUP PREVIEW -->
                 <app-agent-tag [$player]="form.value"></app-agent-tag>
@@ -130,7 +125,7 @@
         } @else {
             <button standard-button type="button" disabled>Joined {{mission?.players?.length}}/{{mission?.playersLimit}}</button>
         }
-        <button standard-button type="button" (click)="openSaveConfirmDialog()">Save</button>
+        <button standard-button type="button" [disabled]="form.invalid" (click)="openSaveConfirmDialog()">Save</button>
         <button standard-button type="button" disabled>Help</button>
         <button standard-button type="button" disabled>Leave</button>
         <button standard-button type="button" [routerLink]="['/missions']">Exit</button>

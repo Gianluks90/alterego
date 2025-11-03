@@ -72,11 +72,11 @@ export const ROLES = [
 ]
 
 export const ARCHETYPES_DICT_ICONS: { [key: string]: string } = {
-    'Scientist': 'science',
-    'Soldier': 'military_tech',
-    'Technician': 'build',
-    'Explorer': 'explore',
-    'Captain': 'social_leaderboard',
-    'Pilot': 'send',
-    'Medic': 'health_cross'
+    'scientist': 'science',
+    'soldier': 'military_tech',
+    'technician': 'build',
+    'explorer': 'explore',
+    'captain': 'social_leaderboard',
+    'pilot': 'send',
+    'medic': 'health_cross'
 };

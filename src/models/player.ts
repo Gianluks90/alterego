@@ -3,7 +3,16 @@ export interface Player {
     order: number;
     name: string;
     surname: string;
-    archetype: string;
+    archetype: Archetype;
     role: string;
     company: string;
+    status: 'pending' | 'setup' | 'ready';
+}
+
+export interface Archetype {
+    id: number;
+    name: string;
+    description: string;
+    roles: string[];
+    actions: string[];
 }
