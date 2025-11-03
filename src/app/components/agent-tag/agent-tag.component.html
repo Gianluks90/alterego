@@ -1,0 +1,29 @@
+<div class="setup-preview-container">
+    <h3>Agent tag preview</h3>
+    @if (player) {
+        <div class="setup-preview-content">
+        <div class="company-container">
+            @if (player.company !== '') {
+            <div class="company-logo" [style.background-color]="'var(--bg-main-color)'"
+                [style.-webkit-mask]="'url(./company-logos/' + player.company + '.svg) no-repeat center / contain'"
+                [style.mask]="'url(./company-logos/' + player.company + '.svg) no-repeat center / contain'">
+            </div>
+            } @else {
+            <span class="company-logo material-symbols-outlined">
+                warning
+            </span>
+            }
+        </div>
+        <div class="agent-info">
+            <div class="agent-info-container">
+                <div class="agent-name">{{player.name || '[ NAME ]' }} {{player.surname || '[ SURNAME ]'}}</div>
+                <div class="agent-role">{{player.role || '[ UNSELECTED ROLE ]'}}</div>
+            </div>
+            <div class="actions-indicator-container">
+                <div class="action-led"></div>
+                <div class="action-led"></div>
+            </div>
+        </div>
+    </div>
+    }
+</div>

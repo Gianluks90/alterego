@@ -146,10 +146,21 @@ export class MissionService {
     }, { merge: true });
   }
 
-  public async selectCompany(missionId: string, playerId: string, company: string): Promise<void> {
+  // public async selectCompany(missionId: string, playerId: string, company: string): Promise<void> {
+  //   const docRef = doc(this.firebaseService.database, 'missions', missionId, 'playersData', playerId);
+  //   return await setDoc(docRef, {
+  //     company: company
+  //   }, { merge: true });
+  // }
+
+  public async completeAgentSetup(missionId: string, playerId: string, data: any): Promise<void> {
     const docRef = doc(this.firebaseService.database, 'missions', missionId, 'playersData', playerId);
     return await setDoc(docRef, {
-      company: company
+      name: data.name,
+      surname: data.surname,
+      role: data.role,
+      archetype: data.archetype,
+      company: data.company
     }, { merge: true });
   }
 }

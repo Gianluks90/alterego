@@ -53,14 +53,16 @@
     width: 100%;
     height: 80%;
     max-width: 1400px;
-    display: flex;
+    // display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 16px;
 
     section {
         flex-grow: 1;
         border: 1px solid var(--fg-color);
         overflow: auto;
-        width: 50%;
+        // width: 50%;
 
         display: flex;
         flex-direction: column;
@@ -79,6 +81,12 @@
                 gap: 8px;
             }
         }
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .game-lobby-page-content-container {
+        grid-template-columns: 1fr 33%;
     }
 }
 
@@ -145,8 +153,8 @@
     gap: 8px;
 
     .agent-setup-content-container {
-        display: flex;
         height: 100%;
+        display: flex;
         flex-direction: column;
         gap: 12px;
         justify-content: space-between;
@@ -180,7 +188,7 @@
                         cursor: pointer;
 
                         .company-card {
-                            filter: invert(1);
+                            background-color: var(--bg-main-color) !important; 
                         }
                     }
 
@@ -195,7 +203,7 @@
                     box-shadow: 0 0 12px var(--fg-color);
 
                     .company-card {
-                        filter: invert(1);
+                        background-color: var(--bg-main-color) !important;
                     }
                 }
             }
@@ -238,82 +246,6 @@
                     letter-spacing: 2px;
                 }
             }
-        }
-
-        .setup-preview-container {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            padding-bottom: 16px;
-
-            h3 {
-                margin: 0 0 12px 0;
-            }
-
-            .setup-preview-content {
-                border: 1px solid var(--fg-color);
-                height: 100px;
-                display: grid;
-                grid-template-columns: 100px auto;
-
-                &>.company-container {
-                    width: 100px;
-                    height: 100%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    background-color: var(--fg-color);
-                    color: var(--bg-main-color);
-    
-                    &>.company-logo {
-                        width: 80px;
-                        height: 80px;
-                    }
-
-                    &>.company-logo.material-symbols-outlined {
-                        width: auto;
-                        height: auto;
-                        font-size: 2rem;
-                        align-self: center;
-                    }
-                }
-
-                &>.agent-info {
-                    padding: 8px;
-                    display: flex;
-                    gap: 16px;
-
-                    &>.agent-info-container {
-                        flex-grow: 1;
-                        display: flex;
-                        flex-direction: column;
-                        gap: 4px;
-                        align-items: end;
-                        justify-content: flex-end;
-
-                        &>.agent-name {
-                            font-size: 1.5rem;
-                            text-transform: uppercase;
-                        }
-                    }
-
-                    &>.actions-indicator-container {
-                        display: flex;
-                        flex-direction: column;
-                        gap: 8px;
-                        justify-content: center;
-                        
-                        &>div {
-                            height: 100%;
-                            width: 8px;
-                            border: 1px solid var(--fg-color);
-                            background-color: var(--fg-color);
-                            box-shadow: 0 0 8px var(--fg-color);
-                        }
-                    }
-                }
-            }
-
         }
     }
 }

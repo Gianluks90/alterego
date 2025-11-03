@@ -17,10 +17,12 @@ import { ChatHelpDialogComponent } from '../../components/dialogs/chat-help-dial
 import { ARCHETYPES_DICT_ICONS } from '../../../environment/roles';
 import { ReplaceDashPipe } from '../../pipes/replace-dash.pipe';
 import { AgentLabelPipe } from '../../pipes/agent-label.pipe';
+import { AgentTagComponent } from '../../components/agent-tag/agent-tag.component';
+import { ConfirmDialogComponent } from '../../components/dialogs/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-mission-lobby-page',
-  imports: [RouterLink, FormsModule, ReactiveFormsModule, DatePipe, UpperCasePipe, ReplaceDashPipe, AgentLabelPipe],
+  imports: [RouterLink, FormsModule, ReactiveFormsModule, AgentTagComponent, DatePipe, UpperCasePipe, ReplaceDashPipe, AgentLabelPipe],
   templateUrl: './mission-lobby-page.component.html',
   styleUrl: './mission-lobby-page.component.scss'
 })
@@ -53,6 +55,7 @@ export class MissionLobbyPageComponent {
   })();
 
   public form: FormGroup = new FormGroup({
+    company: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required]),
     surname: new FormControl('', [Validators.required]),
     archetype: new FormControl('', [Validators.required]),
@@ -123,41 +126,29 @@ export class MissionLobbyPageComponent {
     const currentPlayer = this.mission.playersData.find(p => p.uid === this.player?.uid);
     if (!currentPlayer) return;
 
-    // già ha un ordine valido → non fare niente
     if (typeof currentPlayer.order === 'number'
       && currentPlayer.order >= 1
       && currentPlayer.order <= this.mission.playersLimit) return;
 
-    // calcola gli ordini già assegnati
     const assigned = new Set<number>(
       this.mission.playersData
         .map(p => p.order)
         .filter(o => typeof o === 'number')
     );
 
-    // trova i liberi
     const available: number[] = [];
     for (let i = 1; i <= this.mission.playersLimit; i++) {
       if (!assigned.has(i)) available.push(i);
     }
 
-    if (!available.length) return; // non dovrebbe succedere
-
-    // prendi uno a caso
+    if (!available.length) return;
     const order = available[Math.floor(Math.random() * available.length)];
-
-    // salva localmente (se ti serve)
     currentPlayer.order = order;
-
-    // aggiorna backend
     this.missionService.assignPlayerOrder(this.missionId!, currentPlayer.uid, order);
   }
 
   public selectCompany(company: string): void {
-    if (!this.player || !this.missionId) return;
-    this.missionService.selectCompany(this.missionId, this.player.uid, company).then(() => {
-      this.notificationService.notify(`You have selected ${company.replace('-', ' ').toUpperCase()} as your company.`, 'check');
-    });
+    this.form.get('company')?.setValue(company);
   }
 
   public randomize(what: 'name' | 'surname'): void {
@@ -183,6 +174,24 @@ export class MissionLobbyPageComponent {
     this.form.get('archetype')?.setValue(archetype);
   }
 
+  public openSaveConfirmDialog(): void {
+    this.dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: this.windowSize <= 768 ? FULL_SIZE_DIALOG : SMALL_SIZE_DIALOG,
+      ...DIALOGS_CONFIG,
+      disableClose: true,
+    });
+
+    this.dialogRef.closed.subscribe((result) => {
+      if (result?.status === 'confirmed' && this.player && this.missionId) {
+        this.missionService.completeAgentSetup(this.missionId, this.player.uid, this.form.value).then(() => {
+          this.notificationService.notify('Agent setup saved successfully!', 'check');
+        });
+      } else {
+        this.notificationService.notify('Agent setup save cancelled.', 'info');
+      }
+    });
+  }
+
   // CHAT LOG
 
   public sendMessage(): void {
@@ -204,7 +213,6 @@ export class MissionLobbyPageComponent {
     let formattedMessage = rawMessage;
     let messageClass = '';
 
-    // Se è un comando riconosciuto
     if (commandHandlers[lowerCommand]) {
       const { message, class: cssClass } = commandHandlers[lowerCommand](args.join(' '));
       formattedMessage = message;

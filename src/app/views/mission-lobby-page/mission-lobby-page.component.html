@@ -9,8 +9,6 @@
     </div>
 
     <div class="game-lobby-page-content-container">
-        <!-- @if (player) { -->
-
             <!-- AGENT SETUP -->
             <section class="game-lobby-page-setup-container">
             <div class="section-title">
@@ -19,10 +17,19 @@
             @if (player) {
                 <div class="agent-setup-content-container">
                 <div class="setup-options-container">
-                    <h3>Company {{player.company === '' ? '[ UNSELECTED ]' : `[ ${player.company} ]` | uppercase | replaceDash}}</h3>
+                    <h3>
+                        Company [
+                        {{
+                        (player.company || form.value.company || ' UNSELECTED ')
+                        | uppercase
+                        | replaceDash
+                        }} ]
+                    </h3>
                     <div class="company-grid">
                         @for(company of companies; track $index) {
-                            <div class="company-card-wrapper" (click)="selectCompany(company)" [class.company-card-selected]="player.company === company">
+                            <div class="company-card-wrapper" (click)="selectCompany(company)" [class.company-card-selected]="
+                                    (player.company || form.value.company) === company
+                                ">
                                 <div [style.background-color]="'var(--fg-color)'"
                                     [style.-webkit-mask]="'url(./company-logos/' + company + '.svg) no-repeat center / contain'"
                                     [style.mask]="'url(./company-logos/' + company + '.svg) no-repeat center / contain'" class="company-card">
@@ -33,13 +40,13 @@
                     <h3>Informations</h3>
                     <div class="info-container">
                         <div>
-                            <span>{{form.value.name || 'Generate name'}}</span>
+                            <span>{{ player.name || form.value.name || 'Generate name' }}</span>
                             <button icon-button type="button" (click)="randomize('name')">
                                 <span class="material-symbols-outlined">casino</span>
                             </button>
                         </div>
                         <div>
-                            <span>{{form.value.surname || 'Generate surname'}}</span>
+                            <span>{{ player.surname || form.value.surname || 'Generate surname' }}</span>
                             <button icon-button type="button" (click)="randomize('surname')">
                                 <span class="material-symbols-outlined">casino</span>
                             </button>
@@ -49,59 +56,40 @@
                         <h3>Archetype</h3>
                         <div class="info-container">
                             @for(archetype of randomArchetypes; track $index) {
-                            <div class="archetype-container" (click)="selectArchetype(archetype)"
-                                [class.selected]="archetype === form.value.archetype">
-                                <h1>{{archetype}}</h1>
-                                <span class="material-symbols-outlined">{{archetypesIcons[archetype]}}</span>
-                            </div>
+                                <div class="archetype-container" (click)="selectArchetype(archetype)" [class.selected]="
+                                    (player.archetype || form.value.archetype) === archetype
+                                ">
+                            
+                                    <h1>{{archetype}}</h1>
+                                    <span class="material-symbols-outlined">{{archetypesIcons[archetype]}}</span>
+                                </div>
                             }
                         </div>
                     }
                     <h3>Role</h3>
                     <form [formGroup]="form">
-                        <select standard-select name="" id="" formControlName="role">
-                            <option value="">Select a role</option>
+                        <select standard-select formControlName="role">
+                            <option value="">
+                                {{ player.role ? player.role : 'Select a role' }}
+                            </option>
+                    
                             @for(role of roles; track $index) {
-                            <option value="{{role}}">{{role}}</option>
+                            <option [value]="role" [selected]="role === (player.role || form.value.role)">
+                                {{ role }}
+                            </option>
                             }
                         </select>
+                    
                     </form>
                 </div>
 
                 <!-- AGENT SETUP PREVIEW -->
-                <div class="setup-preview-container">
-                    <h3>Agent tag preview</h3>
-                    <div class="setup-preview-content">
-                        <div class="company-container">
-                            @if (player.company !== '') {
-                                <div class="company-logo" [style.background-color]="'var(--bg-main-color)'"
-                                    [style.-webkit-mask]="'url(./company-logos/' + player.company + '.svg) no-repeat center / contain'"
-                                    [style.mask]="'url(./company-logos/' + player.company + '.svg) no-repeat center / contain'">
-                                </div>
-                            } @else {
-                                <span class="company-logo material-symbols-outlined">
-                                    warning
-                                </span>
-                            }
-                        </div>
-                        <div class="agent-info">
-                            <div class="agent-info-container">
-                                <div class="agent-name">{{form.value.name || '[ NAME ]' }} {{form.value.surname || '[ SURNAME ]'}}</div>
-                                <div class="agent-role">{{form.value.role || '[ UNSELECTED ROLE ]'}}</div>
-                            </div>
-                            <div class="actions-indicator-container">
-                                <div class="action-led"></div>
-                                <div class="action-led"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <app-agent-tag [$player]="form.value"></app-agent-tag>
             </div>
             } @else {
                 <p>Loading player data...</p>
             }
         </section>
-        <!-- } -->
 
         <!-- CHAT -->
         <section class="game-lobby-page-chat-container">
@@ -142,6 +130,7 @@
         } @else {
             <button standard-button type="button" disabled>Joined {{mission?.players?.length}}/{{mission?.playersLimit}}</button>
         }
+        <button standard-button type="button" (click)="openSaveConfirmDialog()">Save</button>
         <button standard-button type="button" disabled>Help</button>
         <button standard-button type="button" disabled>Leave</button>
         <button standard-button type="button" [routerLink]="['/missions']">Exit</button>

@@ -1,0 +1,24 @@
+<div dialog-main-container>
+    <h1>CONFIRM DATA</h1>
+
+    <pre class="container-log">
+[NOTICE] Data validation checkpoint reached.
+-------------------------------------------------------
+  You are about to finalize the submitted agent setup.
+
+  Once confirmed, the stored information will be locked
+  into the mission database and will no longer be editable
+  through this interface.
+
+  Review the data carefully before proceeding.
+  Confirmation is considered a permanent authorization.
+
+[STATUS] Awaiting final user validation...
+-------------------------------------------------------
+    </pre>
+
+    <div dialog-actions-container>
+        <button standard-button type="button" (click)="confirm()">confirm</button>
+        <button standard-button type="button" (click)="cancel()">cancel</button>
+    </div>
+</div>
