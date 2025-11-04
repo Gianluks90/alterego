@@ -39,43 +39,48 @@
                     </div>
                     <h3>Informations</h3>
                     <div class="info-container">
-                        <div>
+                        <div class="randomize-button" (click)="randomize('name')">
                             <span>{{ player.name || form.value.name || 'Generate name' }}</span>
-                            <button icon-button type="button" (click)="randomize('name')">
+                            <button icon-button type="button">
                                 <span class="material-symbols-outlined">casino</span>
                             </button>
                         </div>
-                        <div>
+                        <div class="randomize-button" (click)="randomize('surname')">
                             <span>{{ player.surname || form.value.surname || 'Generate surname' }}</span>
-                            <button icon-button type="button" (click)="randomize('surname')">
+                            <button icon-button type="button">
                                 <span class="material-symbols-outlined">casino</span>
                             </button>
                         </div>
                     </div>
-                    @if (archetypesIcons) {
-                        <h3>Archetype</h3>
-                        <div class="info-container">
-                            @for(archetype of randomArchetypes; track $index) {
-                                <div class="archetype-container" (click)="selectArchetype(archetype)"
-                                    [class.selected]="form.value.archetype === archetype.id">
-                                    <h1>{{archetype.name}}</h1>
-                                    <span class="material-symbols-outlined">{{archetypesIcons[archetype.name]}}</span>
-                                </div>
-                            }
-                            </div>
-                    }
-                        <h3>Role</h3>
-                        <button standard-button menu-button type="button" [cdkMenuTriggerFor]="menu">{{ form.value.role || 'Select a role'
-                            }}</button>
-                        <ng-template #menu>
-                            <div standard-menu cdkMenu>
-                                @for (role of roles; track $index) {
-                                <button standard-button cdkMenuItem (click)="selectRole(role)">
-                                    {{ role }}
-                                </button>
+                        @if (archetypesIcons && yourTurn) {
+                            <h3>Archetype</h3>
+                            <div class="info-container">
+                                @for(archetype of randomArchetypes; track $index) {
+                                    <div class="archetype-container" (click)="selectArchetype(archetype)"
+                                        [class.selected]="form.value.archetype.name === archetype.name">
+                                        <h1>{{archetype.name}}</h1>
+                                        <span class="material-symbols-outlined">{{archetypesIcons[archetype.name]}}</span>
+                                    </div>
                                 }
-                            </div>
-                        </ng-template>
+                                </div>
+                        }
+                        @if (yourTurn) {
+                            <h3>Role</h3>
+                            <button standard-button menu-button type="button" [cdkMenuTriggerFor]="menu" [cdkMenuPosition]="centeredMenuPos"
+                                [disabled]="form.value.archetype === ''">{{ form.value.role || 'Select a role'
+                                }}</button>
+                            <ng-template #menu>
+                                <div standard-menu cdkMenu>
+                                    @for (role of roles; track $index) {
+                                    <button standard-button cdkMenuItem (click)="selectRole(role)">
+                                        {{ role }}
+                                    </button>
+                                    }
+                                </div>
+                            </ng-template>
+                            } @else {
+                            <p class="waiting-turn-message">[ WAITING ] Your turn is not active.</p>
+                        }
                     </div>
 
                 <!-- AGENT SETUP PREVIEW -->
@@ -126,8 +131,8 @@
             <button standard-button type="button" disabled>Joined {{mission?.players?.length}}/{{mission?.playersLimit}}</button>
         }
         <button standard-button type="button" [disabled]="form.invalid" (click)="openSaveConfirmDialog()">Save</button>
-        <button standard-button type="button" disabled>Help</button>
-        <button standard-button type="button" disabled>Leave</button>
+        <button standard-button type="button" (click)="openLobbyHelp()">Help</button>
+        <button standard-button type="button" [disabled]="player?.uid === mission?.createdBy">Leave</button>
         <button standard-button type="button" [routerLink]="['/missions']">Exit</button>
     </div>
 </div>

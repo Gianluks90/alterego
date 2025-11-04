@@ -14,17 +14,19 @@ import { DIALOGS_CONFIG, FULL_SIZE_DIALOG, SMALL_SIZE_DIALOG } from '../../../en
 import { DeleteDialogComponent } from '../../components/dialogs/delete-dialog/delete-dialog.component';
 import { NotificationService } from '../../services/notification.service';
 import { ChatHelpDialogComponent } from '../../components/dialogs/chat-help-dialog/chat-help-dialog.component';
-import { ARCHETYPES_DICT_ICONS } from '../../../environment/roles';
+import { ARCHETYPES_DICT_ICONS, ROLES } from '../../../environment/roles';
 import { ReplaceDashPipe } from '../../pipes/replace-dash.pipe';
 import { AgentLabelPipe } from '../../pipes/agent-label.pipe';
 import { AgentTagComponent } from '../../components/agent-tag/agent-tag.component';
 import { ConfirmDialogComponent } from '../../components/dialogs/confirm-dialog/confirm-dialog.component';
 import { AssignedOrderDialogComponent } from '../../components/dialogs/assigned-order-dialog/assigned-order-dialog.component';
 import { CdkMenuTrigger, CdkMenu, CdkMenuItem } from '@angular/cdk/menu';
+import { ConnectedPosition } from '@angular/cdk/overlay';
+import { HelpLobbyDialogComponent } from '../../components/dialogs/help-lobby-dialog/help-lobby-dialog.component';
 
 @Component({
   selector: 'app-mission-lobby-page',
-  imports: [    
+  imports: [
     RouterLink,
     FormsModule,
     ReactiveFormsModule,
@@ -51,6 +53,7 @@ export class MissionLobbyPageComponent {
   public player: Player | null = null;
   public companies: string[] = [];
   public archetypesIcons: { [key: string]: string } = ARCHETYPES_DICT_ICONS;
+  private allRoles = ROLES;
   public roles: string[] = [];
 
   private readonly LS_KEY = (uid: string) => `archetypes_${uid}`;
@@ -63,6 +66,17 @@ export class MissionLobbyPageComponent {
     archetype: new FormControl('', [Validators.required]),
     role: new FormControl('', [Validators.required])
   });
+
+  public centeredMenuPos: ConnectedPosition[] = [
+    {
+      originX: 'center',
+      originY: 'center',
+      overlayX: 'center',
+      overlayY: 'center',
+    }
+  ];
+
+  public yourTurn: boolean = false;
 
   public windowSize: number = window.innerWidth;
   @HostListener('window:resize', ['$event'])
@@ -90,78 +104,106 @@ export class MissionLobbyPageComponent {
     }
 
     effect(() => {
-      if (this.missionId) {
-        this.missionService.getMissionById(this.missionId);
-
-        fetch('../../../configs/companiesConfig.json')
-          .then(response => response.json())
-          .then((companies: { name: string, label: string, description: string }[]) => {
-            this.companies = companies.map(company => company.name);
-          });
+      const user = this.firebaseService.$user();
+      if (user && this.missionId) {
+        this.missionService.getPlayerData(this.missionId, user.uid);
       }
-    });
+    })
 
     effect(() => {
-      this.mission = this.missionService.$selectedMission();
-      if (this.firebaseService.$user()) {
-        this.mission?.players.find(p => {
-          if (p === this.firebaseService.$user()!.uid) {
-            this.missionService.getPlayerData(this.missionId!, p);
-            if (this.mission) {
-              this.player = this.missionService.$selectedPlayerData();
-              if (this.player) {
-                this.initOrder();
-                this.initArchetypesSelection();
-              }
-            }
-          }
-        });
+      const { mission, player, ready } = this.missionService.$$lobbyState();
+
+      if (!ready) return;
+
+      this.player = player;
+      this.mission = mission;
+
+      if (!player.order) {
+        this.initOrder();
+        return;
+      }
+
+      this.checkYourTurn();
+
+      if (this.player?.status === 'ready') {
+        this.form.patchValue({
+          ...this.player
+        })
       }
     });
+  }
 
-    this.form.get('archetype')?.valueChanges.subscribe(value => {
-      const ROLES = import('../../../environment/roles').then(module => {
-        const rolesArray = module.ROLES;
-        this.roles = rolesArray
-          .filter(role => role.archetype === value)
-          .flatMap(role => role.list);
-      });
+  ngOnInit(): void {
+    // Carico la missione
+    this.missionService.getMissionById(this.missionId!);
+
+    // Carico i tutti ruoli
+    const ROLES = import('../../../environment/roles').then(module => {
+      this.allRoles = module.ROLES;
     });
+
+    // Carico le companies
+    fetch('../../../configs/companiesConfig.json')
+      .then(response => response.json())
+      .then((companies: { name: string, label: string, description: string }[]) => {
+        this.companies = companies.map(company => company.name);
+      });
   }
 
   // AGENT SETUP
 
   private initOrder(): void {
-    if (!this.mission || !this.mission.playersData) return;
+    if (!this.mission || !this.player) return;
 
-    const currentPlayer = this.mission.playersData.find(p => p.uid === this.player?.uid);
-    if (!currentPlayer) return;
-
-    if (typeof currentPlayer.order === 'number'
-      && currentPlayer.order >= 1
-      && currentPlayer.order <= this.mission.playersLimit) return;
-
-    const assigned = new Set<number>(
+    const assignedOrders = new Set(
       this.mission.playersData
         .map(p => p.order)
         .filter(o => typeof o === 'number')
     );
 
-    const available: number[] = [];
+    const availableOrders = [];
     for (let i = 1; i <= this.mission.playersLimit; i++) {
-      if (!assigned.has(i)) available.push(i);
+      if (!assignedOrders.has(i)) availableOrders.push(i);
     }
 
-    if (!available.length) return;
-    const order = available[Math.floor(Math.random() * available.length)];
-    currentPlayer.order = order;
-    this.missionService.assignPlayerOrder(this.missionId!, currentPlayer.uid, order).then(() => {
+    if (!availableOrders.length) return;
+
+    const randomOrder = availableOrders[Math.floor(Math.random() * availableOrders.length)];
+
+    this.missionService.assignPlayerOrder(this.missionId!, this.player.uid, randomOrder).then(() => {
       const dialogRef = this.dialog.open(AssignedOrderDialogComponent, {
         width: this.windowSize <= 768 ? FULL_SIZE_DIALOG : SMALL_SIZE_DIALOG,
         ...DIALOGS_CONFIG,
-        data: { order: order }
+        data: { order: randomOrder }
       });
     })
+  }
+
+  private checkYourTurn(): void {
+    if (!this.mission || !this.player) return;
+
+    const pendingPlayers = this.mission.playersData
+      .filter(p => p.status !== 'ready')
+      .sort((a, b) => a.order - b.order);
+
+    const currentTurn = pendingPlayers[0];
+    if (!currentTurn) {
+      this.yourTurn = false;
+      return;
+    }
+
+    this.yourTurn = currentTurn.uid === this.player.uid;
+
+    if (this.yourTurn && this.player.status === 'pending') {
+      this.missionService.updatePlayerStatus(this.missionId!, this.player.uid, 'setup').then(() => {
+        this.notificationService.notify('It is your turn to set up your agent!', 'info', 5000);
+        this.initArchetypesSelection();
+      });
+    }
+
+    if (this.yourTurn && this.player.status === 'setup') {
+      this.initArchetypesSelection();
+    }
   }
 
   private initArchetypesSelection(): void {
@@ -203,11 +245,13 @@ export class MissionLobbyPageComponent {
   }
 
   public selectCompany(company: string): void {
+    if (this.player?.status === 'ready') return;
     this.form.get('company')?.setValue(company);
   }
 
   public randomize(what: 'name' | 'surname'): void {
     if (!this.player || !this.missionId) return;
+    if (this.player.status === 'ready') return;
 
     const agentNames = import('../../../environment/agentsNamesSurnames').then(module => {
       const namesArray = module.AGENT_NAME;
@@ -226,14 +270,8 @@ export class MissionLobbyPageComponent {
   }
 
   public selectArchetype(archetype: Archetype): void {
-    this.form.get('archetype')?.setValue(archetype.id);
-    fetch('../../../configs/archetypesConfig.json')
-      .then(response => response.json())
-      .then((archetypes: Archetype[]) => {
-        this.roles = archetypes
-          .find(a => a.id === archetype.id)!
-          .roles;
-      })
+    this.form.get('archetype')?.setValue(archetype);
+    this.roles = this.allRoles[archetype.id].list;
   }
 
   public selectRole(role: string): void {
@@ -249,17 +287,21 @@ export class MissionLobbyPageComponent {
 
     this.dialogRef.closed.subscribe((result) => {
       if (result?.status === 'confirmed' && this.player && this.missionId) {
-        const archetypeId = this.form.value.archetype;
-        const selectedArchetype = this.randomArchetypes.find(a => a.id === archetypeId);
-
+        const { roles, ...archetypeWithoutRoles } = this.form.value.archetype;
         const payload = {
           ...this.form.value,
-          archetype: selectedArchetype ?? null
+          archetype: archetypeWithoutRoles
         };
 
         this.missionService.completeAgentSetup(this.missionId, this.player.uid, payload).then(() => {
           localStorage.removeItem(this.LS_KEY(this.player!.uid));
           this.notificationService.notify('Agent setup saved successfully!', 'check');
+          this.missionService.newChatLog({
+            timestamp: Timestamp.now(),
+            senderPlayer: `Agent_${this.player!.order}`,
+            message: `has completed their agent setup and is ready for the mission.`,
+            class: 'system-message'
+          }, this.missionId!);
         });
       } else {
         this.notificationService.notify('Agent setup save cancelled.', 'info');
@@ -296,7 +338,7 @@ export class MissionLobbyPageComponent {
 
     const newLog = {
       timestamp: Timestamp.now(),
-      senderPlayer: `Agent_${this.player.order + 1}`,
+      senderPlayer: `Agent_${this.player.order}`,
       message: formattedMessage,
       class: messageClass
     };
@@ -326,6 +368,15 @@ export class MissionLobbyPageComponent {
           this.notificationService.notify('Chat logs deleted successfully!', 'check');
         });
       }
+    });
+  }
+
+  // OTHER THINGS
+
+  public openLobbyHelp(): void {
+    this.dialogRef = this.dialog.open(HelpLobbyDialogComponent, {
+      width: this.windowSize <= 768 ? FULL_SIZE_DIALOG : SMALL_SIZE_DIALOG,
+      ...DIALOGS_CONFIG
     });
   }
 }

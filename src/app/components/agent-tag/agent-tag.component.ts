@@ -1,9 +1,10 @@
 import { Component, effect, input } from '@angular/core';
 import { Player } from '../../../models/player';
+import { ArchetypeGetIconPipe } from '../../pipes/archetype-get-icon.pipe';
 
 @Component({
   selector: 'app-agent-tag',
-  imports: [],
+  imports: [ArchetypeGetIconPipe],
   templateUrl: './agent-tag.component.html',
   styleUrl: './agent-tag.component.scss'
 })

@@ -1,7 +1,8 @@
-import { Injectable, signal, WritableSignal } from '@angular/core';
+import { computed, Injectable, signal, WritableSignal } from '@angular/core';
 import { FirebaseService } from './firebase.service';
 import { Mission, MissionChatMessage } from '../../models/mission';
 import { addDoc, arrayRemove, arrayUnion, collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, query, setDoc, Timestamp, where } from 'firebase/firestore';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,18 @@ export class MissionService {
   public $selectedMission: WritableSignal<Mission | null> = signal(null);
   public $selectedPlayerData: WritableSignal<any | null> = signal(null);
 
-  constructor(private firebaseService: FirebaseService) { 
+  public $$lobbyState = computed(() => {
+    const mission = this.$selectedMission();
+    const player = this.$selectedPlayerData();
+
+    return {
+      mission,
+      player,
+      ready: !!mission && !!player
+    };
+  });
+
+  constructor(private firebaseService: FirebaseService, private router: Router) {
   }
 
   public async getMyMissions(userId: string): Promise<any> {
@@ -40,13 +52,13 @@ export class MissionService {
         this.$selectedMission.set(mission);
       } else {
         this.$selectedMission.set(null);
+        this.router.navigate(['/missions']);
       }
     });
   }
 
   public async getPlayerData(missionId: string, playerId: string): Promise<any> {
     const docRef = doc(this.firebaseService.database, 'missions', missionId, 'playersData', playerId);
-
     const unsub = onSnapshot(docRef, (docSnap) => {
       if (docSnap.exists()) {
         this.$selectedPlayerData.set({ uid: docSnap.id, ...docSnap.data() });
@@ -70,7 +82,7 @@ export class MissionService {
         players: [userId],
         chatLog: [],
         archetypeIds: [
-          1,2,3,4,5,6,7
+          1, 2, 3, 4, 5, 6, 7
         ],
         status: 'waiting'
       }),
@@ -89,15 +101,15 @@ export class MissionService {
   }
 
   public async joinMission(missionId: string, userId: string): Promise<void> {
-    const docRef = doc(this.firebaseService.database, 'missions', missionId);
-    const dataRef = collection(this.firebaseService.database, 'missions', missionId, 'playersData');
+    const docRef = doc(this.firebaseService.database, 'missions', missionId.toUpperCase());
+    const dataRef = doc(this.firebaseService.database, 'missions', missionId.toUpperCase(), 'playersData', userId);
 
     Promise.all([
       setDoc(docRef, {
         players: arrayUnion(userId),
       }, { merge: true }),
 
-      addDoc(dataRef, {
+      setDoc(dataRef, {
         uid: userId,
         name: '',
         surname: '',
@@ -120,7 +132,7 @@ export class MissionService {
   }
 
   public async deleteMission(missionId: string): Promise<void> {
-    const docRef = doc(this.firebaseService.database, 'missions', missionId);
+    const docRef = doc(this.firebaseService.database, 'missions', missionId.toUpperCase());
     await deleteDoc(docRef).catch((error) => {
       console.error('Error deleting mission: ', error);
     });
@@ -144,6 +156,13 @@ export class MissionService {
 
   // AGENT SETUP
 
+  public async updatePlayerStatus(missionId: string, playerId: string, status: string): Promise<void> {
+    const docRef = doc(this.firebaseService.database, 'missions', missionId, 'playersData', playerId);
+    return await setDoc(docRef, {
+      status: status
+    }, { merge: true });
+  }
+
   public async assignPlayerOrder(missionId: string, playerId: string, order: number): Promise<void> {
     const docRef = doc(this.firebaseService.database, 'missions', missionId, 'playersData', playerId);
     return await setDoc(docRef, {
@@ -159,14 +178,24 @@ export class MissionService {
   // }
 
   public async completeAgentSetup(missionId: string, playerId: string, data: any): Promise<void> {
+    const missionRef = doc(this.firebaseService.database, 'missions', missionId);
     const docRef = doc(this.firebaseService.database, 'missions', missionId, 'playersData', playerId);
-    return await setDoc(docRef, {
-      name: data.name,
-      surname: data.surname,
-      role: data.role,
-      archetype: data.archetype,
-      company: data.company,
-      status: 'ready'
-    }, { merge: true });
+
+    Promise.all([
+      await setDoc(docRef, {
+        name: data.name,
+        surname: data.surname,
+        role: data.role,
+        archetype: data.archetype,
+        company: data.company,
+        status: 'ready'
+      }, { merge: true }),
+
+      await setDoc(missionRef, {
+        archetypeIds: arrayRemove(data.archetype.id)
+      }, { merge: true })
+    ]).catch((error) => {
+      console.error('Error completing agent setup: ', error);
+    });
   }
 }

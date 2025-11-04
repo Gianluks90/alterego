@@ -227,6 +227,10 @@
                     justify-content: space-between;
                 }
 
+                &>div.randomize-button {
+                    cursor: pointer;
+                }
+
                 &>.archetype-container{
                     padding: 24px 12px;
                 }
@@ -254,8 +258,28 @@
     }
 }
 
+.waiting-turn-message {
+    padding: 24px 0 8px 0 !important;
+    font-size: 1.2rem;
+    animation: pulse 2s infinite;
+    text-shadow: 0 0 8px var(--fg-color);
+}
+
 @keyframes fadeInUp {
     to {
         opacity: 1;
     }
 }
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+

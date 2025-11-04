@@ -17,7 +17,11 @@
         <div class="agent-info">
             <div class="agent-info-container">
                 <div class="agent-name">{{player.name || '[ NAME ]' }} {{player.surname || '[ SURNAME ]'}}</div>
-                <div class="agent-role">{{player.role || '[ UNSELECTED ROLE ]'}}</div>
+                <div class="agent-role">{{player.role || '[ UNSELECTED ROLE ]'}}
+                    @if (player.archetype) {
+                        <span [title]="player.archetype.name" class="material-symbols-outlined">{{player.archetype.name | archetypeGetIcon}}</span>
+                    }
+                </div>
             </div>
             <div class="actions-indicator-container">
                 <div class="action-led"></div>

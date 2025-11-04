@@ -21,5 +21,5 @@ export const AGENT_SURNAME: string[] = [
   "Leblanc", "Mendez", "Nassar", "Ortiz", "Papadopoulos", "Rahimi", "Salazar", "Tavares", "Ueda", "Vargas",
   "Wu", "Yamani", "Abdel", "Bianchi", "Costa", "Eyre", "Flores", "Gallo", "Hossain", "Ivanov",
   "Jaramillo", "Kato", "Lopes", "Muro", "Ngoma", "Ocampo", "Pereira", "Rinaldi", "Silva", "Toma",
-  "Ulrich", "Vasiliev", "Wilde", "Yamada", "Zoric"
+  "Ulrich", "Vasiliev", "Wilde", "Yamada", "Zoric", "Croft"
 ];

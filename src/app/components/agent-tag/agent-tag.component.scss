@@ -53,6 +53,20 @@
                       font-size: 1.5rem;
                       text-transform: uppercase;
                   }
+
+                  &>.agent-role {
+                    display: flex;
+                    align-items: center;
+                    gap: 4px;
+
+                    &>.material-symbols-outlined {
+                      font-size: 1.2rem;
+                    }
+
+                    &>span[title] {
+                        text-transform: capitalize;
+                    }
+                  }
               }
 
               &>.actions-indicator-container {
