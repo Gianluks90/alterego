@@ -23,6 +23,7 @@ import { AssignedOrderDialogComponent } from '../../components/dialogs/assigned-
 import { CdkMenuTrigger, CdkMenu, CdkMenuItem } from '@angular/cdk/menu';
 import { ConnectedPosition } from '@angular/cdk/overlay';
 import { HelpLobbyDialogComponent } from '../../components/dialogs/help-lobby-dialog/help-lobby-dialog.component';
+import { ChatComponent } from '../../components/chat/chat.component';
 
 @Component({
   selector: 'app-mission-lobby-page',
@@ -31,7 +32,7 @@ import { HelpLobbyDialogComponent } from '../../components/dialogs/help-lobby-di
     FormsModule,
     ReactiveFormsModule,
     AgentTagComponent,
-    DatePipe,
+    ChatComponent,
     UpperCasePipe,
     ReplaceDashPipe,
     AgentLabelPipe,
@@ -311,65 +312,65 @@ export class MissionLobbyPageComponent {
 
   // CHAT LOG
 
-  public sendMessage(): void {
-    if (!this.player || this.chatForm.invalid) return;
+  // public sendMessage(): void {
+  //   if (!this.player || this.chatForm.invalid) return;
 
-    const rawMessage = this.chatForm.value.message.trim();
-    const [command, ...args] = rawMessage.split(' ');
-    const lowerCommand = command.toLowerCase();
+  //   const rawMessage = this.chatForm.value.message.trim();
+  //   const [command, ...args] = rawMessage.split(' ');
+  //   const lowerCommand = command.toLowerCase();
 
-    // Registro dei comandi speciali
-    const commandHandlers: Record<string, (msg: string) => { message: string; class?: string }> = {
-      '/shout': (msg) => ({
-        message: msg.toUpperCase(),
-        class: 'shout-message'
-      }),
-      // aggiungerai altri qui, tipo /roll, /whisper, ecc.
-    };
+  //   // Registro dei comandi speciali
+  //   const commandHandlers: Record<string, (msg: string) => { message: string; class?: string }> = {
+  //     '/shout': (msg) => ({
+  //       message: msg.toUpperCase(),
+  //       class: 'shout-message'
+  //     }),
+  //     // aggiungerai altri qui, tipo /roll, /whisper, ecc.
+  //   };
 
-    let formattedMessage = rawMessage;
-    let messageClass = '';
+  //   let formattedMessage = rawMessage;
+  //   let messageClass = '';
 
-    if (commandHandlers[lowerCommand]) {
-      const { message, class: cssClass } = commandHandlers[lowerCommand](args.join(' '));
-      formattedMessage = message;
-      messageClass = cssClass ?? '';
-    }
+  //   if (commandHandlers[lowerCommand]) {
+  //     const { message, class: cssClass } = commandHandlers[lowerCommand](args.join(' '));
+  //     formattedMessage = message;
+  //     messageClass = cssClass ?? '';
+  //   }
 
-    const newLog = {
-      timestamp: Timestamp.now(),
-      senderPlayer: `Agent_${this.player.order}`,
-      message: formattedMessage,
-      class: messageClass
-    };
+  //   const newLog = {
+  //     timestamp: Timestamp.now(),
+  //     senderPlayer: `Agent_${this.player.order}`,
+  //     message: formattedMessage,
+  //     class: messageClass
+  //   };
 
-    this.missionService.newChatLog(newLog, this.missionId!).then(() => {
-      this.chatForm.reset();
-    });
-  }
+  //   this.missionService.newChatLog(newLog, this.missionId!).then(() => {
+  //     this.chatForm.reset();
+  //   });
+  // }
 
-  public openChatHelpDialog(): void {
-    this.dialogRef = this.dialog.open(ChatHelpDialogComponent, {
-      width: this.windowSize <= 768 ? FULL_SIZE_DIALOG : SMALL_SIZE_DIALOG,
-      ...DIALOGS_CONFIG
-    });
-  }
+  // public openChatHelpDialog(): void {
+  //   this.dialogRef = this.dialog.open(ChatHelpDialogComponent, {
+  //     width: this.windowSize <= 768 ? FULL_SIZE_DIALOG : SMALL_SIZE_DIALOG,
+  //     ...DIALOGS_CONFIG
+  //   });
+  // }
 
-  public openDeleteLogsDialog(): void {
-    this.dialogRef = this.dialog.open(DeleteDialogComponent, {
-      width: this.windowSize <= 768 ? FULL_SIZE_DIALOG : SMALL_SIZE_DIALOG,
-      ...DIALOGS_CONFIG,
-      disableClose: true,
-    });
+  // public openDeleteLogsDialog(): void {
+  //   this.dialogRef = this.dialog.open(DeleteDialogComponent, {
+  //     width: this.windowSize <= 768 ? FULL_SIZE_DIALOG : SMALL_SIZE_DIALOG,
+  //     ...DIALOGS_CONFIG,
+  //     disableClose: true,
+  //   });
 
-    this.dialogRef.closed.subscribe((result) => {
-      if (result?.status === 'confirmed') {
-        this.missionService.emptyChatLogs(this.missionId!).then(() => {
-          this.notificationService.notify('Chat logs deleted successfully!', 'check');
-        });
-      }
-    });
-  }
+  //   this.dialogRef.closed.subscribe((result) => {
+  //     if (result?.status === 'confirmed') {
+  //       this.missionService.emptyChatLogs(this.missionId!).then(() => {
+  //         this.notificationService.notify('Chat logs deleted successfully!', 'check');
+  //       });
+  //     }
+  //   });
+  // }
 
   // OTHER THINGS
 
