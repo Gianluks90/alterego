@@ -25,17 +25,28 @@ export class HomePageComponent {
   public appTitleLines: TermLine[] = APP_TITLE_LINES;
   private dialog = inject(Dialog);
   private dialogRef: DialogRef<DialogResult, any> | null = null;
+  public skipIntro: boolean = false;
 
   constructor(
     private firebaseService: FirebaseService,
     private notificationService: NotificationService,
-    private router: Router
   ) {
     effect(() => {
       this.user = this.firebaseService.$user();
       if (this.user) {
         this.notificationService.notify(`Welcome back, ${this.user.username}!`);
         this.appSubtitleLines.push({ text: `> ${this.user.username} logged in`, delay: 4000, class: 'subtitle-line' });
+
+        const skipIntroDate = localStorage.getItem('alterego-skipIntro');
+        const today = new Date();
+        const todayString = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+
+        if (skipIntroDate === todayString) {
+          this.skipIntro = true;
+        } else {
+          localStorage.setItem('alterego-skipIntro', todayString);
+          this.skipIntro = false;
+        }
       }
     });
   }
@@ -71,5 +82,22 @@ export class HomePageComponent {
       width: this.windowSize <= 768 ? FULL_SIZE_DIALOG : SMALL_SIZE_DIALOG,
       ...DIALOGS_CONFIG
     });
+  }
+
+  public isFullscreen: boolean = false;
+  @HostListener('document:fullscreenchange', [])
+  onFullscreenChange() {
+    this.isFullscreen = !!document.fullscreenElement;
+  }
+
+
+  public toggleFullscreen(): void {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
   }
 }

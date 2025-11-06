@@ -1,0 +1,14 @@
+<div class="codex-page-main-container">
+    <div class="breadcrumb-container">
+        <div>
+            @for(line of titleLines; track $index) {
+            <div class="{{line.class}} term-line">{{line.text}}</div>
+        }
+        </div>
+        <div class="mode-line">/codex</div>
+    </div>
+
+    <div class="codex-page-actions-container">
+        <button standard-button type="button" [routerLink]="['/']">Exit</button>
+    </div>
+</div>

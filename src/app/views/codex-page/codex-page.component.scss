@@ -1,4 +1,9 @@
-.auth-page-main-container {
+:host {
+    width: 100%;
+    height: 100%;
+}
+
+.codex-page-main-container {
     width: 100%;
     height: 100%;
     display: flex;
@@ -38,29 +43,12 @@
     }
 }
 
-.error-line {
-    color: var(--error-color);
-    text-shadow: 0 0 4px var(--error-color) !important;
-}
-
-form {
-    opacity: 0;
-    animation: fadeInUp 0.5s forwards;
-    animation-delay: 2000ms;
-}
-
-.auth-page-actions-container {
+.codex-page-actions-container {
     position: fixed;
     bottom: 24px;
     display: flex;
     gap: 16px;
-    opacity: 0;
-
-    animation: fadeInUp 0.5s forwards;
-    animation-delay: 2000ms;
 }
-
-
 
 @keyframes fadeInUp {
     to {

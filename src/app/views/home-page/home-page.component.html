@@ -1,12 +1,12 @@
 <div class="home-page-main-container">
     @for(line of appTitleLines; track $index) {
-        <div class="{{line.class}} term-line" [style.animationDelay.ms]="line.delay">{{line.text}}</div>
+        <div class="{{line.class}} term-line" [class.intro-animation]="!skipIntro" [style.animationDelay.ms]="line.delay">{{line.text}}</div>
     }
     @for(line of appSubtitleLines; track $index) {
-        <div class="{{line.class}} term-line" [style.animationDelay.ms]="line.delay">{{line.text}}</div>
+        <div class="{{line.class}} term-line" [class.intro-animation]="!skipIntro" [style.animationDelay.ms]="line.delay">{{line.text}}</div>
     }
 
-    <div class="home-page-actions-container">
+    <div class="home-page-actions-container" [class.intro-action-animation]="!skipIntro">
         @if (user) {
             <button standard-button type="button" (click)="logOut()">Logout</button>
         } @else {
@@ -14,6 +14,7 @@
             <button standard-button type="button" [routerLink]="'/auth/register'">Register</button>
         }
         <button standard-button type="button" [disabled]="!user" [routerLink]="'/missions'">Missions</button>
+        <button standard-button type="button" [disabled]="!user" [routerLink]="'/codex'">Codex</button>
         <button standard-button type="button" [disabled]="!user" (click)="helpDialogOpen()">Help</button>
         <button standard-button type="button" (click)="aboutDialogOpen()">About</button>
         @if (user?.username === 'gianluks90') {
@@ -23,3 +24,7 @@
         }
     </div>
 </div>
+
+<button icon-button class="toggle-fullscreen-button" (click)="toggleFullscreen()">
+    <span class="material-symbols-outlined">{{isFullscreen ? 'fullscreen_exit' : 'fullscreen'}}</span>
+</button>

@@ -7,10 +7,13 @@
     justify-content: center;
 
     .term-line {
+        text-shadow: 0 0 8px var(--fg-color);
+    }
+
+    .intro-animation {
         opacity: 0;
         animation: fadeInUp 0.5s forwards;
         animation-delay: calc(var(--delay) * 1ms);
-        text-shadow: 0 0 8px var(--fg-color);
     }
 }
 
@@ -24,8 +27,11 @@
     bottom: 24px;
     display: flex;
     gap: 16px;
-    opacity: 0;
+    
+}
 
+.intro-action-animation {
+    opacity: 0;
     animation: fadeInUp 0.5s forwards;
     animation-delay: 3000ms;
 }
@@ -34,4 +40,10 @@
     to {
         opacity: 1;
     }
+}
+
+.toggle-fullscreen-button {
+    position: fixed;
+    top: 24px;
+    left: 24px;
 }

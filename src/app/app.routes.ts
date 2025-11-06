@@ -4,6 +4,7 @@ import { AuthPageComponent } from './views/auth-page/auth-page.component';
 import { UnsupportedPageComponent } from './views/unsupported-page/unsupported-page.component';
 import { MissionsListPageComponent } from './views/missions-list-page/missions-list-page.component';
 import { MissionLobbyPageComponent } from './views/mission-lobby-page/mission-lobby-page.component';
+import { CodexPageComponent } from './views/codex-page/codex-page.component';
 
 export const routes: Routes = [
     {
@@ -17,6 +18,9 @@ export const routes: Routes = [
     },
     {
         path: 'missions/:id/lobby', component: MissionLobbyPageComponent,
+    },
+    {
+        path: 'codex', component: CodexPageComponent,
     },
     {
         path: 'unsupported', component: UnsupportedPageComponent, 
