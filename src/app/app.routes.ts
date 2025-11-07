@@ -7,12 +7,16 @@ import { MissionLobbyPageComponent } from './views/mission-lobby-page/mission-lo
 import { CodexPageComponent } from './views/codex-page/codex-page.component';
 import { lobbyResolver } from './resolvers/lobby.resolver';
 import { AuthGuardService } from './services/auth-guard.service';
+import { soundResolver } from './resolvers/sound.resolver';
 
 export const routes: Routes = [
     {
         title: 'Home',
         path: '', component: HomePageComponent, 
         pathMatch: 'full',
+        resolve: {
+            resolved: soundResolver
+        },
     },
     {
         title: 'Authentication',
@@ -35,7 +39,7 @@ export const routes: Routes = [
         title: 'Codex',
         path: 'codex', component: CodexPageComponent,
         resolve: {
-            resolved: lobbyResolver
+            resolved: lobbyResolver,
         },
         canActivate: [AuthGuardService]
     },

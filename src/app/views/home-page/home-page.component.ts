@@ -9,13 +9,14 @@ import { APP_TITLE_LINES } from '../../../environment/titleLines';
 import { Dialog, DialogModule, DialogRef } from '@angular/cdk/dialog';
 import { HelpDialogComponent } from '../../components/dialogs/help-dialog/help-dialog.component';
 import { DIALOGS_CONFIG, FULL_SIZE_DIALOG, SMALL_SIZE_DIALOG } from '../../../environment/dialogsConfig';
+import { UI_SOUNDS_DIRECTIVES } from '../../../environment/uiSounds';
 import { AboutDialogComponent } from '../../components/dialogs/about-dialog/about-dialog.component';
 import { NotificationService } from '../../services/notification.service';
 import { DialogResult } from '../../../models/dialogResult';
 
 @Component({
   selector: 'app-home-page',
-  imports: [RouterLink, DialogModule],
+  imports: [RouterLink, DialogModule, UI_SOUNDS_DIRECTIVES],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss'
 })
@@ -89,8 +90,7 @@ export class HomePageComponent {
   onFullscreenChange() {
     this.isFullscreen = !!document.fullscreenElement;
   }
-
-
+  
   public toggleFullscreen(): void {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen();
