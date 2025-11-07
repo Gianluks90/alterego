@@ -7,6 +7,20 @@
         </div>
         <div class="mode-line">/codex</div>
     </div>
+    <div class="codex-page-content-container">
+        <app-tab-menu-container #tabMenu="tabMenu" [$tabs]="['collected data', 'achievements']">
+            @if (tabMenu.selectedTab === 'collected data') {
+                A
+            }
+            @if (tabMenu.selectedTab === 'achievements') {
+                <div class="in-progress-content">Under construction...</div>
+            }
+        </app-tab-menu-container>
+        <section>
+            <div class="section-title">Details</div>
+            <div class="in-progress-content">[WAITING] User selection...</div>
+        </section>
+    </div>
 
     <div class="codex-page-actions-container">
         <button standard-button type="button" [routerLink]="['/']">Exit</button>

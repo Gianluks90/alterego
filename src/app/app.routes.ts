@@ -34,6 +34,9 @@ export const routes: Routes = [
     {
         title: 'Codex',
         path: 'codex', component: CodexPageComponent,
+        resolve: {
+            resolved: lobbyResolver
+        },
         canActivate: [AuthGuardService]
     },
     {

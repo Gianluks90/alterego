@@ -1,0 +1,16 @@
+<div class="tab-menu-main-container">
+    <div class="tab-actions-container">
+        @for (tab of $tabs(); track $index) {
+        <label class="radio-button-container">
+            <input class="radio-button" type="radio" name="tab-menu" 
+                [value]="tab" 
+                [checked]="tab === $selectedTab()"
+                (change)="$selectedTab.set(tab)">
+            <span class="label-text">{{ tab }}</span>
+        </label>
+        }
+    </div>
+    <div class="tab-menu-content-container">
+        <ng-content></ng-content>
+    </div>
+</div>
