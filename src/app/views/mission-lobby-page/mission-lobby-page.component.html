@@ -28,11 +28,11 @@
                     <div class="company-grid">
                         @for(company of companies; track $index) {
                             <div class="company-card-wrapper" (click)="selectCompany(company)" [class.company-card-selected]="
-                                    (player.company || form.value.company) === company
+                                    (player.company || form.value.company) === company.name
                                 ">
                                 <div [style.background-color]="'var(--fg-color)'"
-                                    [style.-webkit-mask]="'url(./company-logos/' + company + '.svg) no-repeat center / contain'"
-                                    [style.mask]="'url(./company-logos/' + company + '.svg) no-repeat center / contain'" class="company-card">
+                                    [style.-webkit-mask]="'url(./company-logos/' + company.name + '.svg) no-repeat center / contain'"
+                                    [style.mask]="'url(./company-logos/' + company.name + '.svg) no-repeat center / contain'" class="company-card">
                                 </div>
                             </div>
                         }

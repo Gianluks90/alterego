@@ -1,6 +1,6 @@
 import { Component, effect, HostListener, inject } from '@angular/core';
 import { APP_TITLE_LINES } from '../../../environment/titleLines';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Mission } from '../../../models/mission';
 import { MissionService } from '../../services/mission.service';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -47,12 +47,13 @@ export class MissionLobbyPageComponent {
   public titleLines = APP_TITLE_LINES;
   private dialog = inject(Dialog);
   private dialogRef: DialogRef<DialogResult, any> | null = null;
+  private resolvedData: any;
 
   public missionId: string | null = null;
   public mission: Mission | null = null;
 
   public player: Player | null = null;
-  public companies: string[] = [];
+  public companies: any[] = [];
   public archetypesIcons: { [key: string]: string } = ARCHETYPES_DICT_ICONS;
   private allRoles = ROLES;
   public roles: string[] = [];
@@ -97,8 +98,16 @@ export class MissionLobbyPageComponent {
     private firebaseService: FirebaseService,
     private missionService: MissionService,
     private notificationService: NotificationService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private route: ActivatedRoute
   ) {
+
+    this.route.data.subscribe((data) => {
+      this.resolvedData = data['resolved'];
+      console.log(this.resolvedData);
+      
+    });
+
     const navigation = history.state;
     if (navigation && navigation.missionId) {
       this.missionId = navigation.missionId;
@@ -143,12 +152,14 @@ export class MissionLobbyPageComponent {
       this.allRoles = module.ROLES;
     });
 
+    this.companies = this.resolvedData.companies;
+
     // Carico le companies
-    fetch('../../../configs/companiesConfig.json')
-      .then(response => response.json())
-      .then((companies: { name: string, label: string, description: string }[]) => {
-        this.companies = companies.map(company => company.name);
-      });
+    // fetch('../../../configs/companiesConfig.json')
+    //   .then(response => response.json())
+    //   .then((companies: { name: string, label: string, description: string }[]) => {
+    //     this.companies = companies.map(company => company.name);
+    //   });
   }
 
   // AGENT SETUP
@@ -233,12 +244,15 @@ export class MissionLobbyPageComponent {
       second = this.pickRandom(available);
     }
 
-    await fetch('../../../configs/archetypesConfig.json')
-      .then(response => response.json())
-      .then((archetypes: Archetype[]) => {
-        this.randomArchetypes = archetypes.filter(a => a.id === first || a.id === second);
-        localStorage.setItem(this.LS_KEY(this.player!.uid), JSON.stringify(this.randomArchetypes));
-      })
+    // await fetch('../../../configs/archetypesConfig.json')
+    //   .then(response => response.json())
+    //   .then((archetypes: Archetype[]) => {
+    //     this.randomArchetypes = archetypes.filter(a => a.id === first || a.id === second);
+    //     localStorage.setItem(this.LS_KEY(this.player!.uid), JSON.stringify(this.randomArchetypes));
+    //   })
+
+    this.randomArchetypes = (this.resolvedData.archetypes as Archetype[]).filter(a => a.id === first || a.id === second);
+    localStorage.setItem(this.LS_KEY(this.player!.uid), JSON.stringify(this.randomArchetypes));
   }
 
   private pickRandom(arr: number[]): number {

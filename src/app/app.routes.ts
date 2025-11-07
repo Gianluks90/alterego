@@ -5,22 +5,36 @@ import { UnsupportedPageComponent } from './views/unsupported-page/unsupported-p
 import { MissionsListPageComponent } from './views/missions-list-page/missions-list-page.component';
 import { MissionLobbyPageComponent } from './views/mission-lobby-page/mission-lobby-page.component';
 import { CodexPageComponent } from './views/codex-page/codex-page.component';
+import { lobbyResolver } from './resolvers/lobby.resolver';
+import { AuthGuardService } from './services/auth-guard.service';
 
 export const routes: Routes = [
     {
-        path: '', component: HomePageComponent, pathMatch: 'full',
+        title: 'Home',
+        path: '', component: HomePageComponent, 
+        pathMatch: 'full',
     },
     {
-        path: 'auth/:mode', component: AuthPageComponent, 
+        title: 'Authentication',
+        path: 'auth/:mode', component: AuthPageComponent,
     },
     {
-        path: 'missions', component: MissionsListPageComponent,
+        title: 'Missions',
+        path: 'missions', component: MissionsListPageComponent, 
+        canActivate: [AuthGuardService]
     },
     {
+        title: 'Mission Lobby',
         path: 'missions/:id/lobby', component: MissionLobbyPageComponent,
+        resolve: {
+            resolved: lobbyResolver
+        },
+        canActivate: [AuthGuardService]
     },
     {
+        title: 'Codex',
         path: 'codex', component: CodexPageComponent,
+        canActivate: [AuthGuardService]
     },
     {
         path: 'unsupported', component: UnsupportedPageComponent, 
