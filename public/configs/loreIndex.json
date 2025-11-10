@@ -1,0 +1,13 @@
+[
+    {
+        "id": "GEN-001",
+        "title": {
+            "en": "title",
+            "it": "titolo"
+        },
+        "tags": [],
+        "styleOptions": [],
+        "category": "",
+        "type": "generic"
+    }
+]

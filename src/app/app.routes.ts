@@ -8,6 +8,7 @@ import { CodexPageComponent } from './views/codex-page/codex-page.component';
 import { lobbyResolver } from './resolvers/lobby.resolver';
 import { AuthGuardService } from './services/auth-guard.service';
 import { soundResolver } from './resolvers/sound.resolver';
+import { codexResolver } from './resolvers/codex.resolver';
 
 export const routes: Routes = [
     {
@@ -39,7 +40,7 @@ export const routes: Routes = [
         title: 'Codex',
         path: 'codex', component: CodexPageComponent,
         resolve: {
-            resolved: lobbyResolver,
+            resolved: codexResolver,
         },
         canActivate: [AuthGuardService]
     },

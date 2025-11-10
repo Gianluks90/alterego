@@ -10,7 +10,22 @@
     <div class="codex-page-content-container">
         <app-tab-menu-container #tabMenu="tabMenu" [$tabs]="['collected data', 'achievements']">
             @if (tabMenu.selectedTab === 'collected data') {
-                A
+                <cdk-accordion class="accordion-main-container">
+                    @for(item of groupedLore | keyvalue; track item; let index = $index) {
+                        <cdk-accordion-item #accordionItem="cdkAccordionItem" class="accordion-item-container">            
+                            <div class="accordion-item-header">
+                                <p>{{ item.key | uppercase }}</p>
+                                <button icon-button (click)="accordionItem.toggle()" tabindex="0" [attr.id]="'accordion-header-' + index" [attr.aria-expanded]="accordionItem.expanded"
+                                [attr.aria-controls]="'accordion-body-' + index">
+                                    <span class="material-symbols-outlined">{{accordionItem.expanded ? 'expand_less' : 'expand_more' }}</span>
+                                </button>
+                            </div>
+                            @if (accordionItem.expanded) {
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            }
+                        </cdk-accordion-item>
+                    }
+                </cdk-accordion>
             }
             @if (tabMenu.selectedTab === 'achievements') {
                 <div class="in-progress-content">Under construction...</div>
@@ -18,7 +33,7 @@
         </app-tab-menu-container>
         <section>
             <div class="section-title">Details</div>
-            <div class="in-progress-content">[WAITING] User selection...</div>
+            <div class="in-progress-content">[WAITING] Select an item...</div>
         </section>
     </div>
 
