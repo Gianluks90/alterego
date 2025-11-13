@@ -95,7 +95,7 @@
 
     <div class="game-lobby-page-actions-container">
         @if (mission && mission.createdBy === player?.uid && mission.players && mission.playersLimit === mission.players.length) {
-            <button standard-button type="button" disabled>Launch mission</button>
+            <button standard-button type="button" [disabled]="!readyToStart">Launch mission</button>
         } @else {
             <button standard-button type="button" disabled>Joined {{mission?.players?.length}}/{{mission?.playersLimit}}</button>
         }

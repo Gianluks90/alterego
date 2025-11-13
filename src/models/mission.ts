@@ -13,6 +13,10 @@ export interface Mission {
   playersData: Player[];
   chatLog: MissionChatMessage[];
   status: 'waiting' | 'in_progress' | 'finished';
+
+  phase?: string;
+  turnOwner?: string;
+  entities?: Record<string, Entity>;
 }
 
 export interface MissionChatMessage {
@@ -20,4 +24,12 @@ export interface MissionChatMessage {
   message: string;
   timestamp: Timestamp;
   class?: string;
+}
+
+export type EntityType = 'player' | 'enemy' | 'item' | 'object' | 'marker';
+export interface Entity { 
+  id: string; 
+  type: EntityType; 
+  pos?: [number, number]; 
+  meta?: any; 
 }

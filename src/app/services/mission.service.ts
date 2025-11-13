@@ -138,6 +138,14 @@ export class MissionService {
     });
   }
 
+  public async launchMission(missionId: string): Promise<void> {
+    const docRef = doc(this.firebaseService.database, 'missions', missionId);
+    return await setDoc(docRef, {
+      status: 'in_progress',
+      startedAt: Timestamp.now()
+    }, { merge: true });
+  }
+
   // LOBBY CHAT LOG
 
   public async newChatLog(logData: MissionChatMessage, missionId: string): Promise<void> {
@@ -188,6 +196,26 @@ export class MissionService {
         role: data.role,
         archetype: data.archetype,
         company: data.company,
+
+        objectives: [],
+
+        actions: {
+          deck: [],
+          discardPile: [],
+          hand: [],
+        },
+        inventory: {
+          items: [],
+          mainHand: null,
+          offHand: null
+        },
+        parameters: {
+          health: 3,
+          heavyWounds: [],
+          contaminationLevel: 0
+        },
+        actionPoints: 2,
+
         status: 'ready'
       }, { merge: true }),
 
