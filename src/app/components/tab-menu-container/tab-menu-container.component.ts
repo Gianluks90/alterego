@@ -1,8 +1,9 @@
 import { Component, effect, input, signal } from '@angular/core';
+import { UI_SOUNDS_DIRECTIVES } from '../../const/uiSounds';
 
 @Component({
   selector: 'app-tab-menu-container',
-  imports: [],
+  imports: [UI_SOUNDS_DIRECTIVES],
   templateUrl: './tab-menu-container.component.html',
   styleUrl: './tab-menu-container.component.scss',
   exportAs: 'tabMenu'

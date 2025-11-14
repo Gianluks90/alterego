@@ -1,5 +1,7 @@
 <div class="setup-preview-container">
-    <h3>Agent tag preview</h3>
+    @if ($showTitle()) {
+        <h3>Agent tag preview</h3>
+    }
     @if (player) {
         <div class="setup-preview-content">
         <div class="company-container">
@@ -24,8 +26,8 @@
                 </div>
             </div>
             <div class="actions-indicator-container">
-                <div class="action-led"></div>
-                <div class="action-led"></div>
+                <div class="action-led" [class.action-used]="player.actionPoints < 2"></div>
+                <div class="action-led" [class.action-used]="player.actionPoints <= 0"></div>
             </div>
         </div>
     </div>

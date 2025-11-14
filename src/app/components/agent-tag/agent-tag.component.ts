@@ -10,6 +10,7 @@ import { ArchetypeGetIconPipe } from '../../pipes/archetype-get-icon.pipe';
 })
 export class AgentTagComponent {
   public $player = input<Player | null>(null);
+  public $showTitle = input<boolean>(true);
   public player: Player | null = null;
 
   constructor() {

@@ -3,10 +3,8 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MissionService } from '../../services/mission.service';
 import { GameStateService } from '../../services/game/game-state.service';
 import { ActionExecutorService } from '../../services/game/action-executor.service';
-import { NgIf } from '@angular/common';
 import { SAMPLE_ACTION_TEST } from '../../const/sample-actions';
 import { FirebaseService } from '../../services/firebase.service';
-import { AppUser } from '../../../models/appUser';
 import { Dialog, DialogRef } from '@angular/cdk/dialog';
 import { DialogResult } from '../../../models/dialogResult';
 import { FULL_SIZE_DIALOG, SMALL_SIZE_DIALOG } from '../../const/dialogsConfig';
@@ -15,15 +13,17 @@ import { Player } from '../../../models/player';
 import { APP_TITLE_LINES } from '../../const/titleLines';
 import { TabMenuContainerComponent } from '../../components/tab-menu-container/tab-menu-container.component';
 import { ChatComponent } from '../../components/chat/chat.component';
+import { AgentTagComponent } from '../../components/agent-tag/agent-tag.component';
+import { UI_SOUNDS_DIRECTIVES } from '../../const/uiSounds';
 
 @Component({
   selector: 'app-mission-play-page',
   templateUrl: './mission-play-page.component.html',
   styleUrl: './mission-play-page.component.scss',
-  imports: [RouterLink, TabMenuContainerComponent, ChatComponent]
+  imports: [RouterLink, TabMenuContainerComponent, ChatComponent, AgentTagComponent, UI_SOUNDS_DIRECTIVES]
 })
 export class MissionPlayPageComponent {
-
+  
   public titleLines = APP_TITLE_LINES;
   private dialog = inject(Dialog);
   private dialogRef: DialogRef<DialogResult, any> | null = null;

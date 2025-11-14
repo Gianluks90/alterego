@@ -30,14 +30,18 @@ export const routes: Routes = [
         title: 'Missions',
         path: 'missions', 
         loadComponent: () => import('./views/missions-list-page/missions-list-page.component').then(m => m.MissionsListPageComponent),
-        canActivate: [AuthGuardService]
+        canActivate: [AuthGuardService],
+        resolve: {
+            resolved: soundResolver
+        },
     },
     {
         title: 'Mission Lobby',
         path: 'missions/:id/lobby', 
         loadComponent: () => import('./views/mission-lobby-page/mission-lobby-page.component').then(m => m.MissionLobbyPageComponent),
         resolve: {
-            resolved: lobbyResolver
+            resolved: lobbyResolver,
+            sound: soundResolver
         },
         canActivate: [AuthGuardService]
     },
@@ -46,7 +50,8 @@ export const routes: Routes = [
         path: 'missions/:id/play', 
         loadComponent: () => import('./views/mission-play-page/mission-play-page.component').then(m => m.MissionPlayPageComponent),
         resolve: {
-            resolved: missionPlayResolver
+            resolved: missionPlayResolver,
+            sound: soundResolver
         },
         canActivate: [AuthGuardService],
     },
@@ -56,6 +61,7 @@ export const routes: Routes = [
         loadComponent: () => import('./views/codex-page/codex-page.component').then(m => m.CodexPageComponent),
         resolve: {
             resolved: codexResolver,
+            sound: soundResolver
         },
         canActivate: [AuthGuardService]
     },

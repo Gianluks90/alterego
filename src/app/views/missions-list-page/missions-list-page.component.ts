@@ -14,10 +14,11 @@ import { NotificationService } from '../../services/notification.service';
 import { AppUser } from '../../../models/appUser';
 import { DialogResult } from '../../../models/dialogResult';
 import { DeleteDialogComponent } from '../../components/dialogs/delete-dialog/delete-dialog.component';
+import { UI_SOUNDS_DIRECTIVES } from '../../const/uiSounds';
 
 @Component({
   selector: 'app-missions-list-page',
-  imports: [RouterLink, UpperCasePipe],
+  imports: [RouterLink, UpperCasePipe, UI_SOUNDS_DIRECTIVES],
   templateUrl: './missions-list-page.component.html',
   styleUrl: './missions-list-page.component.scss'
 })

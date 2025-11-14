@@ -22,6 +22,7 @@ import { CdkMenuTrigger, CdkMenu, CdkMenuItem } from '@angular/cdk/menu';
 import { ConnectedPosition } from '@angular/cdk/overlay';
 import { HelpLobbyDialogComponent } from '../../components/dialogs/help-lobby-dialog/help-lobby-dialog.component';
 import { ChatComponent } from '../../components/chat/chat.component';
+import { UI_SOUNDS_DIRECTIVES } from '../../const/uiSounds';
 
 @Component({
   selector: 'app-mission-lobby-page',
@@ -36,7 +37,8 @@ import { ChatComponent } from '../../components/chat/chat.component';
     AgentLabelPipe,
     CdkMenuTrigger,
     CdkMenu,
-    CdkMenuItem
+    CdkMenuItem,
+    UI_SOUNDS_DIRECTIVES
   ],
   templateUrl: './mission-lobby-page.component.html',
   styleUrl: './mission-lobby-page.component.scss'

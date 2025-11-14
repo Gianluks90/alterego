@@ -5,16 +5,23 @@
             <div class="{{line.class}} term-line">{{line.text}}</div>
             }
         </div>
-        <div class="mode-line">/missions/{{missionId}}/play [ CONCENTRATI ]</div>
+        <div class="mode-line">/missions/{{missionId}}/play</div>
     </div>
 
-    <div class="mission-play-page-content-container">
-        <section>
+    @if (player) {
+        <div class="mission-play-page-content-container">
+        <section class="content-section">
             <div class="background-level" 
                 [style.background-color]="'var(--fg-color)'"
                 [style.mask]="'url(./images/backgrounds/green.svg) no-repeat center / cover'"
                 [style.-webkit-mask]="'url(./images/backgrounds/green.svg) no-repeat center / cover'">
             ></div>
+
+            <div class="map-container">[ MAP ]</div>
+            <div class="agent-container">
+                <app-agent-tag [$player]="player" [$showTitle]="false"></app-agent-tag>
+                <div class="agent-sub-container">A</div>
+            </div>
         </section>
         <app-tab-menu-container #tabMenu [$tabs]="['azioni', 'status', 'log/chat']">
             @if (tabMenu.selectedTab === 'azioni') {
@@ -25,4 +32,11 @@
             }
         </app-tab-menu-container>
     </div>
+
+     <div class="mission-play-page-actions-container">
+        <button standard-button disabled>Vedi obbiettivo</button>
+        <button standard-button type="button" disabled>{{player.actionPoints <= 1 ? 'Concludi' : 'Passa'}}</button>
+        <button standard-button [routerLink]="['/missions']">Esci</button>
+    </div>
+    }
 </div>

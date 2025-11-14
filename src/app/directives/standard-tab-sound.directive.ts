@@ -2,10 +2,9 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
 import { SoundService } from '../services/sound.service';
 
 @Directive({
-  selector: '[standard-button]',
+  selector: '[standard-tab]',
 })
-export class StandardButtonSoundDirective {
-
+export class StandardTabSoundDirective {
   constructor(private el: ElementRef, private sound: SoundService) { }
 
   @HostListener('click', ['$event'])

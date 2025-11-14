@@ -2,7 +2,7 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
-      padding-bottom: 16px;
+      background-color: var(--bg-main-color);
 
       h3 {
           margin: 0 0 12px 0;
@@ -55,17 +55,17 @@
                   }
 
                   &>.agent-role {
-                    display: flex;
-                    align-items: center;
-                    gap: 4px;
+                      display: flex;
+                      align-items: center;
+                      gap: 4px;
 
-                    &>.material-symbols-outlined {
-                      font-size: 1.2rem;
-                    }
+                      &>.material-symbols-outlined {
+                          font-size: 1.2rem;
+                      }
 
-                    &>span[title] {
-                        text-transform: capitalize;
-                    }
+                      &>span[title] {
+                          text-transform: capitalize;
+                      }
                   }
               }
 
@@ -75,15 +75,19 @@
                   gap: 8px;
                   justify-content: center;
 
-                  &>div {
+                  &>.action-led {
                       height: 100%;
                       width: 8px;
                       border: 1px solid var(--fg-color);
                       background-color: var(--fg-color);
                       box-shadow: 0 0 8px var(--fg-color);
                   }
+
+                    &>.action-used {
+                        background-color: var(--bg-main-color);
+                        box-shadow: none;
+                    }
               }
           }
       }
-
   }

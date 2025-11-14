@@ -11,6 +11,7 @@
         gap: 4px;
 
         &>.radio-button-container {
+            user-select: none;
             position: relative;
             display: inline-flex;
             align-items: center;

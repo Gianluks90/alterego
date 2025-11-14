@@ -45,7 +45,7 @@
 
 .mission-play-page-content-container {
     width: 100%;
-    height: 80%;
+    height: 85%;
     max-width: 1400px;
     display: grid;
     grid-template-columns: 1fr 33%;
@@ -74,7 +74,7 @@
         }
 
         .background-level {
-            opacity: .4;
+            opacity: .3;
             width: 100%;
             height: 100%;
         }
@@ -90,8 +90,53 @@
     }
 }
 
+.mission-play-page-actions-container {
+    position: fixed;
+    bottom: 24px;
+    display: flex;
+    gap: 16px;
+}
+
 @media screen and (max-width: 1100px) {
-    .game-lobby-page-content-container {
+    .mission-play-page-content-container {
         grid-template-columns: 1fr 33%;
+    }
+}
+
+.content-section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    &>* {
+        z-index: 100;
+    }
+
+    &>.background-level {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+    }
+
+    &>.map-container {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .agent-container {
+        height: 100px;
+        display: grid;
+        grid-template-columns: 1fr 300px;
+
+        &>.agent-sub-container {
+            border: 1px solid var(--fg-color);
+            background-color: var(--bg-main-color);
+            padding: 8px;
+        }
     }
 }

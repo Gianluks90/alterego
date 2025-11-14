@@ -2,7 +2,7 @@
     <div class="tab-actions-container">
         @for (tab of $tabs(); track $index) {
         <label class="radio-button-container">
-            <input class="radio-button" type="radio" name="tab-menu" 
+            <input standard-tab class="radio-button" type="radio" name="tab-menu" 
                 [value]="tab" 
                 [checked]="tab === $selectedTab()"
                 (change)="$selectedTab.set(tab)">
