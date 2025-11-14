@@ -1,38 +1,41 @@
 <div dialog-main-container>
-    <h1>Create new mission</h1>
+    <h1>Crea una nuova missione</h1>
 
     <pre class="container-log">
-[INITIATING MISSION CREATION] ................... [OK]
-[SECURE CHANNEL ESTABLISHED] .................... [OK]
+[INIZIALIZZAZIONE CREAZIONE MISSIONE] ............ [OK]
+[CANALI SICURI STABILITI] ........................ [OK]
 -------------------------------------------------------
- AGENT, enter the following details:
+AGENTE, inserisci i seguenti dettagli:
 
-- NAME          : choose an identifier for the mission
-- PLAYERS LIMIT : set the maximum number of agents (2-6)
-- PASSWORD      : secure your session
+- NOME             : scegli un identificativo per la missione
+- LIMITE GIOCATORI : imposta il numero massimo di agenti (2-6)
+- PASSWORD         : proteggi la tua sessione
 
-[NOTICE] All fields must be completed to proceed.
-[STATUS] Awaiting input...
+[AVVISO] Tutti i campi devono essere compilati per procedere.
+[STATO] In attesa di input...
 -------------------------------------------------------
   </pre>
 
-  <form standard-form [formGroup]="form">
-    <div form-field>
-        <label for="name">Mission name</label>
-        <input id="name" type="text" formControlName="name" aria-autocomplete="none" autocomplete="new-password" autocorrect="off" placeholder="Text here" />
-    </div>
-    <div form-field>
-        <label for="playersLimit">Players limit</label>
-        <input id="playersLimit" type="number" inputmode="numeric" min="2" max="6" formControlName="playersLimit" placeholder="2"  />
-    </div>
-    <div form-field>
-        <label for="password">Password</label>
-        <input id="password" type="password" formControlName="password" autocorrect="off" placeholder="Password here" />
-    </div>
-  </form>
+    <form standard-form [formGroup]="form">
+        <div form-field>
+            <label for="name">Nome missione</label>
+            <input id="name" type="text" formControlName="name" aria-autocomplete="none" autocomplete="new-password"
+                autocorrect="off" placeholder="Scrivi qui" />
+        </div>
+        <div form-field>
+            <label for="playersLimit">Limite agenti (massimo 6)</label>
+            <input id="playersLimit" type="number" inputmode="numeric" min="2" max="6" formControlName="playersLimit"
+                placeholder="2" />
+        </div>
+        <div form-field>
+            <label for="password">Password</label>
+            <input id="password" type="password" formControlName="password" autocorrect="off"
+                placeholder="Scrivi qui" />
+        </div>
+    </form>
 
     <div dialog-actions-container>
-        <button standard-button type="button" [disabled]="form.invalid" (click)="confirm()">Create</button>
+        <button standard-button type="button" [disabled]="form.invalid" (click)="confirm()">Crea</button>
         <button standard-button type="button" (click)="cancel()">ESC</button>
     </div>
 </div>

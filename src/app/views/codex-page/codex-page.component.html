@@ -8,8 +8,8 @@
         <div class="mode-line">/codex</div>
     </div>
     <div class="codex-page-content-container">
-        <app-tab-menu-container #tabMenu="tabMenu" [$tabs]="['collected data', 'achievements']">
-            @if (tabMenu.selectedTab === 'collected data') {
+        <app-tab-menu-container #tabMenu="tabMenu" [$tabs]="['dati raccolti', 'obbiettivi']">
+            @if (tabMenu.selectedTab === 'dati raccolti') {
                 <cdk-accordion class="accordion-main-container">
                     @for(item of groupedLore | keyvalue; track item; let index = $index) {
                         <cdk-accordion-item #accordionItem="cdkAccordionItem" class="accordion-item-container">            
@@ -27,17 +27,17 @@
                     }
                 </cdk-accordion>
             }
-            @if (tabMenu.selectedTab === 'achievements') {
-                <div class="in-progress-content">Under construction...</div>
+            @if (tabMenu.selectedTab === 'obbiettivi') {
+                <div class="in-progress-content">In costruzione...</div>
             }
         </app-tab-menu-container>
         <section>
-            <div class="section-title">Details</div>
-            <div class="in-progress-content">[WAITING] Select an item...</div>
+            <div class="section-title">Dettagli</div>
+            <div class="in-progress-content">[WAITING] Seleziona un elemento...</div>
         </section>
     </div>
 
     <div class="codex-page-actions-container">
-        <button standard-button type="button" [routerLink]="['/']">Exit</button>
+        <button standard-button type="button" [routerLink]="['/']">Esci</button>
     </div>
 </div>

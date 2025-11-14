@@ -6,14 +6,12 @@ import { MissionService } from '../../services/mission.service';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Timestamp } from 'firebase/firestore';
 import { FirebaseService } from '../../services/firebase.service';
-import { DatePipe, UpperCasePipe } from '@angular/common';
+import { UpperCasePipe } from '@angular/common';
 import { Archetype, Player } from '../../../models/player';
 import { Dialog, DialogRef } from '@angular/cdk/dialog';
 import { DialogResult } from '../../../models/dialogResult';
 import { DIALOGS_CONFIG, FULL_SIZE_DIALOG, SMALL_SIZE_DIALOG } from '../../const/dialogsConfig';
-import { DeleteDialogComponent } from '../../components/dialogs/delete-dialog/delete-dialog.component';
 import { NotificationService } from '../../services/notification.service';
-import { ChatHelpDialogComponent } from '../../components/dialogs/chat-help-dialog/chat-help-dialog.component';
 import { ARCHETYPES_DICT_ICONS, ROLES } from '../../const/roles';
 import { ReplaceDashPipe } from '../../pipes/replace-dash.pipe';
 import { AgentLabelPipe } from '../../pipes/agent-label.pipe';
@@ -109,10 +107,9 @@ export class MissionLobbyPageComponent {
       this.resolvedData = data['resolved'];
     });
 
-    const navigation = history.state;
-    if (navigation && navigation.missionId) {
-      this.missionId = navigation.missionId;
-    }
+    this.route.paramMap.subscribe((params) => {
+      this.missionId = params.get('id');
+    });
 
     effect(() => {
       const user = this.firebaseService.$user();
@@ -122,7 +119,7 @@ export class MissionLobbyPageComponent {
     })
 
     effect(() => {
-      const { mission, player, ready } = this.missionService.$$lobbyState();
+      const { mission, player, ready } = this.missionService._lobbyState();
 
       if (!ready) return;
 
@@ -211,7 +208,7 @@ export class MissionLobbyPageComponent {
 
     if (this.yourTurn && this.player.status === 'pending') {
       this.missionService.updatePlayerStatus(this.missionId!, this.player.uid, 'setup').then(() => {
-        this.notificationService.notify('It is your turn to set up your agent!', 'info', 5000);
+        this.notificationService.notify('È il tuo turno di configurare il tuo agente!', 'info', 5000);
         this.initArchetypesSelection();
       });
     }
@@ -264,7 +261,7 @@ export class MissionLobbyPageComponent {
     if (!this.player || !this.missionId) return;
     if (this.player.status === 'ready') return;
 
-    const agentNames = import('../../const/agentsNamesSurnames').then(module => {
+    const agentNames = import('../../const/agentInformations').then(module => {
       const namesArray = module.AGENT_NAME;
       const surnamesArray = module.AGENT_SURNAME;
 
@@ -306,16 +303,16 @@ export class MissionLobbyPageComponent {
 
         this.missionService.completeAgentSetup(this.missionId, this.player.uid, payload).then(() => {
           localStorage.removeItem(this.LS_KEY(this.player!.uid));
-          this.notificationService.notify('Agent setup saved successfully!', 'check');
+          this.notificationService.notify('Configurazione agente salvata con successo!', 'check');
           this.missionService.newChatLog({
             timestamp: Timestamp.now(),
             senderPlayer: `Agent_${this.player!.order}`,
-            message: `has completed their agent setup and is ready for the mission.`,
+            message: `ha completato la configurazione del proprio agente ed è pronto per la missione.`,
             class: 'system-message'
           }, this.missionId!);
         });
       } else {
-        this.notificationService.notify('Agent setup save cancelled.', 'info');
+        this.notificationService.notify('Salvataggio configurazione agente annullato.', 'info');
       }
     });
   }
@@ -333,13 +330,13 @@ export class MissionLobbyPageComponent {
           this.missionService.launchMission(this.missionId),
           this.missionService.emptyChatLogs(this.missionId),
         ]).then(() => {
-          this.notificationService.notify('Mission launched successfully! Redirecting...', 'check');
+          this.notificationService.notify('Missione avviata con successo! Reindirizzamento in corso...', 'check');
           setTimeout(() => {
             this.router.navigate(['/missions']);
           }, 3000);
         });
       } else {
-        this.notificationService.notify('Mission launch cancelled.', 'info');
+        this.notificationService.notify('Avvio missione annullato.', 'info');
       }
     });
   }

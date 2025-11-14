@@ -1,24 +1,24 @@
 <div dialog-main-container>
-    <h1>CONFIRM DATA</h1>
+    <h1>ATTESA CONFERMA</h1>
 
     <pre class="container-log">
-[NOTICE] Data validation checkpoint reached.
+[AVVISO] Punto di controllo della validazione dati raggiunto.
 -------------------------------------------------------
-  You are about to finalize the submitted agent setup.
+    Stai per finalizzare la configurazione dell'agente inviata.
 
-  Once confirmed, the stored information will be locked
-  into the mission database and will no longer be editable
-  through this interface.
+    Una volta confermata, le informazioni memorizzate saranno bloccate
+    nel database della missione e non saranno più modificabili
+    tramite questa interfaccia.
 
-  Review the data carefully before proceeding.
-  Confirmation is considered a permanent authorization.
+    Controlla attentamente i dati prima di procedere.
+    La conferma è considerata un'autorizzazione permanente.
 
-[STATUS] Awaiting final user validation...
+[STATO] In attesa della validazione finale dell'utente...
 -------------------------------------------------------
     </pre>
 
     <div dialog-actions-container>
-        <button standard-button type="button" (click)="confirm()">confirm</button>
-        <button standard-button type="button" (click)="cancel()">cancel</button>
+        <button standard-button type="button" (click)="confirm()">conferma</button>
+        <button standard-button type="button" (click)="cancel()">annulla</button>
     </div>
 </div>

@@ -13,7 +13,7 @@ export class MissionService {
   public $selectedMission: WritableSignal<Mission | null> = signal(null);
   public $selectedPlayerData: WritableSignal<any | null> = signal(null);
 
-  public $$lobbyState = computed(() => {
+  public _lobbyState = computed(() => {
     const mission = this.$selectedMission();
     const player = this.$selectedPlayerData();
 

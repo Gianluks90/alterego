@@ -1,21 +1,21 @@
 <div dialog-main-container>
-    <h1>CONFIRM DELETE</h1>
+    <h1>Conferma eliminazione</h1>
 
     <pre class="container-log">
-[WARNING] Critical deletion protocol initiated.
+[ATTENZION] Protocollo di eliminazione critica avviato.
 -------------------------------------------------------
-  The selected entity will be permanently removed 
-  from system memory.
+  L'entità selezionata sarà rimossa permanentemente 
+  dalla memoria di sistema.
 
-  This process cannot be reversed once confirmed.
-  Proceed only if the operation has been authorized.
+  Questo processo non può essere annullato una volta confermato.
+  Procedi solo se l'operazione è stata autorizzata.
 
-[NOTICE] All dependent data will be lost.
-[STATUS] Awaiting final confirmation...
+[AVVISO] Tutti i dati dipendenti saranno persi.
+[STATO] In attesa della conferma finale...
 -------------------------------------------------------
     </pre>
     <div dialog-actions-container>
-        <button standard-button type="button" (click)="confirm()">confirm</button>
-        <button standard-button type="button" (click)="cancel()">cancel</button>
+        <button standard-button type="button" (click)="confirm()">conferma</button>
+        <button standard-button type="button" (click)="cancel()">annulla</button>
     </div>
 </div>

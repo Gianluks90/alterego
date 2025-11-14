@@ -35,8 +35,8 @@ export class HomePageComponent {
     effect(() => {
       this.user = this.firebaseService.$user();
       if (this.user) {
-        this.notificationService.notify(`Welcome back, ${this.user.username}!`);
-        this.appSubtitleLines.push({ text: `> ${this.user.username} logged in`, delay: 4000, class: 'subtitle-line' });
+        this.notificationService.notify(`Connessione stabilita, ${this.user.username.toUpperCase()}!`);
+        this.appSubtitleLines.push({ text: `> ${this.user.username} connesso`, delay: 4000, class: 'subtitle-line' });
 
         const skipIntroDate = localStorage.getItem('alterego-skipIntro');
         const today = new Date();
@@ -53,9 +53,9 @@ export class HomePageComponent {
   }
 
   public appSubtitleLines: TermLine[] = [
-    { text: `ALT OS (2025.10) v. ${APP_VERSION}`, delay: 3200, class: 'subtitle-line' },
-    { text: 'Boot completed ................................ [  OK  ]', delay: 3400, class: 'subtitle-line' },
-    { text: 'UI components ready ........................... [  OK  ]', delay: 3600, class: 'subtitle-line' },
+    { text: `ALT OS (2025.11) v. ${APP_VERSION}`, delay: 3200, class: 'subtitle-line' },
+    { text: 'Avvio completato ............................... [  OK  ]', delay: 3400, class: 'subtitle-line' },
+    { text: 'Componenti UI pronti ........................... [  OK  ]', delay: 3600, class: 'subtitle-line' },
   ];
 
   public logOut(): void {

@@ -73,9 +73,9 @@ export class MissionsListPageComponent {
     this.dialogRef.closed.subscribe((result) => {
       if (result?.status === 'confirmed') {
         this.missionService.createNewMission(result.data, this.firebaseService.$user()!.uid).then(() => {
-          this.notificationService.notify('Mission created successfully!', 'check');
+          this.notificationService.notify('Missione creata con successo!', 'check');
         }).catch((error) => {
-          this.notificationService.notify('Error creating mission.', 'dangerous');
+          this.notificationService.notify('Errore durante la creazione della missione.', 'dangerous');
         });
       }
     });
@@ -90,9 +90,9 @@ export class MissionsListPageComponent {
     this.dialogRef.closed.subscribe((result) => {
       if (result?.status === 'confirmed') {
         this.missionService.joinMission(result.data.id, this.firebaseService.$user()!.uid).then(() => {
-          this.notificationService.notify('Joined mission successfully!', 'check');
+          this.notificationService.notify('Iscritto alla missione con successo!', 'check');
         }).catch((error) => {
-          this.notificationService.notify('Error joining mission.', 'dangerous');
+          this.notificationService.notify('Errore durante l\'iscrizione alla missione.', 'dangerous');
         });
       }
     });
@@ -108,13 +108,13 @@ export class MissionsListPageComponent {
     this.dialogRef.closed.subscribe((result) => {
       if (result?.status === 'confirmed') {
         this.missionService.deleteMission(gameId).then(() => {
-          this.notificationService.notify('Mission deleted successfully!', 'check');
+          this.notificationService.notify('Missione eliminata con successo!', 'check');
         }).catch((error) => {
-          this.notificationService.notify('Error deleting mission.', 'dangerous');
+          this.notificationService.notify('Errore durante l\'eliminazione della missione.', 'dangerous');
         });
       }
       if (result?.status === 'cancelled') {
-        this.notificationService.notify('Mission deletion cancelled.', 'info');
+        this.notificationService.notify('Eliminazione della missione annullata.', 'info');
       }
     });
   }

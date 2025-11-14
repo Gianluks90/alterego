@@ -22,11 +22,12 @@ export class ChatComponent {
 
   public $player = input<Player | null>(null);
   public $mission = input<Mission | null>(null);
+  public $onPlay = input<boolean>(false);
 
   public player: Player | null = null;
   public mission: Mission | null = null;
   
-  public $$chatState = computed(() => {
+  public _chatState = computed(() => {
     const mission = this.$mission();
     const player = this.$player();
 
@@ -60,9 +61,9 @@ export class ChatComponent {
   ) {
 
     effect(() => {
-      if (this.$$chatState().ready) {
-        this.mission = this.$$chatState().mission;
-        this.player = this.$$chatState().player;
+      if (this._chatState().ready) {
+        this.mission = this._chatState().mission;
+        this.player = this._chatState().player;
       }
     }); }
 
@@ -79,6 +80,14 @@ export class ChatComponent {
         message: msg.toUpperCase(),
         class: 'shout-message'
       }),
+
+      '/coin': () => {
+        const outcome = Math.random() < 0.5 ? 'TESTA' : 'CROCE';
+        return {
+          message: `lancia una moneta e ottiene ${outcome}!`,
+          class: 'coin-flip-message'
+        };
+      }
       // aggiungerai altri qui, tipo /roll, /whisper, ecc.
     };
 
@@ -93,7 +102,7 @@ export class ChatComponent {
 
     const newLog = {
       timestamp: Timestamp.now(),
-      senderPlayer: `Agent_${this.$player()?.order}`,
+      senderPlayer: '$' + `${this.player?.name}` || `Agent_${this.player?.order}`,
       message: formattedMessage,
       class: messageClass
     };
@@ -120,7 +129,7 @@ export class ChatComponent {
     this.dialogRef.closed.subscribe((result) => {
       if (result?.status === 'confirmed') {
         this.missionService.emptyChatLogs(this.$mission()?.id!).then(() => {
-          this.notificationService.notify('Chat logs deleted successfully!', 'check');
+          this.notificationService.notify('Log eliminati correttamente!', 'check');
         });
       }
     });

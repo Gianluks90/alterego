@@ -8,15 +8,15 @@
 
     <div class="home-page-actions-container" [class.intro-action-animation]="!skipIntro">
         @if (user) {
-            <button standard-button type="button" (click)="logOut()">Logout</button>
+            <button standard-button type="button" (click)="logOut()">Disconnetti</button>
         } @else {
-            <button standard-button type="button" [routerLink]="'/auth/login'">Login</button>
-            <button standard-button type="button" [routerLink]="'/auth/register'">Register</button>
+            <button standard-button type="button" [routerLink]="'/auth/login'">Connetti</button>
+            <button standard-button type="button" [routerLink]="'/auth/register'">Registrati</button>
         }
-        <button standard-button type="button" [disabled]="!user" [routerLink]="'/missions'">Missions</button>
+        <button standard-button type="button" [disabled]="!user" [routerLink]="'/missions'">Missioni</button>
         <button standard-button type="button" [disabled]="!user" [routerLink]="'/codex'">Codex</button>
-        <button standard-button type="button" [disabled]="!user" (click)="helpDialogOpen()">Help</button>
-        <button standard-button type="button" (click)="aboutDialogOpen()">About</button>
+        <button standard-button type="button" [disabled]="!user" (click)="helpDialogOpen()">Aiuto</button>
+        <button standard-button type="button" (click)="aboutDialogOpen()">Info</button>
         @if (user?.username === 'gianluks90') {
             <a href="https://console.firebase.google.com/u/4/project/alterego-2025/firestore/databases/-default-/data/~2Fusers~2FVOqziSjOvuXgjCCBSmfyIVAmxl83" target="_blank" rel="noopener">
                 <button standard-button type="button">Firebase</button>

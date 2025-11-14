@@ -21,9 +21,9 @@
             <div class="game-main-container">
                 <p>#{{$index + 1}}</p>
                 <p>id={{mission.id}}</p>
-                <p>name={{mission.name | uppercase}}</p>
-                <p>Status={{mission.status | uppercase}}</p>
-                <p>Players={{mission.players.length}}/{{mission.playersLimit}}</p>
+                <p>nome={{mission.name | uppercase}}</p>
+                <p>stato={{mission.status | uppercase}}</p>
+                <p>agenti={{mission.players.length}}/{{mission.playersLimit}}</p>
 
                 <div class="game-actions">
                     @if (user?.uid === mission.createdBy) {
@@ -42,8 +42,8 @@
     }
 
     <div class="games-list-page-actions-container">
-        <button standard-button type="button" [disabled]="missions && missions.length >= 3" (click)="openNewGameDialog()">Create</button>
-        <button standard-button type="button" (click)="openJoinGameDialog()">Join</button>
-        <button standard-button type="button" [routerLink]="['/']">Exit</button>
+        <button standard-button type="button" [disabled]="missions && missions.length >= 3" (click)="openNewGameDialog()">Crea</button>
+        <button standard-button type="button" (click)="openJoinGameDialog()">Partecipa</button>
+        <button standard-button type="button" [routerLink]="['/']">Esci</button>
     </div>
 </div>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GameStateService } from './game-state.service';
-import { Effect } from '../../const/effects';
+import { Effect } from '../../types/effects';
 import { Item } from '../../../models/player';
 
 interface EffectContext {
@@ -15,7 +15,7 @@ export class EffectRunnerService {
   constructor(private gameState: GameStateService) { }
 
   async run(effect: Effect, ctx: EffectContext): Promise<void> {
-    const mission = this.gameState.mission();
+    const mission = this.gameState._mission();
     if (!mission) throw new Error('No mission');
 
     switch (effect.type) {

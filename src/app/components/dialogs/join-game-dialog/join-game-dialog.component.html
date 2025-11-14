@@ -1,34 +1,36 @@
 <div dialog-main-container>
-    <h1>Join existing mission</h1>
+  <h1>Partecipa a una missione esistente</h1>
 
-    <pre class="container-log">
-[ACCESSING EXISTING SESSION] .................... [OK]
-[SECURITY CHANNEL ESTABLISHED] .................. [OK]
+  <pre class="container-log">
+[ACCESSO ALLA SESSIONE ESISTENTE] .................... [OK]
+[CANALE SICURO STABILITO] ............................. [OK]
 -------------------------------------------------------
- AGENT, to join an active operation you must provide:
+AGENTE, per unirti a un'operazione attiva devi fornire:
 
-  - Mission ID  : unique identifier of the mission
-  - PASSWORD    : access key assigned by the host
+  - ID MISSIONE : identificativo univoco della missione
+  - PASSWORD    : chiave di accesso assegnata dall'host
 
-[NOTE] Unauthorized access attempts are logged and reported.
-[STATUS] Awaiting verification...
+[NOTA] I tentativi di accesso non autorizzati vengono registrati 
+       e segnalati.
+[STATO] In attesa di verifica...
 -------------------------------------------------------
 </pre>
 
-
   <form standard-form [formGroup]="form">
     <div form-field>
-        <label for="id">Mission ID</label>
-        <input id="id" type="text" formControlName="id" autocorrect="off" autocomplete="new-password" placeholder="Text here" />
+      <label for="id">ID Missione</label>
+      <input id="id" type="text" formControlName="id" autocorrect="off" autocomplete="new-password"
+        placeholder="Scrivi qui" />
     </div>
     <div form-field>
-        <label for="password">Password</label>
-        <input id="password" type="password" formControlName="password" autocorrect="off" autocomplete="new-password" placeholder="Password here" />
+      <label for="password">Password</label>
+      <input id="password" type="password" formControlName="password" autocorrect="off" autocomplete="new-password"
+        placeholder="Scrivi qui" />
     </div>
   </form>
 
-    <div dialog-actions-container>
-        <button standard-button type="button" [disabled]="form.invalid" (click)="confirm()">Join</button>
-        <button standard-button type="button" (click)="cancel()">ESC</button>
-    </div>
+  <div dialog-actions-container>
+    <button standard-button type="button" [disabled]="form.invalid" (click)="confirm()">Partecipa</button>
+    <button standard-button type="button" (click)="cancel()">ESC</button>
+  </div>
 </div>

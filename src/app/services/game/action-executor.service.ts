@@ -13,7 +13,7 @@ export class ActionExecutorService {
   ) {}
 
   async execute(missionId: string, action: GameAction, actorId: string, params?: any) {
-    const mission = this.gameState.mission();
+    const mission = this.gameState._mission();
     if (!mission || mission.id !== missionId) throw new Error('Mission mismatch');
 
     const actor = mission.playersData.find(p => p.uid === actorId);

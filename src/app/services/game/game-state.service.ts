@@ -6,15 +6,15 @@ import { Player } from '../../../models/player';
 @Injectable({ providedIn: 'root' })
 export class GameStateService {
   // Stato locale derivato dal MissionService
-  mission = computed(() => this.missionService.$selectedMission());
-  player = computed(() => this.missionService.$selectedPlayerData());
+  _mission = computed(() => this.missionService.$selectedMission());
+  _player = computed(() => this.missionService.$selectedPlayerData());
 
   // Stato interno (patch locali non ancora scritte)
   private _localPatch = signal<Partial<Mission> | null>(null);
 
   // Stato combinato (missione corrente + patch locale)
   missionView = computed(() => {
-    const base = this.mission();
+    const base = this._mission();
     const patch = this._localPatch();
     return base ? { ...base, ...(patch ?? {}) } : null;
   });
@@ -22,7 +22,7 @@ export class GameStateService {
   // Computed utile per UI
   myTurn = computed(() => {
     const mission = this.missionView();
-    const me = this.player();
+    const me = this._player();
     if (!mission || !me) return false;
     // esempio: controlla se il turno è mio
     return mission['turnOwner'] === me.uid;
@@ -49,14 +49,14 @@ export class GameStateService {
 
   // Scrittura persistente
   async commitMissionPatch(partial: Partial<Mission>) {
-    const mission = this.mission();
+    const mission = this._mission();
     if (!mission) throw new Error('No mission loaded');
     await this.missionService.launchMission(mission.id); // esempio
   }
 
   async updatePlayerData(partialPlayer: Partial<Player>) {
-    const mission = this.mission();
-    const player = this.player();
+    const mission = this._mission();
+    const player = this._player();
     if (!mission || !player) return;
     // await this.missionService.completeAgentSetup(mission.id, player.uid, partialPlayer);
     console.log('risultato');

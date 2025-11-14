@@ -1,4 +1,4 @@
-import { ITEM_TYPE, TARGET_TYPE } from "./effects";
+import { ITEM_TYPE, TARGET_TYPE } from "../types/effects";
 
 export const BASE_ACTIONS = [
     {

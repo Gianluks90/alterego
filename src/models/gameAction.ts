@@ -1,4 +1,4 @@
-import { Effect } from "../app/const/effects";
+import { Effect } from "../app/types/effects";
 
 export interface GameAction {
   id: string; // es: "attacco_base" o uuid per istanze
