@@ -8,7 +8,7 @@ export interface Player {
     surname: string;
     role: string;
     archetype: Archetype;
-    company: string;
+    company: Company;
 
     objectives: Objective[];
 
@@ -22,6 +22,10 @@ export interface Player {
     actionPoints: number;
 
     status: 'pending' | 'setup' | 'ready';
+}
+export interface Company {
+    name: string;
+    description: string;
 }
 
 export interface Objective {

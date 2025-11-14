@@ -3,10 +3,10 @@
     @if (player) {
         <div class="setup-preview-content">
         <div class="company-container">
-            @if (player.company !== '') {
+            @if (player.company.name !== '') {
             <div class="company-logo" [style.background-color]="'var(--bg-main-color)'"
-                [style.-webkit-mask]="'url(./company-logos/' + player.company + '.svg) no-repeat center / contain'"
-                [style.mask]="'url(./company-logos/' + player.company + '.svg) no-repeat center / contain'">
+                [style.-webkit-mask]="'url(./company-logos/' + player.company.name + '.svg) no-repeat center / contain'"
+                [style.mask]="'url(./company-logos/' + player.company.name + '.svg) no-repeat center / contain'">
             </div>
             } @else {
             <span class="company-logo material-symbols-outlined">

@@ -58,6 +58,8 @@ export class GameStateService {
     const mission = this.mission();
     const player = this.player();
     if (!mission || !player) return;
-    await this.missionService.completeAgentSetup(mission.id, player.uid, partialPlayer);
+    // await this.missionService.completeAgentSetup(mission.id, player.uid, partialPlayer);
+    console.log('risultato');
+    
   }
 }

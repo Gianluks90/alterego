@@ -20,7 +20,7 @@
                     <h3>
                         Company [
                         {{
-                        (player.company || form.value.company || ' UNSELECTED ')
+                        (player.company.name || form.value.company.name || ' UNSELECTED ')
                         | uppercase
                         | replaceDash
                         }} ]
@@ -28,7 +28,7 @@
                     <div class="company-grid">
                         @for(company of companies; track $index) {
                             <div class="company-card-wrapper" (click)="selectCompany(company)" [class.company-card-selected]="
-                                    (player.company || form.value.company) === company.name
+                                    (player.company.name || form.value.company.name) === company.name
                                 ">
                                 <div [style.background-color]="'var(--fg-color)'"
                                     [style.-webkit-mask]="'url(./company-logos/' + company.name + '.svg) no-repeat center / contain'"
@@ -95,7 +95,7 @@
 
     <div class="game-lobby-page-actions-container">
         @if (mission && mission.createdBy === player?.uid && mission.players && mission.playersLimit === mission.players.length) {
-            <button standard-button type="button" [disabled]="!readyToStart">Launch mission</button>
+            <button standard-button type="button" [disabled]="!readyToStart || mission.status === 'in_progress'" (click)="openLaunchConfirmDialog()">Launch mission</button>
         } @else {
             <button standard-button type="button" disabled>Joined {{mission?.players?.length}}/{{mission?.playersLimit}}</button>
         }

@@ -1,6 +1,6 @@
 import { Component, effect, HostListener, inject } from '@angular/core';
-import { APP_TITLE_LINES } from '../../../environment/titleLines';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { APP_TITLE_LINES } from '../../const/titleLines';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Mission } from '../../../models/mission';
 import { MissionService } from '../../services/mission.service';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -10,11 +10,11 @@ import { DatePipe, UpperCasePipe } from '@angular/common';
 import { Archetype, Player } from '../../../models/player';
 import { Dialog, DialogRef } from '@angular/cdk/dialog';
 import { DialogResult } from '../../../models/dialogResult';
-import { DIALOGS_CONFIG, FULL_SIZE_DIALOG, SMALL_SIZE_DIALOG } from '../../../environment/dialogsConfig';
+import { DIALOGS_CONFIG, FULL_SIZE_DIALOG, SMALL_SIZE_DIALOG } from '../../const/dialogsConfig';
 import { DeleteDialogComponent } from '../../components/dialogs/delete-dialog/delete-dialog.component';
 import { NotificationService } from '../../services/notification.service';
 import { ChatHelpDialogComponent } from '../../components/dialogs/chat-help-dialog/chat-help-dialog.component';
-import { ARCHETYPES_DICT_ICONS, ROLES } from '../../../environment/roles';
+import { ARCHETYPES_DICT_ICONS, ROLES } from '../../const/roles';
 import { ReplaceDashPipe } from '../../pipes/replace-dash.pipe';
 import { AgentLabelPipe } from '../../pipes/agent-label.pipe';
 import { AgentTagComponent } from '../../components/agent-tag/agent-tag.component';
@@ -101,13 +101,12 @@ export class MissionLobbyPageComponent {
     private missionService: MissionService,
     private notificationService: NotificationService,
     private fb: FormBuilder,
+    private router: Router,
     private route: ActivatedRoute
   ) {
 
     this.route.data.subscribe((data) => {
       this.resolvedData = data['resolved'];
-      console.log(this.resolvedData);
-      
     });
 
     const navigation = history.state;
@@ -152,7 +151,7 @@ export class MissionLobbyPageComponent {
     this.missionService.getMissionById(this.missionId!);
 
     // Carico i tutti ruoli
-    const ROLES = import('../../../environment/roles').then(module => {
+    const ROLES = import('../../const/roles').then(module => {
       this.allRoles = module.ROLES;
     });
 
@@ -265,7 +264,7 @@ export class MissionLobbyPageComponent {
     if (!this.player || !this.missionId) return;
     if (this.player.status === 'ready') return;
 
-    const agentNames = import('../../../environment/agentsNamesSurnames').then(module => {
+    const agentNames = import('../../const/agentsNamesSurnames').then(module => {
       const namesArray = module.AGENT_NAME;
       const surnamesArray = module.AGENT_SURNAME;
 
@@ -283,7 +282,7 @@ export class MissionLobbyPageComponent {
 
   public selectArchetype(archetype: Archetype): void {
     this.form.get('archetype')?.setValue(archetype);
-    this.roles = this.allRoles[archetype.id].list;
+    this.roles = this.allRoles.find(r => r.archetype.toLowerCase() === archetype.name)?.list || [];
   }
 
   public selectRole(role: string): void {
@@ -321,11 +320,28 @@ export class MissionLobbyPageComponent {
     });
   }
 
-  public launchMission(): void {
-    if (!this.missionId || !this.mission) return;
-    this.missionService.launchMission(this.missionId).then(() => {
-      this.notificationService.notify('Mission launched successfully!', 'check');
-    })
+  public openLaunchConfirmDialog(): void {
+    this.dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: this.windowSize <= 768 ? FULL_SIZE_DIALOG : SMALL_SIZE_DIALOG,
+      ...DIALOGS_CONFIG,
+      disableClose: true,
+    });
+
+    this.dialogRef.closed.subscribe((result) => {
+      if (result?.status === 'confirmed' && this.missionId) {
+        Promise.all([
+          this.missionService.launchMission(this.missionId),
+          this.missionService.emptyChatLogs(this.missionId),
+        ]).then(() => {
+          this.notificationService.notify('Mission launched successfully! Redirecting...', 'check');
+          setTimeout(() => {
+            this.router.navigate(['/missions']);
+          }, 3000);
+        });
+      } else {
+        this.notificationService.notify('Mission launch cancelled.', 'info');
+      }
+    });
   }
 
   // OTHER THINGS

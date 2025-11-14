@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { APP_TITLE_LINES } from '../../../environment/titleLines';
+import { APP_TITLE_LINES } from '../../const/titleLines';
 import { TabMenuContainerComponent } from '../../components/tab-menu-container/tab-menu-container.component';
-import { UI_SOUNDS_DIRECTIVES } from '../../../environment/uiSounds';
+import { UI_SOUNDS_DIRECTIVES } from '../../const/uiSounds';
 import { LanguageService } from '../../services/language.service';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { KeyValuePipe, UpperCasePipe } from '@angular/common';

@@ -1,5 +1,5 @@
 import { Component, effect, HostListener, inject } from '@angular/core';
-import { APP_TITLE_LINES } from '../../../environment/titleLines';
+import { APP_TITLE_LINES } from '../../const/titleLines';
 import { Router, RouterLink } from '@angular/router';
 import { MissionService } from '../../services/mission.service';
 import { Mission } from '../../../models/mission';
@@ -7,7 +7,7 @@ import { FirebaseService } from '../../services/firebase.service';
 import { TermLine } from '../../../models/termLine';
 import { NewGameDialogComponent } from '../../components/dialogs/new-game-dialog/new-game-dialog.component';
 import { Dialog, DialogRef } from '@angular/cdk/dialog';
-import { DIALOGS_CONFIG, FULL_SIZE_DIALOG, SMALL_SIZE_DIALOG } from '../../../environment/dialogsConfig';
+import { DIALOGS_CONFIG, FULL_SIZE_DIALOG, SMALL_SIZE_DIALOG } from '../../const/dialogsConfig';
 import { UpperCasePipe } from '@angular/common';
 import { JoinGameDialogComponent } from '../../components/dialogs/join-game-dialog/join-game-dialog.component';
 import { NotificationService } from '../../services/notification.service';
@@ -126,7 +126,7 @@ export class MissionsListPageComponent {
         break;
 
       case 'in_progress':
-        this.router.navigate(['/missions', mission.id, 'play'], { state: { missionId: mission.id } });
+        this.router.navigate(['/missions', mission.id, 'play']);
         break;
 
       case 'finished':

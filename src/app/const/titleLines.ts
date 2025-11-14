@@ -1,4 +1,4 @@
-import { TermLine } from "../models/termLine";
+import { TermLine } from "../../models/termLine";
 
 export const APP_TITLE_LINES: TermLine[] = [
     { text: ' █████╗ ██╗  ████████╗███████╗██████╗ ███████╗ ██████╗  ██████╗ ', delay: 500, class: 'title-line' },

@@ -23,6 +23,11 @@ export class EffectRunnerService {
 
 
     switch (effect.type) {
+
+      case 'customTestLog': {
+  console.log('TEST EFFECT:', effect.payload.message, ctx.params);
+  return;
+}
       case 'modifyStat': {
         const { targetId, stat, delta } = effect.payload;
         // targetId could be player uid or entity id

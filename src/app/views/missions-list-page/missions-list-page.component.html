@@ -31,9 +31,11 @@
                             <span class="material-symbols-outlined">delete</span>
                         </button>
                     }
-                    <button icon-button type="button" (click)="nav(mission)">
-                        <span class="material-symbols-outlined">{{mission.status === 'waiting' ? 'edit' : 'play_arrow'}}</span>
-                    </button>
+                    @if (mission.status !== 'finished') {
+                        <button icon-button type="button" (click)="nav(mission)">
+                            <span class="material-symbols-outlined">{{mission.status === 'waiting' ? 'edit' : 'play_arrow'}}</span>
+                        </button>
+                    }
                 </div>
             </div>
         }

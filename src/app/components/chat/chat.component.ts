@@ -8,7 +8,7 @@ import { Timestamp } from 'firebase/firestore';
 import { Player } from '../../../models/player';
 import { Mission } from '../../../models/mission';
 import { ChatHelpDialogComponent } from '../dialogs/chat-help-dialog/chat-help-dialog.component';
-import { DIALOGS_CONFIG, FULL_SIZE_DIALOG, SMALL_SIZE_DIALOG } from '../../../environment/dialogsConfig';
+import { DIALOGS_CONFIG, FULL_SIZE_DIALOG, SMALL_SIZE_DIALOG } from '../../const/dialogsConfig';
 import { DeleteDialogComponent } from '../dialogs/delete-dialog/delete-dialog.component';
 import { NotificationService } from '../../services/notification.service';
 

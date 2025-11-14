@@ -1,6 +1,7 @@
 import { Item } from "../../models/player";
 
 export type Effect =
+    | { type: 'customTestLog'; payload: { message: string } }
     | { type: 'modifyStat'; payload: { targetId: string; stat: string; delta: number } }
     | { type: 'consumeItem'; payload: { ownerId: string; itemId: string; amount?: number } }
     | { type: 'movePlayers'; payload: { playerIds: string[]; toEntityId: string } }

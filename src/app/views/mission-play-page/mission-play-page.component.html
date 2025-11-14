@@ -1,1 +1,19 @@
-<p>mission-play-page works!</p>
+<div *ngIf="!ready()">
+  <p>Caricamento missione...</p>
+</div>
+
+<div *ngIf="ready()">
+  <h2>{{ mission()?.name }}</h2>
+
+  <p>
+    Turno di: <strong>{{ mission()?.turnOwner || '???' }}</strong>
+  </p>
+
+  <p>
+    Io sono: <strong>{{ player()?.name }}</strong>
+  </p>
+
+  <button standard-button (click)="doTestAction()">TEST ACTION</button>
+
+  <!-- <pre>{{ mission() | json }}</pre> -->
+</div>

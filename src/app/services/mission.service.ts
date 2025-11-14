@@ -142,6 +142,9 @@ export class MissionService {
     const docRef = doc(this.firebaseService.database, 'missions', missionId);
     return await setDoc(docRef, {
       status: 'in_progress',
+      phase: 'init',
+      turnOwner: null,
+      entities: [],
       startedAt: Timestamp.now()
     }, { merge: true });
   }
@@ -177,13 +180,6 @@ export class MissionService {
       order: order
     }, { merge: true });
   }
-
-  // public async selectCompany(missionId: string, playerId: string, company: string): Promise<void> {
-  //   const docRef = doc(this.firebaseService.database, 'missions', missionId, 'playersData', playerId);
-  //   return await setDoc(docRef, {
-  //     company: company
-  //   }, { merge: true });
-  // }
 
   public async completeAgentSetup(missionId: string, playerId: string, data: any): Promise<void> {
     const missionRef = doc(this.firebaseService.database, 'missions', missionId);

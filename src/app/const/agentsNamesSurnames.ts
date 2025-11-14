@@ -8,7 +8,7 @@ export const AGENT_NAME: string[] = [
   "Ivana", "Javed", "Kael", "Laila", "Miro", "Noa", "Paolo", "Rhea", "Sef", "Timo",
   "Usha", "Valen", "Wyn", "Zaki", "Armin", "Bea", "Claudio", "Delia", "Elias", "Farah",
   "Hugo", "Lina", "Mina", "Nico", "Omar", "Petra", "Qadir", "Rina", "Soren", "Talia",
-  "Usman", "Viola", "Wen", "Xenia", "Yuki", "Zahra"
+  "Usman", "Viola", "Wen", "Xenia", "Yuki", "Zahra", "Dana"
 ];
 
 export const AGENT_SURNAME: string[] = [
@@ -21,5 +21,5 @@ export const AGENT_SURNAME: string[] = [
   "Leblanc", "Mendez", "Nassar", "Ortiz", "Papadopoulos", "Rahimi", "Salazar", "Tavares", "Ueda", "Vargas",
   "Wu", "Yamani", "Abdel", "Bianchi", "Costa", "Eyre", "Flores", "Gallo", "Hossain", "Ivanov",
   "Jaramillo", "Kato", "Lopes", "Muro", "Ngoma", "Ocampo", "Pereira", "Rinaldi", "Silva", "Toma",
-  "Ulrich", "Vasiliev", "Wilde", "Yamada", "Zoric", "Croft"
+  "Ulrich", "Vasiliev", "Wilde", "Yamada", "Zoric", "Croft", "Scully"
 ];
