@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { ResolveFn } from '@angular/router';
 import { forkJoin, map } from 'rxjs';
-import { Action, Archetype } from '../../models/player';
+import { Archetype } from '../../models/player';
 
 interface MissionPlayData {
   archetypes: Archetype[];

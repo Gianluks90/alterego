@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { GameStateService } from './game-state.service';
 import { ActionValidatorService } from './action-validator.service';
 import { EffectRunnerService } from './effect-runner.service';
-import { Action } from '../../../models/player';
+import { GameAction } from '../../../models/gameAction';
 
 @Injectable({ providedIn: 'root' })
 export class ActionExecutorService {
@@ -12,7 +12,7 @@ export class ActionExecutorService {
     private effectRunner: EffectRunnerService
   ) {}
 
-  async execute(missionId: string, action: Action, actorId: string, params?: any) {
+  async execute(missionId: string, action: GameAction, actorId: string, params?: any) {
     const mission = this.gameState.mission();
     if (!mission || mission.id !== missionId) throw new Error('Mission mismatch');
 

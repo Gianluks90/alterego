@@ -1,6 +1,6 @@
-import { Action } from "../../models/player";
+import { GameAction } from "../../models/gameAction";
 
-export const SAMPLE_ACTION_TEST: Action = {
+export const SAMPLE_ACTION_TEST: GameAction = {
   id: 'test_action',
   title: 'Test Action',
   description: 'Azione di test per debug',

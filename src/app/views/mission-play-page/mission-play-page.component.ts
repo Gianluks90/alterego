@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MissionService } from '../../services/mission.service';
 import { GameStateService } from '../../services/game/game-state.service';
 import { ActionExecutorService } from '../../services/game/action-executor.service';
-import { JsonPipe, NgIf } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { SAMPLE_ACTION_TEST } from '../../const/sample-actions';
 import { FirebaseService } from '../../services/firebase.service';
 import { AppUser } from '../../../models/appUser';
@@ -12,7 +12,7 @@ import { AppUser } from '../../../models/appUser';
   selector: 'app-mission-play-page',
   templateUrl: './mission-play-page.component.html',
   styleUrl: './mission-play-page.component.scss',
-  imports: [NgIf, JsonPipe]
+  imports: [NgIf]
 })
 export class MissionPlayPageComponent {
 

@@ -13,13 +13,6 @@ export class StandardButtonSoundDirective {
     const btn = this.el.nativeElement as HTMLButtonElement;
     if (btn.disabled) return;
 
-    this.sound.playSound('standard-button'); // o come hai chiamato il tuo suono
+    this.sound.playSound('standard-button');
   }
-
-  // opzionale: suono di hover o focus
-  // @HostListener('mouseenter')
-  // handleHover() {
-  //   const btn = this.el.nativeElement as HTMLButtonElement;
-  //   if (!btn.disabled) this.sound.playSound('ui-hover');
-  // }
 }

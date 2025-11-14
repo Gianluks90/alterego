@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Mission } from '../../../models/mission';
-import { Action, Player } from '../../../models/player';
+import { Player } from '../../../models/player';
+import { GameAction } from '../../../models/gameAction';
 
 // HELP
 // Controlla se un’azione può essere eseguita.
@@ -10,7 +11,7 @@ import { Action, Player } from '../../../models/player';
   providedIn: 'root'
 })
 export class ActionValidatorService {
-  isUsable(action: Action, player: Player, mission: Mission): boolean {
+  isUsable(action: GameAction, player: Player, mission: Mission): boolean {
     if (!action) return false;
     const costAp = action.cost?.ap ?? 0;
     if ((player.actionPoints ?? 0) < costAp) return false;

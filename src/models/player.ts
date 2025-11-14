@@ -1,4 +1,4 @@
-import { Effect } from "../app/const/effects";
+import { GameAction } from "./gameAction";
 
 export interface Player {
     uid: string;
@@ -13,9 +13,9 @@ export interface Player {
     objectives: Objective[];
 
     actions: {
-        deck: Action[];
-        discardPile: Action[];
-        hand: Action[];
+        deck: GameAction[];
+        discardPile: GameAction[];
+        hand: GameAction[];
     };
     inventory: Inventory;
     parameters: Parameters;
@@ -23,6 +23,7 @@ export interface Player {
 
     status: 'pending' | 'setup' | 'ready';
 }
+
 export interface Company {
     name: string;
     description: string;
@@ -33,36 +34,6 @@ export interface Objective {
     title: string;
     description: string;
     isCompleted: boolean;
-}
-
-export interface Action {
-  id: string; // es: "attacco_base" o uuid per istanze
-  title: string;
-  description: string; // testo templated
-  source: ActionSource; // mano, stanza, oggetto, archetype, global
-  tags?: string[]; // es: ["offensiva","mana"]
-  cost?: {
-    ap?: number;
-    useItemId?: string; // esempio
-  };
-  preconditions?: Precondition[]; // array di funzioni/descrizioni serializzabili
-  effects: Effect[]; // lista di effetti atomici
-  targeting?: TargetSpec; // come scegliere bersagli
-  ui?: { icon?: string; hotkey?: string };
-  meta?: Record<string, any>; // estensioni future
-}
-
-type ActionSource = "hand" | "room" | "object" | "archetype" | "base" | "event";
-
-interface Precondition {
-  type: "hasItem" | "minAP" | "notStatus" | "custom";
-  payload?: any;
-}
-
-interface TargetSpec {
-  type: "self" | "singleAlly" | "singleEnemy" | "area" | "custom";
-  range?: number;
-  areaOfEffect?: number;
 }
 
 export interface Inventory {
