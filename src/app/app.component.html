@@ -3,6 +3,8 @@
 
     <div class="theme-toggle-button-container">
         <app-theme-toggle-button></app-theme-toggle-button>
+        <span class="material-symbols-outlined" (click)="soundService.toggleSounds()">{{soundService.playSounds ?
+            'volume_up' : 'volume_off'}}</span>
     </div>
 </div>
 
@@ -13,5 +15,5 @@
 <div class="notification-container" id='notificationContainer'></div>
 
 @if (loadingRoot) {
-    <app-global-loader></app-global-loader>
+<app-global-loader></app-global-loader>
 }

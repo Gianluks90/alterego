@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router, RouterOutlet } from '@angular/router';
 import { ThemeToggleService } from './services/theme-toggle.service';
 import { ThemeToggleButtonComponent } from './components/theme-toggle-button/theme-toggle-button.component';
@@ -6,6 +6,7 @@ import { FirebaseService } from './services/firebase.service';
 import { UnsupportedPageComponent } from './views/unsupported-page/unsupported-page.component';
 import { NotificationService } from './services/notification.service';
 import { GlobalLoaderComponent } from './components/global-loader/global-loader.component';
+import { SoundService } from './services/sound.service';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ import { GlobalLoaderComponent } from './components/global-loader/global-loader.
 export class AppComponent {
   public isUnsupported: boolean = false;
   public loadingRoot: boolean = false;
+  public soundService = inject(SoundService);
 
   constructor(
     private firebaseService: FirebaseService, // Used to initialize Firebase

@@ -14,6 +14,17 @@
     position: fixed;
     top: 24px;
     right: 24px;
+
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 16px;
+    align-items: center;
+
+    &>.material-symbols-outlined {
+        cursor: pointer;
+        text-shadow: 0 0 8px var(--fg-color);
+    }
+
 }
 
 .notification-container {

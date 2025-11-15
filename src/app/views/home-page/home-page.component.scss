@@ -47,4 +47,7 @@
     position: fixed;
     top: 24px;
     left: 24px;
+
+    cursor: pointer;
+    text-shadow: 0 0 8px var(--fg-color);
 }

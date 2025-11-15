@@ -7,6 +7,8 @@ export class SoundService {
 
   constructor() { 
     this.audioContext = new AudioContext();
+    const storedPreference = localStorage.getItem('playSounds');
+    this.playSounds = storedPreference !== 'false';
   }
 
   private audioContext: AudioContext;
@@ -25,6 +27,10 @@ export class SoundService {
   }
 
   public playSounds: boolean = true;
+  public toggleSounds(): void {
+    this.playSounds = !this.playSounds;
+    localStorage.setItem('playSounds', this.playSounds ? 'true' : 'false');
+  }
 
   public playSound(soundUrl: string): void {
     if (!this.playSounds) return;
