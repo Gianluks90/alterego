@@ -8,21 +8,31 @@
         <div class="mode-line">/missions/{{missionId}}/play</div>
     </div>
 
-    @if (player) {
+    <!-- @if (player) { -->
         <div class="mission-play-page-content-container">
-        <section class="content-section">
+        <div class="content-section">
             <div class="background-level" 
                 [style.background-color]="'var(--fg-color)'"
                 [style.mask]="'url(./images/backgrounds/green.svg) no-repeat center / cover'"
                 [style.-webkit-mask]="'url(./images/backgrounds/background-grid.svg) no-repeat center / cover'">
             ></div>
 
-            <div class="map-container">[ MAP ]</div>
+            <div class="map-container">
+                <div class="zoom-controls">
+                    <button (click)="zoomIn($event)">
+                        <span class="material-symbols-outlined">add</span>
+                    </button>
+                    <button (click)="zoomOut($event)">
+                        <span class="material-symbols-outlined">remove</span>
+                    </button>
+                </div>
+                <div id="map"></div>
+            </div>
             <div class="agent-container">
                 <app-agent-tag [$player]="player" [$showTitle]="false"></app-agent-tag>
                 <div class="agent-sub-container">A</div>
             </div>
-        </section>
+        </div>
         <app-tab-menu-container #tabMenu [$tabs]="['azioni', 'status', 'log/chat']">
             @if (tabMenu.selectedTab === 'azioni') {
                 <div>Azioni</div>
@@ -33,10 +43,12 @@
         </app-tab-menu-container>
     </div>
 
-     <div class="mission-play-page-actions-container">
+     @if (player) {
+        <div class="mission-play-page-actions-container">
         <button standard-button disabled>Vedi obbiettivo</button>
         <button standard-button type="button" disabled>{{player.actionPoints <= 1 ? 'Concludi' : 'Passa'}}</button>
         <button standard-button [routerLink]="['/missions']">Esci</button>
     </div>
-    }
+     }
+    <!-- } -->
 </div>

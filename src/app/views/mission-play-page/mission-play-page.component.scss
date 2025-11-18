@@ -104,13 +104,10 @@
 }
 
 .content-section {
+    border: 1px solid var(--fg-color);
+    display: grid;
+    grid-template-rows: 1fr  100px;
     position: relative;
-    display: flex;
-    flex-direction: column;
-
-    &>* {
-        z-index: 100;
-    }
 
     &>.background-level {
         position: absolute;
@@ -119,19 +116,55 @@
         width: 100%;
         height: 100%;
         z-index: 0;
+        opacity: .3;
+        width: 100%;
+        height: 100%;
     }
 
     &>.map-container {
-        flex-grow: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        position: relative;
+        height: 100%;
+        width: 100%;
+        z-index: 100;
+
+        &>.zoom-controls {
+            position: absolute;
+            bottom: 8px;
+            right: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+
+            button {
+                width: 32px;
+                height: 32px;
+                padding: 0;
+                font-size: 1.5rem;
+                line-height: 1;
+                border: 1px solid var(--fg-color);
+                background-color: var(--bg-main-color);
+                color: var(--fg-color);
+                cursor: pointer;
+                z-index: 4000;
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+            background: none;
+        }
     }
 
     .agent-container {
         height: 100px;
         display: grid;
         grid-template-columns: 1fr 40%;
+        z-index: 200;
 
         &>.agent-sub-container {
             border: 1px solid var(--fg-color);

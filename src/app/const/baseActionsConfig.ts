@@ -8,7 +8,7 @@ export const BASE_ACTIONS = [
         source: "base",
         tags: ["base", "esplorazione"],
         cost: {
-            ap: 1
+            cards: 1
         },
         effects: [
             { type: "selectDestinationRoom", payload: {allowAdjacentOnly: true } },
@@ -26,7 +26,7 @@ export const BASE_ACTIONS = [
         source: "base",
         tags: ["base", "esplorazione"],
         cost: {
-            ap: 2
+            cards: 2
         },
         effects: [
             { type: "selectDestinationRoom", payload: {allowAdjacentOnly: true } },
@@ -44,7 +44,7 @@ export const BASE_ACTIONS = [
         source: "base",
         tags: ["base", "offensiva"],
         cost: {
-            ap: 1
+            cards: 1
         },
         preconditions: [
             { type: "hasAmmunition" },
@@ -64,7 +64,7 @@ export const BASE_ACTIONS = [
         source: "base",
         tags: ["base", "offensiva"],
         cost: {
-            ap: 1
+            cards: 1
         },
         preconditions: [
             { type: "hasVisibleHostileTarget" }
@@ -85,7 +85,7 @@ export const BASE_ACTIONS = [
         source: "base",
         tags: ["base", "interazione"],
         cost: {
-            ap: 1
+            cards: 1
         },
         preconditions: [
             { type: "canCarryHeavyObject" },
@@ -104,7 +104,7 @@ export const BASE_ACTIONS = [
         source: "base",
         tags: ["base", "interazione"],
         cost: {
-            ap: 1
+            cards: 1
         },
         preconditions: [
             { type: "hasOtherAgentsInRoom" },
@@ -122,7 +122,7 @@ export const BASE_ACTIONS = [
         source: "base",
         tags: ["base", "crafting"],
         cost: {
-            ap: 1
+            cards: 1
         },
         preconditions: [
             { type: "hasMaterialsToCraftTool" }

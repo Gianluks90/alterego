@@ -15,6 +15,8 @@ import { TabMenuContainerComponent } from '../../components/tab-menu-container/t
 import { ChatComponent } from '../../components/chat/chat.component';
 import { AgentTagComponent } from '../../components/agent-tag/agent-tag.component';
 import { UI_SOUNDS_DIRECTIVES } from '../../const/uiSounds';
+import * as L from 'leaflet';
+import { ThemeToggleService } from '../../services/theme-toggle.service';
 
 @Component({
   selector: 'app-mission-play-page',
@@ -23,11 +25,12 @@ import { UI_SOUNDS_DIRECTIVES } from '../../const/uiSounds';
   imports: [RouterLink, TabMenuContainerComponent, ChatComponent, AgentTagComponent, UI_SOUNDS_DIRECTIVES]
 })
 export class MissionPlayPageComponent {
-  
+
   public titleLines = APP_TITLE_LINES;
   private dialog = inject(Dialog);
   private dialogRef: DialogRef<DialogResult, any> | null = null;
   public windowSize: number = window.innerWidth;
+  public map: L.Map | null = null;
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -41,23 +44,15 @@ export class MissionPlayPageComponent {
   public mission: Mission | null = null;
   public player: Player | null = null;
 
-  // private route = inject(ActivatedRoute);
-  // private missionService = inject(MissionService);
-  // private gameState = inject(GameStateService);
-  // private executor = inject(ActionExecutorService);
-  // private firebaseService = inject(FirebaseService);
-
-  // mission = this.gameState.missionView;   // signal combinata
-  // player = this.gameState.player;         // signal con il mio playerData
-  // user: AppUser | null = null;
-  // ready = computed(() => !!this.mission() && !!this.player() && !!this.user);
+  private baseOverlay: L.ImageOverlay | null = null;
 
   constructor(
     private route: ActivatedRoute,
     private missionService: MissionService,
     private gameState: GameStateService,
     private executor: ActionExecutorService,
-    private firebaseService: FirebaseService
+    private firebaseService: FirebaseService,
+    private themeService: ThemeToggleService
   ) {
 
     this.route.data.subscribe((data) => {
@@ -89,6 +84,15 @@ export class MissionPlayPageComponent {
     this.missionService.getMissionById(this.missionId!);
   }
 
+  ngAfterViewInit(): void {
+    this.initMap();
+    this.themeService.theme$.subscribe(theme => {
+      if (!this.map || !this.baseOverlay) return;
+      const newUrl = `/map/ship_overlay_${theme === 'ibm' ? 'green' : theme}.png`;
+      this.baseOverlay.setUrl(newUrl);
+    });
+  }
+
   // 🔥 Azione di test
   async doTestAction() {
     const mission = this.mission;
@@ -99,5 +103,43 @@ export class MissionPlayPageComponent {
     await this.executor.execute(mission.id, SAMPLE_ACTION_TEST, player.uid, {
       coolMessage: 'Funziona cazzo 💪🦖'
     });
+  }
+
+  // MAP
+
+  private initMap(): void {
+
+    const bounds: L.LatLngBoundsExpression = [[0, 0], [6000, 4000]];
+
+    this.map = L.map('map', {
+      crs: L.CRS.Simple,
+      center: [3000, 2000],
+      zoom: -4,
+      maxZoom: -1,
+      minZoom: -4,
+      doubleClickZoom: false,
+      attributionControl: false,
+      zoomControl: false,
+    });
+
+    this.map.setMaxBounds(bounds);
+    this.baseOverlay = L.imageOverlay(
+      `/map/ship_overlay_${this.themeService.currentTheme === 'ibm' ? 'green' : this.themeService.currentTheme}.png`,
+      bounds
+    ).addTo(this.map);
+  }
+
+  public zoomIn(e: Event): void {
+    e.stopPropagation();
+    if (this.map) {
+      this.map.zoomIn();
+    }
+  }
+
+  public zoomOut(e: Event): void {
+    e.stopPropagation();
+    if (this.map) {
+      this.map.zoomOut();
+    }
   }
 }

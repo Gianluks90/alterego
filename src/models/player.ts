@@ -13,15 +13,21 @@ export interface Player {
     objectives: Objective[];
 
     actions: {
-        deck: GameAction[];
-        discardPile: GameAction[];
-        hand: GameAction[];
+        deck: Card[];
+        discardPile: Card[];
+        hand: Card[];
     };
     inventory: Inventory;
     parameters: Parameters;
     actionPoints: number;
 
     status: 'pending' | 'setup' | 'ready';
+}
+
+interface Card {
+    id: string;
+    actionId: string;
+    contaminated: boolean;
 }
 
 export interface Company {
