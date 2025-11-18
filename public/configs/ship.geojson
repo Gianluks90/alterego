@@ -1,0 +1,759 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "R_01",
+                "type": "room",
+                "subtype": "basic",
+                "name": "Sala comando",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[1576,5208],[1646,5272],[1646,5388],[1800,5500],[1988,5557],[2194,5505],[2352,5383],[2350,5270],[2420,5202],[2272,5051],[2166,5155],[1828,5155],[1726,5051],[1575,5204]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "R_02",
+                "type": "room",
+                "subtype": "basic",
+                "name": "Capsule criogeniche",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[[2532,2862],[2532,2654],[2474,2592],[2146,2506],[2092,2442],[2004,2424],[1918,2436],[1848,2508],[1520,2592],[1466,2652],[1468,2868],[1572,2984],[1722,3056],[1890,3096],[2064,3092],[2236,3068],[2376,3016],[2486,2926],[2534,2860]]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "R_03",
+                "type": "room",
+                "subtype": "basic",
+                "name": "Motore 1",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[808,978],[1070,982],[1120,922],[1120,506],[1170,506],[1216,389],[860,383],[812,412],[620,414],[558,474],[560,560],[512,612],[508,896],[566,950],[786,950],[810,982]]
+                ]
+            } 
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "R_04",
+                "type": "room",
+                "subtype": "basic",
+                "name": "Motore 2",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[1880,264],[1880,294],[1836,296],[1764,370],[1764,482],[1788,502],[1788,868],[1858,934],[1904,938],[1948,974],[2086,978],[2092,942],[2134,942],[2210,826],[2230,734],[2234,272],[2168,268],[2134,306],[1964,310]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "R_05",
+                "type": "room",
+                "subtype": "basic",
+                "name": "Motore 3",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[2768, 385],[2814, 506],[2864, 508],[2864, 928],[2918, 980],[3170, 980],[3200, 948],[3416, 950],[3474, 894],[3478, 612],[3424, 562],[3424, 469],[3364, 415],[3174, 417],[3126, 385],[2772, 387]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "R_06",
+                "type": "room",
+                "subtype": "basic",
+                "name": "Unknown Room",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[2002,4920],[2258,4768],[2262,4466],[2002,4318],[1744,4466],[1740,4770],[2000,4918]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "R_07",
+                "type": "room",
+                "subtype": "basic",
+                "name": "Unknown Room",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[3058,4560],[3317,4410],[3317,4105],[3056,3955],[2798,4109],[2796,4410],[3056,4560]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "R_08",
+                "type": "room",
+                "subtype": "basic",
+                "name": "Unknown Room",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[3538,3662],[3794,3510],[3796,3208],[3540,3056],[3282,3206],[3278,3512],[3540,3660]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "R_09",
+                "type": "room",
+                "subtype": "basic",
+                "name": "Unknown Room",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[3259,2858],[3517,2710],[3521,2410],[3261,2260],[2994,2410],[3000,2706],[3261,2862]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "R_10",
+                "type": "room",
+                "subtype": "basic",
+                "name": "Unknown Room",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[3199,1904],[3459,1754],[3461,1450],[3201,1300],[2940,1448],[2940,1750],[3199,1902]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "R_11",
+                "type": "room",
+                "subtype": "basic",
+                "name": "Unknown Room",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[2510,1540],[2770,1392],[2770,1090],[2512,942],[2254,1090],[2250,1388],[2506,1542]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "R_12",
+                "type": "room",
+                "subtype": "basic",
+                "name": "Unknown Room",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[1480,1540],[1738,1390],[1740,1090],[1482,936],[1218,1086],[1222,1390],[1480,1538]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "R_13",
+                "type": "room",
+                "subtype": "basic",
+                "name": "Unknown Room",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[802,1904],[1054,1756],[1060,1448],[800,1297],[538,1448],[540,1754],[798,1900]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "R_14",
+                "type": "room",
+                "subtype": "basic",
+                "name": "Unknown Room",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[742,2864],[998,2710],[1000,2414],[740,2260],[482,2414],[482,2710],[742,2864]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "R_15",
+                "type": "room",
+                "subtype": "basic",
+                "name": "Unknown Room",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[460,3662],[718,3516],[718,3208],[462,3060],[200,3212],[202,3516],[460,3660]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "R_16",
+                "type": "room",
+                "subtype": "basic",
+                "name": "Unknown Room",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[940,4558],[1196,4412],[1204,4104],[940,3960],[676,4108],[680,4406],[940,4560]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "R_17",
+                "type": "room",
+                "subtype": "randomic",
+                "name": "Unknown Room",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[1998,4145],[2258,3990],[2258,3688],[2002,3536],[1740,3688],[1738,3990],[2000,4141]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "R_18",
+                "type": "room",
+                "subtype": "randomic",
+                "name": "Unknown Room",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[2742,3662],[2999,3512],[3001,3210],[2742,3062],[2482,3208],[2482,3514],[2740,3660]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "R_19",
+                "type": "room",
+                "subtype": "randomic",
+                "name": "Unknown Room",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[2456,2304],[2714,2154],[2718,1852],[2454,1702],[2200,1850],[2198,2152],[2456,2300]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "R_20",
+                "type": "room",
+                "subtype": "randomic",
+                "name": "Unknown Room",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[1538,2306],[1798,2152],[1800,1854],[1540,1704],[1278,1852],[1282,2152],[1538,2302]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "R_21",
+                "type": "room",
+                "subtype": "randomic",
+                "name": "Unknown Room",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[1260,3662],[1516,3510],[1518,3206],[1258,3058],[1000,3206],[998,3512],[1256,3658]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "C_01",
+                "type": "corridor",
+                "name": "Corridoio",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[1584,5160],[1690,5058],[1122,4480],[980,4562],[1584,5162]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "C_02",
+                "type": "corridor",
+                "name": "Corridoio",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[1842,5136],[1978,5136],[1974,4930],[1840,4856],[1842,5136]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "C_03",
+                "type": "corridor",
+                "name": "Corridoio",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[2410,5160],[3015,4562],[2874,4480],[2306,5060],[2408,5158]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "C_04",
+                "type": "corridor",
+                "name": "Corridoio",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[1168,4064],[1436,3910],[1436,3588],[1282,3682],[1282,3850],[1038,3986],[1172,4064]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "C_05",
+                "type": "corridor",
+                "name": "Corridoio",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[2224,4416],[2224,4036],[2072,4128],[2070,4330],[2222,4422]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "C_06",
+                "type": "corridor",
+                "name": "Corridoio",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[2826,4064],[2960,3990],[2716,3852],[2714,3680],[2566,3584],[2564,3916],[2826,4066]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "C_07",
+                "type": "corridor",
+                "name": "Corridoio",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[562,3792],[1150,3796],[1156,3634],[1012,3548],[1014,3602],[694,3600],[696,3554],[558,3632],[564,3794]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "C_08",
+                "type": "corridor",
+                "name": "Corridoio",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[2842,3796],[3435,3794],[3439,3634],[3293,3546],[3293,3606],[2976,3604],[2976,3556],[2842,3632],[2840,3794]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "C_09",
+                "type": "corridor",
+                "name": "Corridoio",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[1748,3644],[1922,3544],[1922,3286],[1544,3284],[1544,3476],[1744,3478],[1746,3640]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "C_10",
+                "type": "corridor",
+                "name": "Corridoio",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[2248,3644],[2250,3474],[2452,3476],[2454,3286],[2074,3284],[2076,3542],[2250,3646]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "C_11",
+                "type": "corridor",
+                "name": "Corridoio",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[674,3152],[674,2860],[524,2766],[526,3062],[678,3152]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "C_12",
+                "type": "corridor",
+                "name": "Corridoio",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[1042,3154],[1194,3058],[1196,2922],[1276,2840],[1438,2838],[1438,2670],[1192,2674],[1042,2826],[1040,3148]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "C_13",
+                "type": "corridor",
+                "name": "Corridoio",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[2958,3156],[2956,2822],[2796,2666],[2566,2672],[2564,2840],[2720,2840],[2804,2926],[2802,3060],[2954,3152]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "C_14",
+                "type": "corridor",
+                "name": "Corridoio",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[3322,3154],[3475,3062],[3475,2768],[3322,2856],[3322,3156]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "C_15",
+                "type": "corridor",
+                "name": "Corridoio",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[994,2374],[996,1828],[846,1914],[846,2284],[998,2372]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "C_16",
+                "type": "corridor",
+                "name": "Corridoio",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[1602,2548],[1754,2506],[1758,2208],[1604,2292],[1604,2540]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "C_17",
+                "type": "corridor",
+                "name": "Corridoio",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[2396,2544],[2392,2294],[2242,2210],[2246,2506],[2394,2544]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "C_18",
+                "type": "corridor",
+                "name": "Corridoio",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[3155,2284],[3155,1918],[3005,1828],[3003,2372],[3153,2282]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "C_19",
+                "type": "corridor",
+                "name": "Corridoio",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[1328,1796],[1470,1712],[1316,1564],[1084,1562],[1080,1726],[1246,1726],[1328,1792]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "C_20",
+                "type": "corridor",
+                "name": "Corridoio",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[1712,1774],[1716,1434],[1564,1516],[1566,1688],[1712,1776]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "C_21",
+                "type": "corridor",
+                "name": "Corridoio",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[2436,1684],[2438,1518],[2282,1434],[2280,1774],[2432,1682]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "C_22",
+                "type": "corridor",
+                "name": "Corridoio",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[2668,1794],[2758,1728],[2912,1728],[2916,1566],[2682,1562],[2530,1702],[2674,1790]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "C_23",
+                "type": "corridor",
+                "name": "Corridoio",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[994,1380],[994,1008],[846,1008],[846,1294],[994,1380]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "C_24",
+                "type": "corridor",
+                "name": "Corridoio",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[1404,948],[1406,602],[1154,604],[1154,796],[1248,796],[1252,1040],[1404,944]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "C_25",
+                "type": "corridor",
+                "name": "Corridoio",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[1704,1042],[1706,792],[1756,790],[1754,606],[1556,606],[1554,944],[1706,1046]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "C_26",
+                "type": "corridor",
+                "name": "Corridoio",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[2448,944],[2446,325],[2254,325],[2258,504],[2292,504],[2292,1032],[2446,940]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "C_27",
+                "type": "corridor",
+                "name": "Corridoio",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[2735,1042],[2735,794],[2839,794],[2839,602],[2581,604],[2587,948],[2735,1040]]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "id": "C_28",
+                "type": "corridor",
+                "name": "Corridoio",
+                "metadata": {}
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [[3155,1292],[3155,1006],[3002,1008],[3000,1382],[3153,1294]]
+                ]
+            }
+        }
+    ]
+}

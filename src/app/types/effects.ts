@@ -15,7 +15,8 @@ export type Effect =
     | { type: 'movePlayers'; payload: { playerIds: string[]; destinationId: string, includeSelf?: boolean } }
     | { type: 'applyStatus'; payload: { targetIds: string[]; status: string; duration?: number } }
     | { type: 'giveItem'; payload: { ownerId: string; item: Item } }
-    | { type: 'custom'; payload: any };
+    | { type: 'custom'; payload: any }
+    | { type: 'chooseEffect'; payload: { options: Array<{ label: string; type: string; payload?: any }> } };
 
 export enum TARGET_TYPE {
     SELF = "self",

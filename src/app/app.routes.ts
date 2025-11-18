@@ -10,6 +10,7 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { soundResolver } from './resolvers/sound.resolver';
 import { codexResolver } from './resolvers/codex.resolver';
 import { missionPlayResolver } from './resolvers/mission-play.resolver';
+import { geojsonResolver } from './resolvers/geojson.resolver';
 
 export const routes: Routes = [
     {
@@ -51,7 +52,8 @@ export const routes: Routes = [
         loadComponent: () => import('./views/mission-play-page/mission-play-page.component').then(m => m.MissionPlayPageComponent),
         resolve: {
             resolved: missionPlayResolver,
-            sound: soundResolver
+            sound: soundResolver,
+            geoJson: geojsonResolver
         },
         canActivate: [AuthGuardService],
     },

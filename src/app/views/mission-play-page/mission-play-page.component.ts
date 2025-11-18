@@ -56,7 +56,7 @@ export class MissionPlayPageComponent {
   ) {
 
     this.route.data.subscribe((data) => {
-      this.resolvedData = data['resolved'];
+      this.resolvedData = data['geoJson'];
     });
 
     this.route.paramMap.subscribe((params) => {
@@ -107,6 +107,8 @@ export class MissionPlayPageComponent {
 
   // MAP
 
+  private roomLayer: L.GeoJSON<any> | null = null;
+  private tempGeojsonCoordinates: number[][] = [];
   private initMap(): void {
 
     const bounds: L.LatLngBoundsExpression = [[0, 0], [6000, 4000]];
@@ -117,6 +119,7 @@ export class MissionPlayPageComponent {
       zoom: -4,
       maxZoom: -1,
       minZoom: -4,
+      scrollWheelZoom: false,
       doubleClickZoom: false,
       attributionControl: false,
       zoomControl: false,
@@ -127,6 +130,28 @@ export class MissionPlayPageComponent {
       `/map/ship_overlay_${this.themeService.currentTheme === 'ibm' ? 'green' : this.themeService.currentTheme}.png`,
       bounds
     ).addTo(this.map);
+
+    this.roomLayer = L.geoJSON(this.resolvedData.map, {
+      style: feature => ({
+        weight: 1,
+        fillOpacity: 0
+      }),
+      onEachFeature: (feature, layer) => {
+        layer.on('click', (e) => {
+          this.onRoomClick(feature.properties);
+        });
+      }
+    }).addTo(this.map);
+
+    // this.map.on('click', (e) => {
+    //   // console.log("Cliccato sulla mappa in:", e.latlng);
+    //   this.tempGeojsonCoordinates.push([parseInt(e.latlng.lng.toFixed(0)), parseInt(e.latlng.lat.toFixed(0))]);
+    //   console.log(JSON.stringify(this.tempGeojsonCoordinates));
+    // });
+  }
+
+  public onRoomClick(props: any) {
+    console.log(`[${props.type.toUpperCase()}] ${props.name} (ID: ${props.id})`);
   }
 
   public zoomIn(e: Event): void {

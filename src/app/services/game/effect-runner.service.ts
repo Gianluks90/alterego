@@ -110,6 +110,13 @@ export class EffectRunnerService {
         break;
       }
 
+      case 'chooseEffect': {
+        console.log('[ ACTION RUN ]: chooseEffect', effect);
+        // Handler placeholder: UI should present effect.payload.options to the user.
+        // The decision UI will trigger execution of the selected effect.
+        break;
+      }
+
       default:
         // custom or unhandled effects
         console.warn('Unhandled effect type', effect);
