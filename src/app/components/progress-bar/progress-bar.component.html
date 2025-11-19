@@ -1,0 +1,11 @@
+<div class="bar-main-container">
+    @if (icon()) {
+        <span class="material-symbols-outlined">{{icon()}}</span>
+    }
+    @if (label()) {
+        <div class="bar-label">{{label() | uppercase}}</div>
+    }
+    <div class="bar-container">
+        <div class="progress-bar" [style.width]="progressPercentage + '%'"></div>
+    </div>
+</div>

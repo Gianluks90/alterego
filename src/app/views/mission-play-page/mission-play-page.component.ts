@@ -1,4 +1,4 @@
-import { Component, inject, computed, effect, HostListener } from '@angular/core';
+import { Component, inject, effect, HostListener } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MissionService } from '../../services/mission.service';
 import { GameStateService } from '../../services/game/game-state.service';
@@ -17,12 +17,13 @@ import { AgentTagComponent } from '../../components/agent-tag/agent-tag.componen
 import { UI_SOUNDS_DIRECTIVES } from '../../const/uiSounds';
 import * as L from 'leaflet';
 import { ThemeToggleService } from '../../services/theme-toggle.service';
+import { ProgressBarComponent } from '../../components/progress-bar/progress-bar.component';
 
 @Component({
   selector: 'app-mission-play-page',
   templateUrl: './mission-play-page.component.html',
   styleUrl: './mission-play-page.component.scss',
-  imports: [RouterLink, TabMenuContainerComponent, ChatComponent, AgentTagComponent, UI_SOUNDS_DIRECTIVES]
+  imports: [RouterLink, TabMenuContainerComponent, ChatComponent, AgentTagComponent, ProgressBarComponent, UI_SOUNDS_DIRECTIVES]
 })
 export class MissionPlayPageComponent {
 
@@ -108,7 +109,6 @@ export class MissionPlayPageComponent {
   // MAP
 
   private roomLayer: L.GeoJSON<any> | null = null;
-  private tempGeojsonCoordinates: number[][] = [];
   private initMap(): void {
 
     const bounds: L.LatLngBoundsExpression = [[0, 0], [6000, 4000]];
@@ -119,7 +119,6 @@ export class MissionPlayPageComponent {
       zoom: -4,
       maxZoom: -1,
       minZoom: -4,
-      scrollWheelZoom: false,
       doubleClickZoom: false,
       attributionControl: false,
       zoomControl: false,
@@ -133,8 +132,9 @@ export class MissionPlayPageComponent {
 
     this.roomLayer = L.geoJSON(this.resolvedData.map, {
       style: feature => ({
-        weight: 1,
-        fillOpacity: 0
+        weight: 0,
+        fillOpacity: feature?.properties.explored ? 0.1 : 0,
+        fillColor: this.themeService.curremtThemeColor || '#00ff00',
       }),
       onEachFeature: (feature, layer) => {
         layer.on('click', (e) => {

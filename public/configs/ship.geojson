@@ -8,6 +8,7 @@
                 "type": "room",
                 "subtype": "basic",
                 "name": "Sala comando",
+                "explored": true,
                 "metadata": {}
             },
             "geometry": {
@@ -24,6 +25,7 @@
                 "type": "room",
                 "subtype": "basic",
                 "name": "Capsule criogeniche",
+                "explored": true,
                 "metadata": {}
             },
             "geometry": {
@@ -38,6 +40,7 @@
                 "type": "room",
                 "subtype": "basic",
                 "name": "Motore 1",
+                "explored": true,
                 "metadata": {}
             },
             "geometry": {
@@ -54,6 +57,7 @@
                 "type": "room",
                 "subtype": "basic",
                 "name": "Motore 2",
+                "explored": true,
                 "metadata": {}
             },
             "geometry": {
@@ -70,6 +74,7 @@
                 "type": "room",
                 "subtype": "basic",
                 "name": "Motore 3",
+                "explored": true,
                 "metadata": {}
             },
             "geometry": {

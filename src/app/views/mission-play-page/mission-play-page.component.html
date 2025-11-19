@@ -8,14 +8,12 @@
         <div class="mode-line">/missions/{{missionId}}/play</div>
     </div>
 
-    <!-- @if (player) { -->
-        <div class="mission-play-page-content-container">
+    <div class="mission-play-page-content-container">
         <div class="content-section">
-            <div class="background-level" 
-                [style.background-color]="'var(--fg-color)'"
+            <div class="background-level" [style.background-color]="'var(--fg-color)'"
                 [style.mask]="'url(./images/backgrounds/green.svg) no-repeat center / cover'"
                 [style.-webkit-mask]="'url(./images/backgrounds/background-grid.svg) no-repeat center / cover'">
-            ></div>
+                ></div>
 
             <div class="map-container">
                 <div class="zoom-controls">
@@ -26,29 +24,44 @@
                         <span class="material-symbols-outlined">remove</span>
                     </button>
                 </div>
+                <div class="ship-status-container">
+                    <app-progress-bar icon="settings" label="scafo" [min]="0" [max]="8"></app-progress-bar>
+                    <app-progress-bar icon="local_fire_department" label="fuoco" [min]="0" [max]="8"></app-progress-bar>
+                </div>
                 <div id="map"></div>
             </div>
             <div class="agent-container">
                 <app-agent-tag [$player]="player" [$showTitle]="false"></app-agent-tag>
-                <div class="agent-sub-container">A</div>
+                <div class="agent-sub-container">
+                    <!-- <p>[Status] Ambiente</p>
+                    <app-progress-bar icon="settings" label="scafo" [min]="0" [max]="8"></app-progress-bar>
+                    <app-progress-bar icon="local_fire_department" label="fuoco" [min]="0" [max]="8"></app-progress-bar> -->
+                </div>
             </div>
         </div>
         <app-tab-menu-container #tabMenu [$tabs]="['azioni', 'status', 'log/chat']">
             @if (tabMenu.selectedTab === 'azioni') {
-                <div>Azioni</div>
+            <div class="tab-content-container">
+                <p>Azioni disponibili</p>
+            </div>
+            }
+            @if (tabMenu.selectedTab === 'status') {
+            <div class="tab-content-container">
+                <p>Status missione</p>
+            </div>
             }
             @if (tabMenu.selectedTab === 'log/chat') {
-                <app-chat [$player]="player" [$mission]="mission" [$onPlay]="true"></app-chat>
+            <app-chat [$player]="player" [$mission]="mission" [$onPlay]="true"></app-chat>
             }
         </app-tab-menu-container>
     </div>
+    <!-- <app-progress-bar [min]="0" [max]="15" [current]="2" icon="hourglass_empty" label="rounds"></app-progress-bar> -->
 
-     @if (player) {
-        <div class="mission-play-page-actions-container">
+    @if (player) {
+    <div class="mission-play-page-actions-container">
         <button standard-button disabled>Vedi obbiettivo</button>
-        <button standard-button type="button" disabled>{{player.actionPoints <= 1 ? 'Concludi' : 'Passa'}}</button>
-        <button standard-button [routerLink]="['/missions']">Esci</button>
+        <button standard-button type="button" disabled>{{player.actionPoints <= 1 ? 'Concludi' : 'Passa' }}</button>
+                <button standard-button [routerLink]="['/missions']">Esci</button>
     </div>
-     }
-    <!-- } -->
+    }
 </div>

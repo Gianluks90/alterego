@@ -10,6 +10,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 8px;
 
     .term-line {
         opacity: 0;
@@ -129,7 +130,7 @@
 
         &>.zoom-controls {
             position: absolute;
-            bottom: 8px;
+            top: 8px;
             right: 8px;
             display: flex;
             flex-direction: column;
@@ -153,6 +154,22 @@
             }
         }
 
+        &>.ship-status-container {
+            position: absolute;
+            bottom: 8px;
+            left: 8px;
+
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+
+            border: 1px solid var(--fg-color);
+            background-color: var(--bg-main-color);
+            width: 200px;
+            padding: 8px;
+            z-index: 4000;
+        }
+
         #map {
             width: 100%;
             height: 100%;
@@ -170,6 +187,25 @@
             border: 1px solid var(--fg-color);
             background-color: var(--bg-main-color);
             padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            overflow-y: auto;
+
+            p {
+                margin: 0;
+                text-transform: uppercase;
+                text-align: right;
+                font-size: 1.2rem;
+            }
         }
     }
+}
+
+.tab-content-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
 }

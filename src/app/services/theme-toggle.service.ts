@@ -25,4 +25,15 @@ export class ThemeToggleService {
   get currentTheme(): Theme {
     return this.themeSubject.value;
   }
+
+  get curremtThemeColor(): string {
+    switch (this.currentTheme) {
+      case 'green': return '#00ff41';
+      case 'cyan': return '#00ffff';
+      case 'amber': return '#ffaa00';
+      case 'apple': return '#ffffff';
+      case 'ibm': return '#00ff41';
+      default: return '#00ff41';
+    }
+  }
 }

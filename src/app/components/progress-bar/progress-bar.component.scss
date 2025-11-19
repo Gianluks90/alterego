@@ -1,0 +1,27 @@
+:host {
+    width: 100%;
+}
+
+.bar-main-container {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+
+    &>.material-symbols-outlined {
+        font-size: 1.2rem;
+        color: var(--fg-color);
+    }
+}
+
+.bar-container {
+    width: 100%;
+    height: 12px;
+    border: 1px solid var(--fg-color);
+    background-color: var(--bg-main-color);
+
+    &>.progress-bar {
+        height: 100%;
+        background-color: var(--fg-color);
+        transition: width .3s ease-in-out;
+    }
+}
