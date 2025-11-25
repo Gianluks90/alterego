@@ -27,6 +27,7 @@ body {
     --fg-green-color: #00ff41;
     --fg-ibm-color: #00ff41;
     --fg-cyan-color: #00ffff;
+    --fg-cyberpunk-color: #BF5B56;
     --fg-amber-color: #ffaa00;
 
     --bg-ibm-color: #1800d1;
@@ -51,6 +52,11 @@ body {
 .apple-theme {
     --fg-color: #FFF;
     --bg-main-color: #121212;
+}
+
+.cyberpunk-theme {
+    --fg-color: #BF5B56;
+    --bg-main-color: #1a1a1a;
 }
 
 .ibm-theme {

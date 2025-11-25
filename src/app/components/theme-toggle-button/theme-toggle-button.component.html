@@ -1,2 +1,12 @@
-<button (click)="toggleTheme()" [style.background-color]="'var(--fg-color)'"
+<button class="theme-button" [cdkMenuTriggerFor]="menu" type="button" [style.background-color]="'var(--fg-color)'"
     [style.box-shadow]="'0 0 10px var(--fg-color)'"></button>
+
+<ng-template #menu>
+    <div standard-menu cdkMenu>
+        @for (theme of themes; track $index) {
+        <button standard-button cdkMenuItem (click)="selectTheme(theme.value)">
+            {{ theme.name }}
+        </button>
+        }
+    </div>
+</ng-template>

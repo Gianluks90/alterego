@@ -1,0 +1,52 @@
+.inspector {
+  width: 300px;
+  background: var(--bg-main-color);
+  color: white;
+  border: 1px solid var(--fg-color);
+  // border-radius: 8px;
+  padding: 0;
+  box-shadow: 0 4px 16px var(--bg-main-color);
+
+  opacity: 0;
+  scale: 0.95;
+  animation: fadeIn 0.3s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    scale: 1;
+    opacity: 1;
+  }
+}
+
+.header {
+  padding: 8px;
+  background: var(--fg-color);
+  color: var(--bg-main-color);
+  cursor: grab;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &>button {
+    color: var(--bg-main-color) !important;
+  }
+
+  &>.header-title {
+    font-weight: bold;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    &>.material-symbols-outlined {
+      font-size: 1rem;
+    }
+  }
+}
+
+.body {
+  padding: 12px;
+  max-height: 400px;
+  overflow-y: auto;
+}

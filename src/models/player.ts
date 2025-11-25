@@ -21,6 +21,9 @@ export interface Player {
     parameters: Parameters;
     actionPoints: number;
 
+    secretion: boolean;
+    signalEmitted: boolean;
+
     status: 'pending' | 'setup' | 'ready';
 }
 

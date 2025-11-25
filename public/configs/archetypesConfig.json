@@ -1,92 +1,92 @@
 [
     {
         "id": 1,
-        "name": "scientist",
+        "name": "scienziato",
         "description": "",
         "roles": [
-            "Researcher",
-            "Biochemist",
-            "Physicist",
-            "Astrobiologist",
-            "Geneticist"
+            "Ricercatore",
+            "Biochimico",
+            "Fisico",
+            "Astrobiologo",
+            "Genetista"
         ],
         "actions": []
     },
     {
         "id": 2,
-        "name": "soldier",
+        "name": "soldato",
         "description": "",
         "roles": [
-            "Infantryman",
-            "Sniper",
-            "Heavy Gunner",
-            "Grenadier",
-            "Squad Leader"
+            "Fante",
+            "Cecchino",
+            "Mitragliere Pesante",
+            "Granatiere",
+            "Caposquadra"
         ],
         "actions": []
     },
     {
         "id": 3,
-        "name": "technician",
+        "name": "tecnico",
         "description": "",
         "roles": [
-            "Engineer",
+            "Ingegnere",
             "Hacker",
-            "Mechanic",
-            "Robotics Specialist",
-            "Systems Analyst"
+            "Meccanico",
+            "Specialista in Robotica",
+            "Analista di Sistemi"
         ],
         "actions": []
     },
     {
         "id": 4,
-        "name": "explorer",
+        "name": "esploratore",
         "description": "",
         "roles": [
             "Scout",
-            "Pathfinder",
-            "Cartographer",
-            "Survivalist",
-            "Xenolinguist"
+            "Pioniere",
+            "Cartografo",
+            "Esperto di Sopravvivenza",
+            "Xenolinguista"
         ],
         "actions": []
     },
     {
         "id": 5,
-        "name": "captain",
+        "name": "capitano",
         "description": "",
         "roles": [
-            "Commander",
-            "Strategist",
-            "Diplomat",
-            "Tactician",
-            "Fleet Leader"
+            "Comandante",
+            "Stratega",
+            "Diplomatico",
+            "Tattico",
+            "Capo Flotta"
         ],
         "actions": []
     },
     {
         "id": 6,
-        "name": "pilot",
+        "name": "pilota",
         "description": "",
         "roles": [
-            "Fighter Pilot",
-            "Transport Pilot",
-            "Test Pilot",
-            "Shuttle Pilot",
-            "Navigator"
+            "Pilota da Caccia",
+            "Pilota di Trasporto",
+            "Pilota Collaudatore",
+            "Pilota di Navetta",
+            "Navigatore"
         ],
         "actions": []
     },
     {
         "id": 7,
-        "name": "medic",
+        "name": "medico",
         "description": "",
         "roles": [
-            "Field Medic",
-            "Surgeon",
-            "Paramedic",
-            "Medical Officer",
-            "Psychiatrist"
+            "Medico da Campo",
+            "Chirurgo",
+            "Paramedico",
+            "Ufficiale Medico",
+            "Psichiatra"
         ],
         "actions": []
     }

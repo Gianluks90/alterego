@@ -18,6 +18,11 @@
         </div>
         <div class="agent-info">
             <div class="agent-info-container">
+                <div class="agent-variables-container">
+                    <span [title]="player.secretion ? 'Rilevata secrezione' : ''" class="material-symbols-outlined" [class.icon-disabled]="!player.secretion">humidity_mid</span>
+                    <span [title]="player.signalEmitted ? 'Segnale lanciato' : ''" class="material-symbols-outlined" [class.icon-disabled]="!player.signalEmitted">sensors</span>
+                    <span title="Ordine di gioco" class="material-symbols-outlined">{{`looks_${player.order === 1 ? 'one' : player.order}`}}</span>
+                </div>
                 <div class="agent-name">{{player.name || '[ NAME ]' }} {{player.surname || '[ SURNAME ]'}}</div>
                 <div class="agent-role">{{player.role || '[ UNSELECTED ROLE ]'}}
                     @if (player.archetype) {

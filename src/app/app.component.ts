@@ -7,10 +7,17 @@ import { UnsupportedPageComponent } from './views/unsupported-page/unsupported-p
 import { NotificationService } from './services/notification.service';
 import { GlobalLoaderComponent } from './components/global-loader/global-loader.component';
 import { SoundService } from './services/sound.service';
+import { InspectorComponent } from './components/inspector/inspector.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ThemeToggleButtonComponent, UnsupportedPageComponent, GlobalLoaderComponent],
+  imports: [
+    RouterOutlet, 
+    ThemeToggleButtonComponent, 
+    UnsupportedPageComponent, 
+    GlobalLoaderComponent,
+    InspectorComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

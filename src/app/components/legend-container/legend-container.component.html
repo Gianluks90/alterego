@@ -1,0 +1,19 @@
+<div class="legend-main-container">
+    <details>
+        <summary>Legenda</summary>
+        <div class="legend-items-container">
+            @for(item of legendItems; track $index) {
+            <div class="legend-item">
+                <!-- <div class="icons-container"> -->
+                @for(icon of item.icons; track $index) {
+                <span class="material-symbols-outlined">{{ icon }}</span>
+                }
+                <!-- </div> -->
+                <div class="description-container">
+                    {{ item.description }}
+                </div>
+            </div>
+            }
+        </div>
+    </details>
+</div>

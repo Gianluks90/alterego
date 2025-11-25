@@ -67,6 +67,17 @@
                           text-transform: capitalize;
                       }
                   }
+
+                  &>.agent-variables-container {
+                    display: flex;
+                    gap: 8px;
+                    align-items: center;
+
+                    &>span {
+                        cursor: default;
+                    }
+
+                  }
               }
 
               &>.actions-indicator-container {
@@ -90,4 +101,8 @@
               }
           }
       }
+  }
+
+  .icon-disabled {
+    opacity: .3;
   }

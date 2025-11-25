@@ -1,82 +1,82 @@
 export const ROLES = [
     {
-        archetype: 'Scientist',
+        archetype: 'Scienziato',
         list: [
-            'Researcher',
-            'Biochemist',
-            'Physicist',
-            'Astrobiologist',
-            'Geneticist'
+            'Ricercatore',
+            'Biochimico',
+            'Fisico',
+            'Astrobiologo',
+            'Genetista'
         ]
     },
     {
-        archetype: 'Soldier',
+        archetype: 'Soldato',
         list: [
-            'Infantryman',
-            'Sniper',
-            'Heavy Gunner',
-            'Grenadier',
-            'Squad Leader'
+            'Fante',
+            'Cecchino',
+            'Mitragliere Pesante',
+            'Granatiere',
+            'Caposquadra'
         ]
     },
     {
-        archetype: 'Technician',
+        archetype: 'Tecnico',
         list: [
-            'Engineer',
+            'Ingegnere',
             'Hacker',
-            'Mechanic',
-            'Robotics Specialist',
-            'Systems Analyst'
+            'Meccanico',
+            'Specialista Robotica',
+            'Analista Sistemi'
         ]
     },
     {
-        archetype: 'Explorer',
+        archetype: 'Esploratore',
         list: [
             'Scout',
-            'Pathfinder',
-            'Cartographer',
-            'Survivalist',
-            'Xenolinguist'
+            'Pioniere',
+            'Cartografo',
+            'Survivalista',
+            'Xenolinguista'
         ]
     },
     {
-        archetype: 'Captain',
+        archetype: 'Capitano',
         list: [
-            'Commander',
-            'Strategist',
-            'Diplomat',
-            'Tactician',
-            'Fleet Leader'
+            'Comandante',
+            'Stratega',
+            'Diplomatico',
+            'Tattico',
+            'Capoflotta'
         ]
     },
     {
-        archetype: 'Pilot',
+        archetype: 'Pilota',
         list: [
-            'Fighter Pilot',
-            'Transport Pilot',
-            'Test Pilot',
-            'Shuttle Pilot',
-            'Navigator'
+            'Pilota da Caccia',
+            'Pilota Trasporti',
+            'Pilota Collaudo',
+            'Pilota Shuttle',
+            'Navigatore'
         ]
     },
     {
-        archetype: 'Medic',
+        archetype: 'Medico',
         list: [
-            'Field Medic',
-            'Surgeon',
-            'Paramedic',
-            'Medical Officer',
-            'Psychiatrist'
+            'Medico da Campo',
+            'Chirurgo',
+            'Paramedico',
+            'Ufficiale Medico',
+            'Psichiatra'
         ]
     }
 ]
 
 export const ARCHETYPES_DICT_ICONS: { [key: string]: string } = {
-    'scientist': 'science',
-    'soldier': 'military_tech',
-    'technician': 'build',
-    'explorer': 'explore',
-    'captain': 'social_leaderboard',
-    'pilot': 'send',
-    'medic': 'health_cross'
+    'scienziato': 'science',
+    'soldato': 'military_tech',
+    'tecnico': 'build',
+    'esploratore': 'explore',
+    'capitano': 'social_leaderboard',
+    'pilota': 'send',
+    'medico': 'health_cross'
 };

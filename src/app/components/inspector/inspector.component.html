@@ -1,0 +1,19 @@
+<!-- inspector.component.html -->
+<ng-template #tpl>
+  <div class="inspector" cdkDragBoundary="body" cdkDrag cdkDragRootElement=".cdk-overlay-pane">
+    <div class="header" cdkDragHandle>
+      <div class="header-title">
+        <span class="material-symbols-outlined">search</span>
+        <span>Inspector {{ data?.type }}</span>
+      </div>
+      <button icon-button (click)="close()">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+
+    <div class="body">
+      <!-- Qui è come se avessi MAT_DIALOG_DATA -->
+      <pre>{{ data | json }}</pre>
+    </div>
+  </div>
+</ng-template>

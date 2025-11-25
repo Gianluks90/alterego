@@ -18,12 +18,22 @@ import { UI_SOUNDS_DIRECTIVES } from '../../const/uiSounds';
 import * as L from 'leaflet';
 import { ThemeToggleService } from '../../services/theme-toggle.service';
 import { ProgressBarComponent } from '../../components/progress-bar/progress-bar.component';
+import { InspectorService } from '../../services/inspector.service';
+import { LegendContainerComponent } from '../../components/legend-container/legend-container.component';
 
 @Component({
   selector: 'app-mission-play-page',
   templateUrl: './mission-play-page.component.html',
   styleUrl: './mission-play-page.component.scss',
-  imports: [RouterLink, TabMenuContainerComponent, ChatComponent, AgentTagComponent, ProgressBarComponent, UI_SOUNDS_DIRECTIVES]
+  imports: [
+    RouterLink, 
+    TabMenuContainerComponent, 
+    ChatComponent, 
+    AgentTagComponent, 
+    ProgressBarComponent,
+    LegendContainerComponent,
+    UI_SOUNDS_DIRECTIVES
+  ]
 })
 export class MissionPlayPageComponent {
 
@@ -53,7 +63,8 @@ export class MissionPlayPageComponent {
     private gameState: GameStateService,
     private executor: ActionExecutorService,
     private firebaseService: FirebaseService,
-    private themeService: ThemeToggleService
+    private themeService: ThemeToggleService,
+    private inspectorService: InspectorService
   ) {
 
     this.route.data.subscribe((data) => {
@@ -139,6 +150,10 @@ export class MissionPlayPageComponent {
       onEachFeature: (feature, layer) => {
         layer.on('click', (e) => {
           this.onRoomClick(feature.properties);
+          this.inspectorService.open({
+            type: 'room-clicked',
+            data: feature.properties
+          })
         });
       }
     }).addTo(this.map);

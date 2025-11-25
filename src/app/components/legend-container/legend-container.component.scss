@@ -1,0 +1,35 @@
+:host {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 100%;
+    z-index: 4000;
+}
+
+.legend-main-container {
+    background: var(--bg-main-color);
+    border: 1px solid var(--fg-color);
+    box-shadow: 0 4px 16px var(--bg-main-color);
+    padding: 8px;
+    width: 200px;
+    font-size: 0.875rem;
+}
+
+details {
+    summary {
+        text-transform: uppercase;
+    }
+}
+
+.legend-items-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 8px;
+}
+
+.legend-item {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
