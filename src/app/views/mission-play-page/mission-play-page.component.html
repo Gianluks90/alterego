@@ -65,7 +65,7 @@
     <div class="mission-play-page-actions-container">
         <button standard-button disabled>Vedi obbiettivo</button>
         <button standard-button type="button" disabled>{{player.actionPoints <= 1 ? 'Concludi' : 'Passa' }}</button>
-                <button standard-button [routerLink]="['/missions']">Esci</button>
+                <button standard-button (click)="confirmExit()">Esci</button>
     </div>
     }
 </div>

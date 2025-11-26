@@ -4,17 +4,83 @@
     <div class="header" cdkDragHandle>
       <div class="header-title">
         <span class="material-symbols-outlined">search</span>
-        <span>Inspector {{ data?.type }}</span>
+        <span>Inspector {{ input?.data.id }}</span>
       </div>
       <button icon-button (click)="close()">
         <span class="material-symbols-outlined">close</span>
       </button>
     </div>
 
+    @let d = input.data;
+    @if(input.data) {
     <div class="body">
-      <!-- Qui è come se avessi MAT_DIALOG_DATA -->
-      <pre>{{ data | json }}</pre>
+      @switch(input.type) {
+        @case ('room-clicked') {
+          <p>
+            {{d.metadata.name | uppercase}}
+            <!-- <br>
+            ==========================
+            <br> -->
+            {{ d.metadata.description || 'Nessuna descrizione disponibile.' }}
+            @if( d.special) {
+              @if (d.id === 'R_01') {
+                <div class="r-01-container">
+                  <p>Codice destinazione</p>
+                  <p class="destination-code">{{ d.special.destinationCode }}</p>
+                </div>
+              }
+              @if (d.id === 'R_02') {
+                <div class="r-01-container">
+                  <p>Capsule</p>
+                  <p class="destination-code">{{ d.special.active ? 'in caricamento' : 'pronte' }}</p>
+                </div>
+              }
+            }
+          </p>
+          
+          <p class="text-subtitle">Azioni</p>
+          @if (loadingActions) {
+          Fetch delle informazioni in corso...
+          } @else {
+            @for(a of actions; track a.id) {
+              <details class="actions-details">
+                <summary>
+                  <span>{{ a.title }}</span>
+                  <span class="material-symbols-outlined">{{a.ui?.icon}}</span>
+                </summary>
+                <p>{{ a.description }}</p>
+                <app-ui-diagonal-line position="bottom-right"></app-ui-diagonal-line>
+              </details>
+            } @empty {
+              @if (d.explored) {
+              Nessuna azione disponibile.
+              } @else {
+              Stanza non esplorata.
+              }
+            }
+          }
+        }
+
+        @case ('corridor-clicked') {
+          <p>
+            {{ d.metadata.name | uppercase }}
+            <br>
+            ==========================
+            <br>
+            Nessuna descrizione disponibile.
+          </p>
+          <p class="text-subtitle">Stato portellone</p>
+          <p>
+            Aperto
+          </p>
+        }
+
+        @default {
+        Default case
+        }
+      }
     </div>
+    }
     <app-ui-diagonal-line position="bottom-right"></app-ui-diagonal-line>
   </div>
 </ng-template>

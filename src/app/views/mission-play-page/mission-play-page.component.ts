@@ -1,5 +1,5 @@
 import { Component, inject, effect, HostListener } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MissionService } from '../../services/mission.service';
 import { GameStateService } from '../../services/game/game-state.service';
 import { ActionExecutorService } from '../../services/game/action-executor.service';
@@ -7,7 +7,7 @@ import { SAMPLE_ACTION_TEST } from '../../const/sample-actions';
 import { FirebaseService } from '../../services/firebase.service';
 import { Dialog, DialogRef } from '@angular/cdk/dialog';
 import { DialogResult } from '../../../models/dialogResult';
-import { FULL_SIZE_DIALOG, SMALL_SIZE_DIALOG } from '../../const/dialogsConfig';
+import { DIALOGS_CONFIG, FULL_SIZE_DIALOG, SMALL_SIZE_DIALOG } from '../../const/dialogsConfig';
 import { Mission } from '../../../models/mission';
 import { Player } from '../../../models/player';
 import { APP_TITLE_LINES } from '../../const/titleLines';
@@ -20,6 +20,7 @@ import { ThemeToggleService } from '../../services/theme-toggle.service';
 import { ProgressBarComponent } from '../../components/progress-bar/progress-bar.component';
 import { InspectorService } from '../../services/inspector.service';
 import { LegendContainerComponent } from '../../components/legend-container/legend-container.component';
+import { ConfirmDialogComponent } from '../../components/dialogs/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-mission-play-page',
@@ -59,6 +60,7 @@ export class MissionPlayPageComponent {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private missionService: MissionService,
     private gameState: GameStateService,
     private executor: ActionExecutorService,
@@ -151,7 +153,7 @@ export class MissionPlayPageComponent {
         layer.on('click', (e) => {
           this.onRoomClick(feature.properties);
           this.inspectorService.open({
-            type: 'room-clicked',
+            type: feature.properties.type === 'room' ? 'room-clicked' : 'corridor-clicked',
             data: feature.properties
           })
         });
@@ -188,5 +190,17 @@ export class MissionPlayPageComponent {
     if (this.map) {
       this.map.setView([3000, 2000], -4);
     }
+  }
+
+  public confirmExit(): void {
+    this.dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      ...DIALOGS_CONFIG,
+    });
+
+    this.dialogRef.closed.subscribe((result) => {
+      if (result && result.status === 'confirmed') {
+        this.router.navigate(['/missions']);
+      }
+    });
   }
 }

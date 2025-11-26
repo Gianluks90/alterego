@@ -47,19 +47,68 @@
 
 .body {
   padding: 12px;
-  max-height: 400px;
+  max-height: 450px;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  button {
+    width: 100%;
+  }
+
+  p {
+    margin: 0;
+  }
 }
 
-.diagonal-line, .diagonal-line-overlay {
-    width: 12px;
-    height: 12px;
-    position: absolute;
-    bottom: -1px;
-    right: -1px;
-    z-index: 0;
-    transform: rotate(90deg);
+.text-subtitle {
+  color: var(--fg-color);
+  font-weight: bold;
+  text-transform: uppercase;
 }
-.diagonal-line-overlay {
-    z-index: 1;
+
+.actions-details {
+  background-color: var(--bg-main-color);
+  border: 1px solid var(--fg-color);
+  padding: 8px;
+  position: relative;
+
+  summary {
+    cursor: pointer;
+    text-transform: uppercase;
+    color: var(--fg-color);
+    display: flex;
+    justify-content: space-between;
+
+    &>.material-symbols-outlined {
+      font-size: 1rem;
+    }
+  }
+}
+
+.actions-details[open]>summary {
+  margin-bottom: 8px;
+}
+
+// Specific styles
+
+.r-01-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid white;
+  padding: 8px;
+  margin-top: 16px;
+  border-left: 8px solid white;
+
+  p {
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  &>.destination-code {
+    font-weight: bold;
+    font-size: 1.5rem;
+  };
 }

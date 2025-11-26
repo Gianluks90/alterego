@@ -7,7 +7,7 @@ import { Component, effect, input } from '@angular/core';
   styleUrl: './ui-diagonal-line.component.scss'
 })
 export class UIDiagonalLineComponent {
-  public position = input<'top-right' | 'bottom-right'>('top-right');
+  public position = input<'top-right' | 'bottom-right' | 'top-left' | 'bottom-left'>('top-right');
 
   constructor() {
     effect(() => {

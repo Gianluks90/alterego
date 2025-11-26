@@ -54,6 +54,10 @@ export class LegendContainerComponent {
       description: 'Terminale'
     },
     {
+      icons: ['support'],
+      description: 'Capsula di salvataggio'
+    },
+    {
       icons: ['error'],
       description: 'Area pericolosa'
     },

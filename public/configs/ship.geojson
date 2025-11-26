@@ -7,9 +7,15 @@
                 "id": "R_01",
                 "type": "room",
                 "subtype": "basic",
-                "name": "Sala comando",
+                "actionIds": ["RS_01", "RS_02"],
                 "explored": true,
-                "metadata": {}
+                "metadata": {
+                    "name": "Cabina di pilotaggio",
+                    "description": "Verifica e modifica le coordinate di viaggio impostate."
+                },
+                "special": {
+                    "destinationCode": "B"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -24,9 +30,16 @@
                 "id": "R_02",
                 "type": "room",
                 "subtype": "basic",
-                "name": "Capsule criogeniche",
+                "actionIds": ["RS_04"],
                 "explored": true,
-                "metadata": {}
+                "metadata": {
+                    "name": "Capsule criogeniche",
+                    "description": "Sezione dedicata al sonno criogenico dell'equipaggio."
+                },
+                "special": {
+                    "active": false,
+                    "cryoCapsulesAvailable": 6
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -39,9 +52,14 @@
                 "id": "R_03",
                 "type": "room",
                 "subtype": "basic",
-                "name": "Motore 1",
+                "actionIds": ["RS_03"],
                 "explored": true,
-                "metadata": {}
+                "metadata": {
+                    "name": "Unità di propulsione 1"
+                },
+                "special": {
+                    "damaged": false   
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -56,9 +74,14 @@
                 "id": "R_04",
                 "type": "room",
                 "subtype": "basic",
-                "name": "Motore 2",
+                "actionIds": ["RS_03"],
                 "explored": true,
-                "metadata": {}
+                "metadata": {
+                    "name": "Unità di propulsione 2"
+                },
+                "special": {
+                    "damaged": true   
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -73,9 +96,14 @@
                 "id": "R_05",
                 "type": "room",
                 "subtype": "basic",
-                "name": "Motore 3",
+                "actionIds": ["RS_03"],
                 "explored": true,
-                "metadata": {}
+                "metadata": {
+                    "name": "Unità di propulsione 3"
+                },
+                "special": {
+                    "damaged": false
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -90,8 +118,9 @@
                 "id": "R_06",
                 "type": "room",
                 "subtype": "basic",
-                "name": "Unknown Room",
-                "metadata": {}
+                "metadata": {
+                    "name": "Unknown Room"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -106,8 +135,9 @@
                 "id": "R_07",
                 "type": "room",
                 "subtype": "basic",
-                "name": "Unknown Room",
-                "metadata": {}
+                "metadata": {
+                    "name": "Unknown Room"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -122,8 +152,9 @@
                 "id": "R_08",
                 "type": "room",
                 "subtype": "basic",
-                "name": "Unknown Room",
-                "metadata": {}
+                "metadata": {
+                    "name": "Unknown Room"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -138,8 +169,9 @@
                 "id": "R_09",
                 "type": "room",
                 "subtype": "basic",
-                "name": "Unknown Room",
-                "metadata": {}
+                "metadata": {
+                    "name": "Unknown Room"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -154,8 +186,9 @@
                 "id": "R_10",
                 "type": "room",
                 "subtype": "basic",
-                "name": "Unknown Room",
-                "metadata": {}
+                "metadata": {
+                    "name": "Unknown Room"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -170,8 +203,9 @@
                 "id": "R_11",
                 "type": "room",
                 "subtype": "basic",
-                "name": "Unknown Room",
-                "metadata": {}
+                "metadata": {
+                    "name": "Unknown Room"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -186,8 +220,9 @@
                 "id": "R_12",
                 "type": "room",
                 "subtype": "basic",
-                "name": "Unknown Room",
-                "metadata": {}
+                "metadata": {
+                    "name": "Unknown Room"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -202,8 +237,9 @@
                 "id": "R_13",
                 "type": "room",
                 "subtype": "basic",
-                "name": "Unknown Room",
-                "metadata": {}
+                "metadata": {
+                    "name": "Unknown Room"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -218,8 +254,9 @@
                 "id": "R_14",
                 "type": "room",
                 "subtype": "basic",
-                "name": "Unknown Room",
-                "metadata": {}
+                "metadata": {
+                    "name": "Unknown Room"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -234,8 +271,9 @@
                 "id": "R_15",
                 "type": "room",
                 "subtype": "basic",
-                "name": "Unknown Room",
-                "metadata": {}
+                "metadata": {
+                    "name": "Unknown Room"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -250,8 +288,9 @@
                 "id": "R_16",
                 "type": "room",
                 "subtype": "basic",
-                "name": "Unknown Room",
-                "metadata": {}
+                "metadata": {
+                    "name": "Unknown Room"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -266,8 +305,9 @@
                 "id": "R_17",
                 "type": "room",
                 "subtype": "randomic",
-                "name": "Unknown Room",
-                "metadata": {}
+                "metadata": {
+                    "name": "Unknown Room"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -282,8 +322,9 @@
                 "id": "R_18",
                 "type": "room",
                 "subtype": "randomic",
-                "name": "Unknown Room",
-                "metadata": {}
+                "metadata": {
+                    "name": "Unknown Room"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -298,8 +339,9 @@
                 "id": "R_19",
                 "type": "room",
                 "subtype": "randomic",
-                "name": "Unknown Room",
-                "metadata": {}
+                "metadata": {
+                    "name": "Unknown Room"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -314,8 +356,9 @@
                 "id": "R_20",
                 "type": "room",
                 "subtype": "randomic",
-                "name": "Unknown Room",
-                "metadata": {}
+                "metadata": {
+                    "name": "Unknown Room"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -330,8 +373,9 @@
                 "id": "R_21",
                 "type": "room",
                 "subtype": "randomic",
-                "name": "Unknown Room",
-                "metadata": {}
+                "metadata": {
+                    "name": "Unknown Room"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -345,8 +389,9 @@
             "properties": {
                 "id": "C_01",
                 "type": "corridor",
-                "name": "Corridoio",
-                "metadata": {}
+                "metadata": {
+                    "name": "Corridoio"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -360,8 +405,9 @@
             "properties": {
                 "id": "C_02",
                 "type": "corridor",
-                "name": "Corridoio",
-                "metadata": {}
+                "metadata": {
+                    "name": "Corridoio"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -375,8 +421,9 @@
             "properties": {
                 "id": "C_03",
                 "type": "corridor",
-                "name": "Corridoio",
-                "metadata": {}
+                "metadata": {
+                    "name": "Corridoio"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -390,8 +437,9 @@
             "properties": {
                 "id": "C_04",
                 "type": "corridor",
-                "name": "Corridoio",
-                "metadata": {}
+                "metadata": {
+                    "name": "Corridoio"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -405,8 +453,9 @@
             "properties": {
                 "id": "C_05",
                 "type": "corridor",
-                "name": "Corridoio",
-                "metadata": {}
+                "metadata": {
+                    "name": "Corridoio"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -420,8 +469,9 @@
             "properties": {
                 "id": "C_06",
                 "type": "corridor",
-                "name": "Corridoio",
-                "metadata": {}
+                "metadata": {
+                    "name": "Corridoio"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -435,8 +485,9 @@
             "properties": {
                 "id": "C_07",
                 "type": "corridor",
-                "name": "Corridoio",
-                "metadata": {}
+                "metadata": {
+                    "name": "Corridoio"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -450,8 +501,9 @@
             "properties": {
                 "id": "C_08",
                 "type": "corridor",
-                "name": "Corridoio",
-                "metadata": {}
+                "metadata": {
+                    "name": "Corridoio"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -465,8 +517,9 @@
             "properties": {
                 "id": "C_09",
                 "type": "corridor",
-                "name": "Corridoio",
-                "metadata": {}
+                "metadata": {
+                    "name": "Corridoio"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -480,8 +533,9 @@
             "properties": {
                 "id": "C_10",
                 "type": "corridor",
-                "name": "Corridoio",
-                "metadata": {}
+                "metadata": {
+                    "name": "Corridoio"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -495,8 +549,9 @@
             "properties": {
                 "id": "C_11",
                 "type": "corridor",
-                "name": "Corridoio",
-                "metadata": {}
+                "metadata": {
+                    "name": "Corridoio"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -510,8 +565,9 @@
             "properties": {
                 "id": "C_12",
                 "type": "corridor",
-                "name": "Corridoio",
-                "metadata": {}
+                "metadata": {
+                    "name": "Corridoio"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -525,8 +581,9 @@
             "properties": {
                 "id": "C_13",
                 "type": "corridor",
-                "name": "Corridoio",
-                "metadata": {}
+                "metadata": {
+                    "name": "Corridoio"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -540,8 +597,9 @@
             "properties": {
                 "id": "C_14",
                 "type": "corridor",
-                "name": "Corridoio",
-                "metadata": {}
+                "metadata": {
+                    "name": "Corridoio"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -555,8 +613,9 @@
             "properties": {
                 "id": "C_15",
                 "type": "corridor",
-                "name": "Corridoio",
-                "metadata": {}
+                "metadata": {
+                    "name": "Corridoio"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -570,8 +629,9 @@
             "properties": {
                 "id": "C_16",
                 "type": "corridor",
-                "name": "Corridoio",
-                "metadata": {}
+                "metadata": {
+                    "name": "Corridoio"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -585,8 +645,9 @@
             "properties": {
                 "id": "C_17",
                 "type": "corridor",
-                "name": "Corridoio",
-                "metadata": {}
+                "metadata": {
+                    "name": "Corridoio"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -600,8 +661,9 @@
             "properties": {
                 "id": "C_18",
                 "type": "corridor",
-                "name": "Corridoio",
-                "metadata": {}
+                "metadata": {
+                    "name": "Corridoio"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -615,8 +677,9 @@
             "properties": {
                 "id": "C_19",
                 "type": "corridor",
-                "name": "Corridoio",
-                "metadata": {}
+                "metadata": {
+                    "name": "Corridoio"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -630,8 +693,9 @@
             "properties": {
                 "id": "C_20",
                 "type": "corridor",
-                "name": "Corridoio",
-                "metadata": {}
+                "metadata": {
+                    "name": "Corridoio"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -645,8 +709,9 @@
             "properties": {
                 "id": "C_21",
                 "type": "corridor",
-                "name": "Corridoio",
-                "metadata": {}
+                "metadata": {
+                    "name": "Corridoio"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -660,8 +725,9 @@
             "properties": {
                 "id": "C_22",
                 "type": "corridor",
-                "name": "Corridoio",
-                "metadata": {}
+                "metadata": {
+                    "name": "Corridoio"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -675,8 +741,9 @@
             "properties": {
                 "id": "C_23",
                 "type": "corridor",
-                "name": "Corridoio",
-                "metadata": {}
+                "metadata": {
+                    "name": "Corridoio"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -690,8 +757,9 @@
             "properties": {
                 "id": "C_24",
                 "type": "corridor",
-                "name": "Corridoio",
-                "metadata": {}
+                "metadata": {
+                    "name": "Corridoio"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -705,8 +773,9 @@
             "properties": {
                 "id": "C_25",
                 "type": "corridor",
-                "name": "Corridoio",
-                "metadata": {}
+                "metadata": {
+                    "name": "Corridoio"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -720,8 +789,9 @@
             "properties": {
                 "id": "C_26",
                 "type": "corridor",
-                "name": "Corridoio",
-                "metadata": {}
+                "metadata": {
+                    "name": "Corridoio"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -735,8 +805,9 @@
             "properties": {
                 "id": "C_27",
                 "type": "corridor",
-                "name": "Corridoio",
-                "metadata": {}
+                "metadata": {
+                    "name": "Corridoio"
+                }
             },
             "geometry": {
                 "type": "Polygon",
@@ -750,8 +821,9 @@
             "properties": {
                 "id": "C_28",
                 "type": "corridor",
-                "name": "Corridoio",
-                "metadata": {}
+                "metadata": {
+                    "name": "Corridoio"
+                }
             },
             "geometry": {
                 "type": "Polygon",
