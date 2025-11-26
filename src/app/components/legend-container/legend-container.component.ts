@@ -58,6 +58,10 @@ export class LegendContainerComponent {
       description: 'Capsula di salvataggio'
     },
     {
+      icons: ['skull'],
+      description: 'Cadavere'
+    },
+    {
       icons: ['error'],
       description: 'Area pericolosa'
     },

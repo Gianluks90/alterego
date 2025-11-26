@@ -1,6 +1,10 @@
 import { UpperCasePipe } from '@angular/common';
 import { Component, effect, input } from '@angular/core';
 
+interface Segment {
+  filled: boolean;
+}
+
 @Component({
   selector: 'app-progress-bar',
   imports: [UpperCasePipe],
@@ -15,12 +19,18 @@ export class ProgressBarComponent {
   public icon = input<string | null>(null);
   public label = input<string | null>(null);
 
-  public progressPercentage: number = 0;
+  public iterableSegments: Segment[] = [];
 
   constructor() {
     effect(() => {
+      const max = this.max();
       const current = this.current();
-      this.progressPercentage = ((current - this.min()) / (this.max() - this.min())) * 100;
+
+      if (max == null) return;
+
+      this.iterableSegments = Array.from({ length: max }).map((_, index) => ({
+        filled: current != null ? index < current : false
+      }));
     });
   }
 

@@ -8,20 +8,39 @@
     align-items: center;
 
     &>.material-symbols-outlined {
-        font-size: 1.2rem;
+        font-size: 1rem;
         color: var(--fg-color);
+        cursor: default ;
     }
 }
 
 .bar-container {
     width: 100%;
-    height: 12px;
-    border: 1px solid var(--fg-color);
-    background-color: var(--bg-main-color);
+    height: 8px;
+    display: flex;
+    gap: 2px;
 
-    &>.progress-bar {
+    &>.bar-segment {
         height: 100%;
-        background-color: var(--fg-color);
-        transition: width .3s ease-in-out;
+        width: 16px;
+        border: 1px solid var(--fg-color);
+    }
+
+}
+
+.filled-segment {
+    background-color: var(--fg-color);
+    animation: fill-segment-slow-pulse 2s infinite;
+}
+
+@keyframes fill-segment-slow-pulse {
+    0% {
+        box-shadow: 0 0 4px var(--fg-color);
+    }
+    50% {
+        box-shadow: 0 0 8px var(--fg-color);
+    }
+    100% {
+        box-shadow: 0 0 4px var(--fg-color);
     }
 }

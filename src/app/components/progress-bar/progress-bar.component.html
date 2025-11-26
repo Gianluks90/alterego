@@ -6,6 +6,8 @@
         <div class="bar-label">{{label() | uppercase}}</div>
     }
     <div class="bar-container">
-        <div class="progress-bar" [style.width]="progressPercentage + '%'"></div>
+        @for (s of iterableSegments; track $index) {
+            <div class="bar-segment" [class.filled-segment]="s.filled"></div>
+        }
     </div>
 </div>

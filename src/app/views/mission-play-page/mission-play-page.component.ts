@@ -1,4 +1,4 @@
-import { Component, inject, effect, HostListener } from '@angular/core';
+import { Component, inject, effect, HostListener, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MissionService } from '../../services/mission.service';
 import { GameStateService } from '../../services/game/game-state.service';
@@ -15,26 +15,31 @@ import { TabMenuContainerComponent } from '../../components/tab-menu-container/t
 import { ChatComponent } from '../../components/chat/chat.component';
 import { AgentTagComponent } from '../../components/agent-tag/agent-tag.component';
 import { UI_SOUNDS_DIRECTIVES } from '../../const/uiSounds';
-import * as L from 'leaflet';
 import { ThemeToggleService } from '../../services/theme-toggle.service';
 import { ProgressBarComponent } from '../../components/progress-bar/progress-bar.component';
 import { InspectorService } from '../../services/inspector.service';
 import { LegendContainerComponent } from '../../components/legend-container/legend-container.component';
 import { ConfirmDialogComponent } from '../../components/dialogs/confirm-dialog/confirm-dialog.component';
+import { UIDiagonalLineComponent } from '../../ui/ui-diagonal-line/ui-diagonal-line.component';
+import { HandContainerComponent } from '../../components/hand-container/hand-container.component';
+import { MapComponent } from '../../components/map/map.component';
 
 @Component({
   selector: 'app-mission-play-page',
   templateUrl: './mission-play-page.component.html',
   styleUrl: './mission-play-page.component.scss',
   imports: [
-    RouterLink, 
-    TabMenuContainerComponent, 
-    ChatComponent, 
-    AgentTagComponent, 
+    RouterLink,
+    TabMenuContainerComponent,
+    ChatComponent,
+    AgentTagComponent,
     ProgressBarComponent,
     LegendContainerComponent,
+    HandContainerComponent,
+    MapComponent,
+    UIDiagonalLineComponent,
     UI_SOUNDS_DIRECTIVES
-  ]
+]
 })
 export class MissionPlayPageComponent {
 
@@ -42,7 +47,6 @@ export class MissionPlayPageComponent {
   private dialog = inject(Dialog);
   private dialogRef: DialogRef<DialogResult, any> | null = null;
   public windowSize: number = window.innerWidth;
-  public map: L.Map | null = null;
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -50,13 +54,14 @@ export class MissionPlayPageComponent {
     this.dialogRef?.updateSize(this.windowSize <= 768 ? FULL_SIZE_DIALOG : SMALL_SIZE_DIALOG);
   }
 
-  private resolvedData: any;
   public missionId: string | null = null;
 
   public mission: Mission | null = null;
   public player: Player | null = null;
 
-  private baseOverlay: L.ImageOverlay | null = null;
+  @ViewChild('map') _map: MapComponent | null = null;
+
+  // private baseOverlay: L.ImageOverlay | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -68,10 +73,6 @@ export class MissionPlayPageComponent {
     private themeService: ThemeToggleService,
     private inspectorService: InspectorService
   ) {
-
-    this.route.data.subscribe((data) => {
-      this.resolvedData = data['geoJson'];
-    });
 
     this.route.paramMap.subscribe((params) => {
       this.missionId = params.get('id');
@@ -98,15 +99,6 @@ export class MissionPlayPageComponent {
     this.missionService.getMissionById(this.missionId!);
   }
 
-  ngAfterViewInit(): void {
-    this.initMap();
-    this.themeService.theme$.subscribe(theme => {
-      if (!this.map || !this.baseOverlay) return;
-      const newUrl = `/map/ship_overlay_${theme === 'ibm' ? 'green' : theme}.png`;
-      this.baseOverlay.setUrl(newUrl);
-    });
-  }
-
   // 🔥 Azione di test
   async doTestAction() {
     const mission = this.mission;
@@ -119,79 +111,6 @@ export class MissionPlayPageComponent {
     });
   }
 
-  // MAP
-
-  private roomLayer: L.GeoJSON<any> | null = null;
-  private initMap(): void {
-
-    const bounds: L.LatLngBoundsExpression = [[0, 0], [6000, 4000]];
-
-    this.map = L.map('map', {
-      crs: L.CRS.Simple,
-      center: [3000, 2000],
-      zoom: -4,
-      maxZoom: -1,
-      minZoom: -4,
-      doubleClickZoom: false,
-      attributionControl: false,
-      zoomControl: false,
-    });
-
-    this.map.setMaxBounds(bounds);
-    this.baseOverlay = L.imageOverlay(
-      `/map/ship_overlay_${this.themeService.currentTheme === 'ibm' ? 'green' : this.themeService.currentTheme}.png`,
-      bounds
-    ).addTo(this.map);
-
-    this.roomLayer = L.geoJSON(this.resolvedData.map, {
-      style: feature => ({
-        weight: 0,
-        fillOpacity: feature?.properties.explored ? 0.1 : 0,
-        fillColor: this.themeService.curremtThemeColor || '#00ff00',
-      }),
-      onEachFeature: (feature, layer) => {
-        layer.on('click', (e) => {
-          this.onRoomClick(feature.properties);
-          this.inspectorService.open({
-            type: feature.properties.type === 'room' ? 'room-clicked' : 'corridor-clicked',
-            data: feature.properties
-          })
-        });
-      }
-    }).addTo(this.map);
-
-    // this.map.on('click', (e) => {
-    //   // console.log("Cliccato sulla mappa in:", e.latlng);
-    //   this.tempGeojsonCoordinates.push([parseInt(e.latlng.lng.toFixed(0)), parseInt(e.latlng.lat.toFixed(0))]);
-    //   console.log(JSON.stringify(this.tempGeojsonCoordinates));
-    // });
-  }
-
-  public onRoomClick(props: any) {
-    console.log(`[${props.type.toUpperCase()}] ${props.name} (ID: ${props.id})`);
-  }
-
-  public zoomIn(e: Event): void {
-    e.stopPropagation();
-    if (this.map) {
-      this.map.zoomIn();
-    }
-  }
-
-  public zoomOut(e: Event): void {
-    e.stopPropagation();
-    if (this.map) {
-      this.map.zoomOut();
-    }
-  }
-
-  public resetZoom(e: Event): void {
-    e.stopPropagation();
-    if (this.map) {
-      this.map.setView([3000, 2000], -4);
-    }
-  }
-
   public confirmExit(): void {
     this.dialogRef = this.dialog.open(ConfirmDialogComponent, {
       ...DIALOGS_CONFIG,
@@ -202,5 +121,21 @@ export class MissionPlayPageComponent {
         this.router.navigate(['/missions']);
       }
     });
+  }
+
+  public onZoomIn(event: Event): void {
+    event.stopPropagation();
+    this._map?.zoomIn(event);
+  }
+
+  public onZoomOut(event: Event): void {
+    event.stopPropagation();
+    this._map?.zoomOut(event);
+  }
+
+  public onResetZoom(event: Event): void {
+    event.stopPropagation();
+    if (!this._map?.map) return;
+    this._map.resetZoom(event);
   }
 }

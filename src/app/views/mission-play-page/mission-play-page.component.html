@@ -17,29 +17,34 @@
 
             <div class="map-container">
                 <div class="zoom-controls">
-                    <button (click)="zoomIn($event)">
+                    <button (click)="onZoomIn($event)">
                         <span class="material-symbols-outlined">add</span>
                     </button>
-                    <button (click)="zoomOut($event)">
+                    <button (click)="onZoomOut($event)">
                         <span class="material-symbols-outlined">remove</span>
                     </button>
-                    <button (click)="resetZoom($event)">
+                    <button (click)="onResetZoom($event)">
                         <span class="material-symbols-outlined">recenter</span>
                     </button>
                 </div>
                 <app-legend-container></app-legend-container>
                 <div class="ship-status-container">
-                    <app-progress-bar icon="settings" label="scafo" [min]="0" [max]="8"></app-progress-bar>
-                    <app-progress-bar icon="local_fire_department" label="fuoco" [min]="0" [max]="8"></app-progress-bar>
+                    <app-ui-diagonal-line position="top-right"></app-ui-diagonal-line>
+                    <app-progress-bar icon="settings" [current]="3" [min]="0" [max]="8"></app-progress-bar>
+                    <app-progress-bar icon="local_fire_department" [min]="0" [max]="8"></app-progress-bar>
                 </div>
-                <div id="map"></div>
+                <div class="mission-countdown-container">
+                    <app-ui-diagonal-line position="bottom-left"></app-ui-diagonal-line>
+                    <app-progress-bar icon="hourglass_empty" [min]="0" [max]="15" [current]="7"></app-progress-bar>
+                </div>
+                <!-- <div id="map"></div> -->
+                <app-map #map></app-map>
             </div>
             <div class="agent-container">
                 <app-agent-tag [$player]="player" [$showTitle]="false"></app-agent-tag>
                 <div class="agent-sub-container">
-                    <!-- <p>[Status] Ambiente</p>
-                    <app-progress-bar icon="settings" label="scafo" [min]="0" [max]="8"></app-progress-bar>
-                    <app-progress-bar icon="local_fire_department" label="fuoco" [min]="0" [max]="8"></app-progress-bar> -->
+                    <app-hand-container label="Mano sinistra"></app-hand-container>
+                    <app-hand-container label="Mano destra"></app-hand-container>
                 </div>
             </div>
         </div>

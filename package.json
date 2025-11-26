@@ -1,6 +1,6 @@
 {
   "name": "alterego",
-  "version": "0.0.18b ",
+  "version": "0.0.18c ",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

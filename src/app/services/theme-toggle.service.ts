@@ -24,7 +24,6 @@ export class ThemeToggleService {
   }
 
   setHideThemeButton(hide: boolean) {
-    console.log(hide);
     this.hideThemeButton = hide;
   }
 
@@ -32,7 +31,7 @@ export class ThemeToggleService {
     return this.themeSubject.value;
   }
 
-  get curremtThemeColor(): string {
+  get currentThemeColor(): string {
     switch (this.currentTheme) {
       case 'green': return '#00ff41';
       case 'cyan': return '#00ffff';

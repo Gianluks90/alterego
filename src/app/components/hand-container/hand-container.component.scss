@@ -1,0 +1,22 @@
+.hand-main-container {
+    height: 100%;
+    width: 100%;
+}
+
+.hand-label {
+    border: 1px solid var(--fg-color);
+    background-color: var(--bg-main-color);
+    color: var(--fg-color);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-transform: uppercase;
+
+    &>.hand-sub-label {
+        text-transform: none;
+    }
+}

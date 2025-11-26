@@ -3,6 +3,13 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    position: relative;
+
+    &>app-ui-diagonal-line {
+        position: absolute;
+        bottom: 1px;
+        right: 1px;
+    }
 
     &>.tab-actions-container {
         display: flex;
