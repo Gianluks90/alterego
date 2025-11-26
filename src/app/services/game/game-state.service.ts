@@ -58,8 +58,17 @@ export class GameStateService {
     const mission = this._mission();
     const player = this._player();
     if (!mission || !player) return;
-    // await this.missionService.completeAgentSetup(mission.id, player.uid, partialPlayer);
-    console.log('risultato');
-    
+    await this.missionService.updatePlayerData(mission.id, player.uid, partialPlayer);
+  }
+
+  async assignInitialPlayerPosition(player: Player, roomId: string, x: number, y: number) {
+    if (player.position && player.position.offsetX !== 0 && player.position.offsetY !== 0) return;
+    await this.updatePlayerData({
+      position: {
+        roomId: roomId,
+        offsetX: x,
+        offsetY: y
+      }
+    });
   }
 }

@@ -13,11 +13,12 @@ import { InspectorService } from '../../services/inspector.service';
 import { UIDiagonalLineComponent } from '../../ui/ui-diagonal-line/ui-diagonal-line.component';
 import { GameAction } from '../../../models/gameAction';
 import { ROOM_ACTIONS } from '../../const/roomActionsConfig';
+import { ProgressBarComponent } from '../progress-bar/progress-bar.component';
 
 @Component({
   selector: 'app-inspector',
   standalone: true,
-  imports: [CommonModule, CdkDrag, UIDiagonalLineComponent],
+  imports: [CommonModule, CdkDrag, ProgressBarComponent, UIDiagonalLineComponent],
   templateUrl: './inspector.component.html',
   styleUrl: './inspector.component.scss',
 })

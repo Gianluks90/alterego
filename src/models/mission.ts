@@ -15,6 +15,12 @@ export interface Mission {
   status: 'waiting' | 'in_progress' | 'finished';
 
   phase?: string;
+  turnCounter: number;
+  fireCounter: number;
+  malfunctionCounter: number;
+  criogenicChamberStatus: 'active' | 'inactive';
+  criogenicChambers: CriogenicChamber[]
+  
   turnOwner?: string;
   entities?: Record<string, Entity>;
 }
@@ -24,6 +30,11 @@ export interface MissionChatMessage {
   message: string;
   timestamp: Timestamp;
   class?: string;
+}
+
+export interface CriogenicChamber {
+  id: string;
+  occupiedBy: string | null;
 }
 
 export type EntityType = 'player' | 'enemy' | 'item' | 'object' | 'marker';

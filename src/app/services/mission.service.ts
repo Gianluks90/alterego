@@ -84,6 +84,14 @@ export class MissionService {
         archetypeIds: [
           1, 2, 3, 4, 5, 6, 7
         ],
+        turnCounter: 0,
+        fireCounter: 0,
+        malfunctionCounter: 0,
+        criogenicChamberStatus: 'inactive',
+        criogenicChambers: Array.from({ length: missionData.playersLimit! }, (_, i) => ({
+          id: `CC_${(i + 1).toString().padStart(2, '0')}`,
+          occupiedBy: null
+        })),
         status: 'waiting'
       }),
 
@@ -211,6 +219,11 @@ export class MissionService {
           contaminationLevel: 0
         },
         actionPoints: 2,
+        position: {
+          roomId: 'R_02',
+          offsetX: 0,
+          offsetY: 0,
+        },
 
         status: 'ready'
       }, { merge: true }),
@@ -220,6 +233,13 @@ export class MissionService {
       }, { merge: true })
     ]).catch((error) => {
       console.error('Error completing agent setup: ', error);
+    });
+  }
+
+  public async updatePlayerData(missionId: string, playerId: string, partialData: any): Promise<void> {
+    const docRef = doc(this.firebaseService.database, 'missions', missionId, 'playersData', playerId);
+    return await setDoc(docRef, partialData, { merge: true }).catch((error) => {
+      console.error('Error updating player data: ', error);
     });
   }
 }

@@ -34,8 +34,8 @@ export class LegendContainerComponent {
       description: '... Estranei'
     },
     {
-      icons: ['category'],
-      description: 'Strumento'
+      icons: ['category', 'home_repair_service'],
+      description: 'Strumenti e oggetti'
     },
     {
       icons: ['docs'],

@@ -20,6 +20,11 @@ export interface Player {
     inventory: Inventory;
     parameters: Parameters;
     actionPoints: number;
+    position: {
+        roomId: string;
+        offsetX: number;
+        offsetY: number;
+    };
 
     secretion: boolean;
     signalEmitted: boolean;
