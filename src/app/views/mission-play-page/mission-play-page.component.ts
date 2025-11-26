@@ -182,4 +182,11 @@ export class MissionPlayPageComponent {
       this.map.zoomOut();
     }
   }
+
+  public resetZoom(e: Event): void {
+    e.stopPropagation();
+    if (this.map) {
+      this.map.setView([3000, 2000], -4);
+    }
+  }
 }

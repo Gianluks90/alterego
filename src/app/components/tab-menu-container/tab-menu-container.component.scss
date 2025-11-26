@@ -22,13 +22,14 @@
             text-transform: uppercase;
             cursor: pointer;
             transition: background-color 0.2s, border-color 0.2s;
+            opacity: 0.5;
 
             input[type="radio"] {
                 position: absolute;
                 opacity: 0;
                 pointer-events: none;
             }
-            
+
             .label-text {
                 font-size: 1.2rem;
                 z-index: 1;
@@ -40,8 +41,10 @@
             }
 
             &:has(input[type="radio"]:checked) {
-                border-bottom: none;
+                opacity: 1;
+                border-bottom: 1px solid var(--bg-main-color);
                 text-shadow: 0 0 8px var(--fg-color);
+                z-index: 2;
 
                 .label-text {
                     opacity: 1;
@@ -52,8 +55,21 @@
 }
 
 .tab-menu-content-container {
+    // border: 1px solid var(--fg-color);
     border-left: 1px solid var(--fg-color);
     border-right: 1px solid var(--fg-color);
     border-bottom: 1px solid var(--fg-color);
     flex-grow: 1;
+}
+
+.diagonal-line, .diagonal-line-overlay {
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    z-index: 0;
+}
+.diagonal-line-overlay {
+    z-index: 1;
 }

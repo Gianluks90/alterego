@@ -13,9 +13,11 @@
     padding: 8px;
     width: 200px;
     font-size: 0.875rem;
+    position: relative;
 }
 
 details {
+    cursor: pointer;
     summary {
         text-transform: uppercase;
     }
@@ -32,4 +34,17 @@ details {
     display: flex;
     gap: 4px;
     align-items: center;
+}
+
+.diagonal-line, .diagonal-line-overlay {
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    bottom: -1px;
+    right: -1px;
+    z-index: 0;
+    transform: rotate(90deg);
+}
+.diagonal-line-overlay {
+    z-index: 1;
 }

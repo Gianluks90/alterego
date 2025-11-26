@@ -2,9 +2,9 @@
     <router-outlet />
 
     <div class="theme-toggle-button-container">
-        <app-theme-toggle-button></app-theme-toggle-button>
         <span class="material-symbols-outlined" (click)="soundService.toggleSounds()">{{soundService.playSounds ?
             'volume_up' : 'volume_off'}}</span>
+        <app-theme-toggle-button></app-theme-toggle-button>
     </div>
 </div>
 

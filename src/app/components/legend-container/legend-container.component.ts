@@ -1,12 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { UIDiagonalLineComponent } from '../../ui/ui-diagonal-line/ui-diagonal-line.component';
 
 @Component({
   selector: 'app-legend-container',
-  imports: [],
+  imports: [UIDiagonalLineComponent],
   templateUrl: './legend-container.component.html',
   styleUrl: './legend-container.component.scss'
 })
 export class LegendContainerComponent {
+
+  @ViewChild('legendDetails') legendDetails!: ElementRef<HTMLDetailsElement>;
+
+  ngAfterViewInit() {
+    document.addEventListener('click', (event) => {
+      const details = this.legendDetails?.nativeElement;
+      if (
+        details &&
+        details.open &&
+        !details.contains(event.target as Node)
+      ) {
+        details.open = false;
+      }
+    });
+  }
+
   public legendItems = [
     {
       icons: ['looks_one', 'looks_two', 'looks_3'],
@@ -44,5 +61,5 @@ export class LegendContainerComponent {
       icons: ['lock'],
       description: 'Portellone chiuso'
     }
-  ]
+  ];
 }

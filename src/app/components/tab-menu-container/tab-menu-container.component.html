@@ -2,6 +2,7 @@
     <div class="tab-actions-container">
         @for (tab of $tabs(); track $index) {
         <label class="radio-button-container">
+            <app-ui-diagonal-line position="top-right"></app-ui-diagonal-line>
             <input standard-tab class="radio-button" type="radio" name="tab-menu" 
                 [value]="tab" 
                 [checked]="tab === $selectedTab()"

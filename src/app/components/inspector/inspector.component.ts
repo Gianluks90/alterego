@@ -10,11 +10,12 @@ import {
 import { CdkDrag } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { InspectorService } from '../../services/inspector.service';
+import { UIDiagonalLineComponent } from '../../ui/ui-diagonal-line/ui-diagonal-line.component';
 
 @Component({
   selector: 'app-inspector',
   standalone: true,
-  imports: [CommonModule, CdkDrag],
+  imports: [CommonModule, CdkDrag, UIDiagonalLineComponent],
   templateUrl: './inspector.component.html',
   styleUrl: './inspector.component.scss',
 })

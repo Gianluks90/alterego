@@ -9,6 +9,7 @@ export type Theme = 'green' | 'cyan' | 'amber' | 'apple' | 'cyberpunk' | 'ibm';
 export class ThemeToggleService {
   private themeSubject = new BehaviorSubject<Theme>(this.loadTheme());
   theme$ = this.themeSubject.asObservable();
+  public hideThemeButton: boolean = false;
 
   private loadTheme(): Theme {
     const saved = localStorage.getItem('theme');
@@ -20,6 +21,11 @@ export class ThemeToggleService {
     localStorage.setItem('theme', theme);
     document.body.classList.remove('green-theme', 'cyan-theme', 'amber-theme', 'ibm-theme' ,'apple-theme', 'cyberpunk-theme', 'ibm-theme');
     document.body.classList.add(`${theme}-theme`);
+  }
+
+  setHideThemeButton(hide: boolean) {
+    console.log(hide);
+    this.hideThemeButton = hide;
   }
 
   get currentTheme(): Theme {

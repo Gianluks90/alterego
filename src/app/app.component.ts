@@ -39,6 +39,9 @@ export class AppComponent {
       if (event instanceof NavigationEnd) {
         this.loadingRoot = false;
       }
+      if (event instanceof NavigationEnd) {
+        this.themeService.setHideThemeButton(event.url.includes('play'));
+      }
     });
   } 
 

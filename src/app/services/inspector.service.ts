@@ -29,7 +29,7 @@ export class InspectorService {
   public open(data: any) {
     if (this.overlayRef) {
       const left = '24px';
-      const top = '120px';
+      const top = '148px';
       const strategy = this.overlay.position().global().left(left).top(top);
       this.overlayRef.updatePositionStrategy(strategy);
 

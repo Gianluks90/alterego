@@ -21,11 +21,11 @@ export class ThemeToggleButtonComponent {
     { name: 'Amber', value: 'amber' },
     { name: 'Apple', value: 'apple' },
     { name: 'Cyberpunk', value: 'cyberpunk' },
-    { name: 'IBM', value: 'ibm' }
+    // { name: 'IBM', value: 'ibm' }
   ]
 
-  constructor(private themeService: ThemeToggleService) { }
-
+  constructor(public themeService: ThemeToggleService) {}
+  
   ngOnInit() {
     this.theme = this.themeService.currentTheme;
     this.themeService.setTheme(this.theme);

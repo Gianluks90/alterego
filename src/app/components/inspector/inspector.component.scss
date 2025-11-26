@@ -50,3 +50,16 @@
   max-height: 400px;
   overflow-y: auto;
 }
+
+.diagonal-line, .diagonal-line-overlay {
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    bottom: -1px;
+    right: -1px;
+    z-index: 0;
+    transform: rotate(90deg);
+}
+.diagonal-line-overlay {
+    z-index: 1;
+}
