@@ -4,37 +4,47 @@
     }
     @if (player) {
         <div class="setup-preview-content">
-        <div class="company-container">
-            @if (player.company.name !== '') {
-            <div class="company-logo" [style.background-color]="'var(--bg-main-color)'"
-                [style.-webkit-mask]="'url(./company-logos/' + player.company.name + '.svg) no-repeat center / contain'"
-                [style.mask]="'url(./company-logos/' + player.company.name + '.svg) no-repeat center / contain'">
+            <div class="image-container">
+                <div class="image-overlay"></div>
+                @if(player.face && player.face !== '') {
+                    <img src="/people/{{player.face}}.jpg" alt="">
+                } @else {
+                    <div class="material-symbols-outlined" [style.color]="'var(--bg-main-color)'">
+                        warning
+                    </div>
+                }
             </div>
-            } @else {
-            <span class="company-logo material-symbols-outlined">
-                warning
-            </span>
-            }
-        </div>
-        <div class="agent-info">
-            <div class="agent-info-container">
-                <div class="agent-variables-container">
-                    <span [title]="player.secretion ? 'Rilevata secrezione' : ''" class="material-symbols-outlined" [class.icon-disabled]="!player.secretion">humidity_mid</span>
-                    <span [title]="player.signalEmitted ? 'Segnale lanciato' : ''" class="material-symbols-outlined" [class.icon-disabled]="!player.signalEmitted">sensors</span>
-                    <span title="Ordine di gioco" class="material-symbols-outlined">{{`looks_${player.order === 1 ? 'one' : player.order}`}}</span>
+            <div class="company-container">
+                @if (player.company && player.company.name !== '') {
+                <div class="company-logo" [style.background-color]="'var(--bg-main-color)'"
+                    [style.-webkit-mask]="'url(./company-logos/' + player.company.name + '.svg) no-repeat center / contain'"
+                    [style.mask]="'url(./company-logos/' + player.company.name + '.svg) no-repeat center / contain'">
                 </div>
-                <div class="agent-name">{{player.name || '[ NAME ]' }} {{player.surname || '[ SURNAME ]'}}</div>
-                <div class="agent-role">{{player.role || '[ UNSELECTED ROLE ]'}}
-                    @if (player.archetype) {
-                        <span [title]="player.archetype.name" class="material-symbols-outlined">{{player.archetype.name | archetypeGetIcon}}</span>
-                    }
+                } @else {
+                <div class="material-symbols-outlined" [style.color]="'var(--bg-main-color)'">
+                    warning
                 </div>
+                }
             </div>
-            <div class="actions-indicator-container">
-                <div class="action-led" [class.action-used]="player.actionPoints < 2"></div>
-                <div class="action-led" [class.action-used]="player.actionPoints <= 0"></div>
+            <div class="agent-info">
+                <div class="agent-info-container">
+                    <div class="agent-variables-container">
+                        <span [title]="player.secretion ? 'Rilevata secrezione' : ''" class="material-symbols-outlined" [class.icon-disabled]="!player.secretion">humidity_mid</span>
+                        <span [title]="player.signalEmitted ? 'Segnale lanciato' : ''" class="material-symbols-outlined" [class.icon-disabled]="!player.signalEmitted">sensors</span>
+                        <span title="Ordine di gioco" class="material-symbols-outlined">{{`looks_${player.order === 1 ? 'one' : player.order === 2 ? 'two' : player.order}`}}</span>
+                    </div>
+                    <div class="agent-name">{{player.name || '[ NOME ]' }} {{player.surname || '[ COGNOME ]'}}</div>
+                    <div class="agent-role">{{player.role || '[ RUOLO NON SELEZIONATO ]'}}
+                        @if (player.archetype) {
+                            <span [title]="player.archetype.name" class="material-symbols-outlined">{{player.archetype.name | archetypeGetIcon}}</span>
+                        }
+                    </div>
+                </div>
+                <!-- <div class="actions-indicator-container">
+                    <div class="action-led" [class.action-used]="player.actionPoints < 2"></div>
+                    <div class="action-led" [class.action-used]="player.actionPoints <= 0"></div>
+                </div> -->
             </div>
-        </div>
     </div>
     }
 </div>

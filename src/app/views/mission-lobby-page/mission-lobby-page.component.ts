@@ -68,8 +68,12 @@ export class MissionLobbyPageComponent {
     name: new FormControl('', [Validators.required]),
     surname: new FormControl('', [Validators.required]),
     archetype: new FormControl('', [Validators.required]),
-    role: new FormControl('', [Validators.required])
+    role: new FormControl('', [Validators.required]),
+    order: new FormControl(),
+    face: new FormControl('', [Validators.required])
   });
+
+  public faces: string[] = [];
 
   public centeredMenuPos: ConnectedPosition[] = [
     {
@@ -131,6 +135,10 @@ export class MissionLobbyPageComponent {
       if (!player.order) {
         this.initOrder();
         return;
+      } else {
+        this.form.patchValue({
+          order: this.player?.order
+        });
       }
 
       this.checkYourTurn();
@@ -140,6 +148,8 @@ export class MissionLobbyPageComponent {
           ...this.player
         })
       }
+
+      this.faces = Array.from({ length: 10 }, (_, i) => `${(i + 1).toString().padStart(3, '0')}`);
 
       this.readyToStart = this.mission?.playersData.every(p => p.status === 'ready');
     });
@@ -341,6 +351,11 @@ export class MissionLobbyPageComponent {
         this.notificationService.notify('Avvio missione annullato.', 'info');
       }
     });
+  }
+
+  public selectFace(face: string): void {
+    if (this.player?.status === 'ready') return;
+    this.form.get('face')?.setValue(face);
   }
 
   // OTHER THINGS

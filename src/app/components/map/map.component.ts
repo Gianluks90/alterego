@@ -15,6 +15,7 @@ export class MapComponent {
   private resolvedData: any;
   private baseOverlay: L.ImageOverlay | null = null;
   public map: L.Map | null = null;
+  public realTimeCoordinates: { lat: number; lng: number } | null = { lat: 0, lng: 0 };
   private markers: L.Marker[] = [];
 
   constructor(
@@ -83,6 +84,10 @@ export class MapComponent {
     this.map.on('click', (e) => {
       console.log('click on map:', e.latlng.lat.toFixed() + ' ' + e.latlng.lng.toFixed());
     });
+
+    this.map.on('mousemove', (e) => {
+        this.realTimeCoordinates = { lat: e.latlng.lat, lng: e.latlng.lng };
+    })
 
     this.supportMarkresCoordinates.forEach(coords => {
       this.initStarterMarker('support', coords);

@@ -14,7 +14,7 @@ import { geojsonResolver } from './resolvers/geojson.resolver';
 
 export const routes: Routes = [
     {
-        title: 'Home',
+        title: 'ALTEREGO - Home',
         path: '',
         loadComponent: () => import('./views/home-page/home-page.component').then(m => m.HomePageComponent), 
         pathMatch: 'full',
@@ -23,12 +23,12 @@ export const routes: Routes = [
         },
     },
     {
-        title: 'Authentication',
+        title: 'ALTEREGO - Authentication',
         path: 'auth/:mode',
         loadComponent: () => import('./views/auth-page/auth-page.component').then(m => m.AuthPageComponent),
     },
     {
-        title: 'Missions',
+        title: 'ALTEREGO - Missions',
         path: 'missions', 
         loadComponent: () => import('./views/missions-list-page/missions-list-page.component').then(m => m.MissionsListPageComponent),
         canActivate: [AuthGuardService],
@@ -37,7 +37,7 @@ export const routes: Routes = [
         },
     },
     {
-        title: 'Mission Lobby',
+        title: 'ALTEREGO - Mission Lobby',
         path: 'missions/:id/lobby', 
         loadComponent: () => import('./views/mission-lobby-page/mission-lobby-page.component').then(m => m.MissionLobbyPageComponent),
         resolve: {
@@ -47,7 +47,7 @@ export const routes: Routes = [
         canActivate: [AuthGuardService]
     },
     {
-        title: 'Mission',
+        title: 'ALTEREGO - Mission',
         path: 'missions/:id/play', 
         loadComponent: () => import('./views/mission-play-page/mission-play-page.component').then(m => m.MissionPlayPageComponent),
         resolve: {
@@ -58,7 +58,7 @@ export const routes: Routes = [
         canActivate: [AuthGuardService],
     },
     {
-        title: 'Codex',
+        title: 'ALTEREGO - Codex',
         path: 'codex',
         loadComponent: () => import('./views/codex-page/codex-page.component').then(m => m.CodexPageComponent),
         resolve: {

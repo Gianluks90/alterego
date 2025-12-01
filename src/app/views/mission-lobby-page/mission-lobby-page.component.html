@@ -18,9 +18,9 @@
                 <div class="agent-setup-content-container">
                 <div class="setup-options-container">
                     <h3>
-                        Company [
+                        Compagnia [
                         {{
-                        (player.company.name || form.value.company.name || ' UNSELECTED ')
+                        (player.company.name || form.value.company.name || ' NON SELEZIONATA ')
                         | uppercase
                         | replaceDash
                         }} ]
@@ -37,23 +37,31 @@
                             </div>
                         }
                     </div>
-                    <h3>Informations</h3>
+                    <h3>Informazioni</h3>
                     <div class="info-container">
                         <div class="randomize-button" (click)="randomize('name')">
-                            <span>{{ player.name || form.value.name || 'Generate name' }}</span>
+                            <span>{{ player.name || form.value.name || 'Genera nome' }}</span>
                             <button icon-button type="button">
                                 <span class="material-symbols-outlined">casino</span>
                             </button>
                         </div>
                         <div class="randomize-button" (click)="randomize('surname')">
-                            <span>{{ player.surname || form.value.surname || 'Generate surname' }}</span>
+                            <span>{{ player.surname || form.value.surname || 'Genera cognome' }}</span>
                             <button icon-button type="button">
                                 <span class="material-symbols-outlined">casino</span>
                             </button>
                         </div>
                     </div>
+                    <div class="image-agent-container">
+                        @for(f of faces; track $index) {
+                            <div class="image-container" (click)="selectFace(f)" [class.image-selected]="form.value.face === f">
+                                <div class="image-overlay"></div>
+                                <img src="/people/{{f}}.jpg" alt="">
+                            </div>
+                        }
+                    </div>
                         @if (archetypesIcons && yourTurn) {
-                            <h3>Archetype</h3>
+                            <h3>Archetipo</h3>
                             <div class="info-container">
                                 @for(archetype of randomArchetypes; track $index) {
                                     <div class="archetype-container" (click)="selectArchetype(archetype)"
@@ -65,9 +73,9 @@
                                 </div>
                         }
                         @if (yourTurn) {
-                            <h3>Role</h3>
+                            <h3>Ruolo</h3>
                             <button standard-button menu-button type="button" [cdkMenuTriggerFor]="menu" [cdkMenuPosition]="centeredMenuPos"
-                                [disabled]="form.value.archetype === ''">{{ form.value.role || 'Select a role'
+                                [disabled]="form.value.archetype === ''">{{ form.value.role || 'Seleziona un ruolo'
                                 }}</button>
                             <ng-template #menu>
                                 <div standard-menu cdkMenu>
@@ -79,7 +87,7 @@
                                 </div>
                             </ng-template>
                             } @else {
-                            <p class="waiting-turn-message">[ WAITING ] Your turn is not active.</p>
+                            <p class="waiting-turn-message">[ IN ATTESA ] Il tuo turno non è attivo.</p>
                         }
                     </div>
 
@@ -87,7 +95,7 @@
                 <app-agent-tag [$player]="form.value"></app-agent-tag>
             </div>
             } @else {
-                <p>Loading player data...</p>
+                <p>Caricamento dati giocatore...</p>
             }
         </section>
         <app-chat [$player]="player" [$mission]="mission"></app-chat>
@@ -95,15 +103,15 @@
 
     <div class="game-lobby-page-actions-container">
         @if (mission && mission.createdBy === player?.uid && mission.players && mission.playersLimit === mission.players.length) {
-            <button standard-button type="button" [disabled]="!readyToStart || mission.status === 'in_progress'" (click)="openLaunchConfirmDialog()">Launch mission</button>
+            <button standard-button type="button" [disabled]="!readyToStart || mission.status === 'in_progress'" (click)="openLaunchConfirmDialog()">Avvia missione</button>
         } @else {
             <button standard-button type="button" disabled>Joined {{mission?.players?.length}}/{{mission?.playersLimit}}</button>
         }
         <button standard-button type="button" [disabled]="form.invalid || player?.status === 'ready'" (click)="openSaveConfirmDialog()">
-            {{ player?.status === 'ready' ? 'Saved' : 'Save' }}
+            {{ player?.status === 'ready' ? 'Salvato' : 'Salva' }}
         </button>
-        <button standard-button type="button" (click)="openLobbyHelp()">Help</button>
-        <button standard-button type="button" [disabled]="player?.uid === mission?.createdBy">Leave</button>
-        <button standard-button type="button" [routerLink]="['/missions']">Exit</button>
+        <button standard-button type="button" (click)="openLobbyHelp()">Aiuto</button>
+        <button standard-button type="button" [disabled]="player?.uid === mission?.createdBy">Abbandona</button>
+        <button standard-button type="button" [routerLink]="['/missions']">Esci</button>
     </div>
 </div>

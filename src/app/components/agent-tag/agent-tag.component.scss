@@ -12,11 +12,11 @@
           border: 1px solid var(--fg-color);
           height: 100px;
           display: grid;
-          grid-template-columns: 100px auto;
+          grid-template-columns: 80px 40px auto;
 
           &>.company-container {
-              width: 100px;
-              height: 100%;
+              width: 40px;
+              height: 100px;
               display: flex;
               align-items: center;
               justify-content: center;
@@ -24,8 +24,8 @@
               color: var(--bg-main-color);
 
               &>.company-logo {
-                  width: 80px;
-                  height: 80px;
+                  width: 30px;
+                  height: 30px;
               }
 
               &>.company-logo.material-symbols-outlined {
@@ -34,6 +34,44 @@
                   font-size: 2rem;
                   align-self: center;
               }
+          }
+
+          .image-container {
+              height: 100px;
+              width: 80px;
+              position: relative;
+
+              &>.image-overlay {
+                  position: absolute;
+                  inset: 0;
+                  background: rgba(0, 0, 0, 0.3);
+                  pointer-events: none;
+                  z-index: 200;
+                  background-color: var(--fg-color);
+                  opacity: 0.2;
+              }
+
+              &>img {
+                    height: 100%;
+                    width: 100%;
+                    padding: 1px;
+                    object-fit: cover;
+                    filter: grayscale(1) contrast(1.2);
+                    mix-blend-mode: soft-light;
+              }
+          }
+
+          &>.image-container::before {
+              content: "";
+              position: absolute;
+              inset: 0;
+              background: repeating-linear-gradient(to bottom,
+                      rgba(0, 0, 0, 0.4) 0px,
+                      rgba(0, 0, 0, 0.4) 1px,
+                      transparent 1px,
+                      transparent 3px);
+              mix-blend-mode: overlay;
+              pointer-events: none;
           }
 
           &>.agent-info {
@@ -69,13 +107,13 @@
                   }
 
                   &>.agent-variables-container {
-                    display: flex;
-                    gap: 8px;
-                    align-items: center;
+                      display: flex;
+                      gap: 8px;
+                      align-items: center;
 
-                    &>span {
-                        cursor: default;
-                    }
+                      &>span {
+                          cursor: default;
+                      }
 
                   }
               }
@@ -94,15 +132,15 @@
                       box-shadow: 0 0 8px var(--fg-color);
                   }
 
-                    &>.action-used {
-                        background-color: var(--bg-main-color);
-                        box-shadow: none;
-                    }
+                  &>.action-used {
+                      background-color: var(--bg-main-color);
+                      box-shadow: none;
+                  }
               }
           }
       }
   }
 
   .icon-disabled {
-    opacity: .3;
+      opacity: .3;
   }

@@ -7,6 +7,7 @@ export interface Player {
     name: string;
     surname: string;
     role: string;
+    face: string;
     archetype: Archetype;
     company: Company;
 

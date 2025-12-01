@@ -129,7 +129,6 @@
         border: 1px solid var(--fg-color);
         border-bottom: none;
 
-
         &>.zoom-controls {
             position: absolute;
             top: 8px;
@@ -224,4 +223,14 @@
     justify-content: center;
     height: 100%;
     width: 100%;
+}
+
+.coordinates-container {
+    position: absolute;
+    top: 48px;
+    left: 8px;
+    background-color: var(--bg-main-color);
+    border: 1px solid var(--fg-color);
+    padding: 4px 8px;
+    z-index: 3000;
 }

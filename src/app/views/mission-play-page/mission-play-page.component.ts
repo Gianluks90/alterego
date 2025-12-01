@@ -59,6 +59,8 @@ export class MissionPlayPageComponent {
   public mission: Mission | null = null;
   public player: Player | null = null;
 
+  public coordinates: { lat: number; lng: number } | null = null;
+
   @ViewChild('map') _map: MapComponent | null = null;
 
   // private baseOverlay: L.ImageOverlay | null = null;

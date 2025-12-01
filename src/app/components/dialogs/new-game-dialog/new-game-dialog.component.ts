@@ -17,7 +17,7 @@ export class NewGameDialogComponent {
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(30)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      playersLimit: [2, [Validators.required, Validators.min(2), Validators.max(6)]]
+      playersLimit: [1, [Validators.required, Validators.min(1), Validators.max(6)]]
     });
   }
 

@@ -30,13 +30,14 @@
                 <app-legend-container></app-legend-container>
                 <div class="ship-status-container">
                     <app-ui-diagonal-line position="top-right"></app-ui-diagonal-line>
-                    <app-progress-bar icon="settings" [current]="mission?.malfunctionCounter || 4" [min]="0" [max]="8"></app-progress-bar>
+                    <app-progress-bar icon="settings" [current]="mission?.malfunctionCounter || 0" [min]="0" [max]="8"></app-progress-bar>
                     <app-progress-bar icon="local_fire_department" [min]="0" [max]="8" [current]="mission?.fireCounter || 0"></app-progress-bar>
                 </div>
                 <div class="mission-countdown-container">
                     <app-ui-diagonal-line position="bottom-left"></app-ui-diagonal-line>
                     <app-progress-bar icon="hourglass_empty" [min]="0" [max]="15" [current]="mission?.turnCounter || 0"></app-progress-bar>
                 </div>
+                <div class="coordinates-container">{{ map.realTimeCoordinates?.lat?.toFixed(2) }}, {{ map.realTimeCoordinates?.lng?.toFixed(2) }}</div>
                 <!-- <div id="map"></div> -->
                 <app-map #map></app-map>
             </div>

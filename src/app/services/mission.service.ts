@@ -198,6 +198,7 @@ export class MissionService {
         name: data.name,
         surname: data.surname,
         role: data.role,
+        face: data.face,
         archetype: data.archetype,
         company: data.company,
 
@@ -219,11 +220,6 @@ export class MissionService {
           contaminationLevel: 0
         },
         actionPoints: 2,
-        position: {
-          roomId: 'R_02',
-          offsetX: 0,
-          offsetY: 0,
-        },
 
         status: 'ready'
       }, { merge: true }),
