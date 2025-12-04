@@ -1,21 +1,13 @@
-<div dialog-main-container>
-    <h1>Conferma eliminazione</h1>
-
-    <pre class="container-log">
-[ATTENZION] Protocollo di eliminazione critica avviato.
--------------------------------------------------------
-  L'entità selezionata sarà rimossa permanentemente 
-  dalla memoria di sistema.
-
-  Questo processo non può essere annullato una volta confermato.
-  Procedi solo se l'operazione è stata autorizzata.
-
-[AVVISO] Tutti i dati dipendenti saranno persi.
-[STATO] In attesa della conferma finale...
--------------------------------------------------------
-    </pre>
+<app-ui-dialog-container dialogTitle="Conferma eliminazione">
+    <p p-pulse-text>[ATTENZIONE] Protocollo di eliminazione critica avviato.</p>
+    <p>
+        L'entità selezionata sarà rimossa permanentemente 
+        dalla memoria di sistema.<br>
+        Questo processo non può essere annullato una volta confermato.<br>
+        Procedi solo se l'operazione è stata autorizzata.
+    </p>
     <div dialog-actions-container>
         <button standard-button type="button" (click)="confirm()">conferma</button>
         <button standard-button type="button" (click)="cancel()">annulla</button>
     </div>
-</div>
+</app-ui-dialog-container>

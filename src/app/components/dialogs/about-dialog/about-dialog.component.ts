@@ -2,10 +2,11 @@ import { DialogRef } from '@angular/cdk/dialog';
 import { Component, inject } from '@angular/core';
 import { APP_VERSION } from '../../../../environment/appVersion';
 import { HelpDialogComponent } from '../help-dialog/help-dialog.component';
+import { UiDialogContainerComponent } from '../../../ui';
 
 @Component({
   selector: 'app-about-dialog',
-  imports: [],
+  imports: [UiDialogContainerComponent],
   templateUrl: './about-dialog.component.html',
   styleUrl: './about-dialog.component.scss'
 })

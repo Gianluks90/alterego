@@ -1,35 +1,14 @@
-<div dialog-main-container>
-    <h1>INFORMAZIONI</h1>
-
-    <pre class="container-log">
-[INITIALIZING SYSTEM INFO] ...................... [OK]
-[LOADING MODULE] alterego.core
--------------------------------------------------------
- NOME PROGRAMMA:        ALTEREGO
- VERSIONE:              {{ appVersion }}
- STATUS:                OPERATIVO
- ULTIMA CALIBRAZIONE:   SUCCESSO
--------------------------------------------------------
- SCOPO DEL SISTEMA:
-  Progettato per assistere gli agenti sul campo in ambienti 
-  ostili o imprevedibili. Fornisce monitoraggio in tempo reale,
-  controllo missione e tracciamento della sopravvivenza.
-
- NOTE:
-  Tutte le trasmissioni sono registrate e archiviate.
-  L'errore umano è statisticamente inevitabile.
-
- PROTOCOLLO DI PRIORITÀ:
-  L'intelligenza artificiale centrale si riserva il diritto 
-  di ignorare gli input manuali in caso di rilevamento 
-  di minacce.
-
-> MANTIENI LA CALMA, AGENTE.
-> OBIETTIVO: SOPRAVVIVENZA.
--------------------------------------------------------
-  </pre>
-
-    <div dialog-actions-container>
+<app-ui-dialog-container dialogTitle="Informazioni">
+  <h2>ALTEREGO - Versione {{ appVersion }}</h2>
+  <h3>Status: Operativo</h3>
+  <p>
+    Progettato per assistere gli agenti sul campo in ambienti ostili o imprevedibili. Fornisce monitoraggio in tempo reale,
+    controllo missione e tracciamento della sopravvivenza.<br /><br />
+    Tutte le trasmissioni sono registrate e archiviate. L'errore umano è statisticamente inevitabile.<br /><br />
+    L'intelligenza artificiale centrale si riserva il diritto di ignorare gli input manuali in caso di rilevamento di minacce.<br /><br />
+  </p>
+  <p p-pulse-text>MANTIENI LA CALMA, AGENTE. OBIETTIVO: SOPRAVVIVENZA.</p>
+  <div dialog-actions-container>
         <button standard-button type="button" (click)="dialogRef.close()">ESC</button>
     </div>
-</div>
+</app-ui-dialog-container>

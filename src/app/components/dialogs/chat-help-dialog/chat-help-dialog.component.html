@@ -1,34 +1,30 @@
-<div dialog-main-container>
-  <h1>CHAT HELP</h1>
+<app-ui-dialog-container dialogTitle="Log/Chat">
+  <p p-pulse-text>[SECURE CHANNEL] ................................. [OK]</p>
+  <p p-pulse-text>[PROTOCOL HANDSHAKE] ............................. [OK]</p>
 
-  <pre class="container-log">
-[SECURE CHANNEL] ................................. [OK]
-[PROTOCOL HANDSHAKE] ............................. [OK]
--------------------------------------------------------
- AGENTE,
- il sistema di comunicazione ALTEREGO è online.
- Puoi trasmettere messaggi standard o codificati
- utilizzando le seguenti direttive:
+  <p>
+    AGENTE,
+    il sistema di comunicazione ALTEREGO è online.
+    Puoi trasmettere messaggi standard o codificati
+    utilizzando le seguenti direttive:
+    <br><br>
+    /shout &lt;message&gt;
+    Trasmette un allarme prioritario (maiuscolo). Visibile a
+    tutti gli agenti.
+    Esempio: /shout nemico avvistato
+    diventa "NEMICO AVVISTATO"
+    <br>
+    /coin
+    Simula il lancio di una moneta. Restituisce "TESTA" o "CROCE".
+  </p>
+  <hr style="width: 100%;">
+  <p>
+    Comandi non autorizzati saranno ignorati dal
+    centro di smistamento. Un uso improprio può attivare contromisure.
+  </p>
 
-  /shout &lt;message&gt;
-     Trasmette un allarme prioritario (maiuscolo). Visibile a 
-     tutti gli agenti.
-     Esempio: /shout nemico avvistato
-        diventa "NEMICO AVVISTATO"
-  /coin 
-     Simula il lancio di una moneta. Restituisce "TESTA" o "CROCE".
-
- Comandi non autorizzati saranno ignorati dal
- centro di smistamento. Un uso improprio può attivare contromisure.
-
--------------------------------------------------------
- > Mantieni la chiarezza in tutte le trasmissioni.
- > La discrezione preserva la sopravvivenza.
--------------------------------------------------------
- [ALTEREGO-COM // Access level 2 :: Communication Node]
-  </pre>
-
+  <p p-pulse-text>[ALTEREGO-COM // Livello di accesso 2 :: Nodo di comunicazione]</p>
   <div dialog-actions-container>
     <button standard-button type="button" (click)="dialogRef.close()">ESC</button>
   </div>
-</div>
+</app-ui-dialog-container>

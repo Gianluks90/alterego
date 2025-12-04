@@ -1,19 +1,20 @@
-<div class="setup-preview-container">
+<div class="setup-preview-container" [style.margin-bottom.px]="$showTitle() ? 24 : 0">
     @if ($showTitle()) {
-        <h3>Agent tag preview</h3>
+        <h3>AGENT TAG PREVIEW</h3>
     }
     @if (player) {
         <div class="setup-preview-content">
-            <div class="image-container">
-                <div class="image-overlay"></div>
-                @if(player.face && player.face !== '') {
+            <app-ui-agent-image [width]="100" [height]="100" [faceId]="player.face"></app-ui-agent-image>
+            <!-- <div class="image-container"> -->
+                <!-- <div class="image-overlay"></div> -->
+                <!-- @if(player.face && player.face !== '') {
                     <img src="/people/{{player.face}}.jpg" alt="">
                 } @else {
                     <div class="material-symbols-outlined" [style.color]="'var(--bg-main-color)'">
                         warning
                     </div>
-                }
-            </div>
+                } -->
+            <!-- </div> -->
             <div class="company-container">
                 @if (player.company && player.company.name !== '') {
                 <div class="company-logo" [style.background-color]="'var(--bg-main-color)'"

@@ -1,23 +1,14 @@
-<div dialog-main-container>
-    <h1>Assegnazione turno Agente</h1>
-
-    <pre class="container-log">
-[POSIZIONE ASSEGNATA] .......................... [OK]
--------------------------------------------------------
- AGENTE,
-Sei stato inserito nella matrice di rotazione.
-
-Agisci solo quando autorizzato.
-Le azioni premature saranno ignorate.
-  </pre>
+<app-ui-dialog-container dialogTitle="Assegnazione turno Agente">
+    <p p-pulse-text>[POSIZIONE ASSEGNATA] .......................... [OK]</p>
 
     <div class="agent-order-container">
         <h1>{{data.order}}</h1>
         <p>Sei stato assegnato alla posizione {{data.order}} nella matrice di rotazione. Ora sei conosciuto come Agente
             {{data.order}}.</p>
+        <app-ui-diagonal-line position="bottom-right"></app-ui-diagonal-line>
     </div>
-
+    
     <div dialog-actions-container>
         <button standard-button type="button" (click)="dialogRef.close()">OK</button>
     </div>
-</div>
+</app-ui-dialog-container>

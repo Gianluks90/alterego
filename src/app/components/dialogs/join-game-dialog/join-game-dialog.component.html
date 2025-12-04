@@ -1,21 +1,11 @@
-<div dialog-main-container>
-  <h1>Partecipa a una missione esistente</h1>
-
-  <pre class="container-log">
-[ACCESSO ALLA SESSIONE ESISTENTE] .................... [OK]
-[CANALE SICURO STABILITO] ............................. [OK]
--------------------------------------------------------
-AGENTE, per unirti a un'operazione attiva devi fornire:
-
-  - ID MISSIONE : identificativo univoco della missione
-  - PASSWORD    : chiave di accesso assegnata dall'host
-
-[NOTA] I tentativi di accesso non autorizzati vengono registrati 
-       e segnalati.
-[STATO] In attesa di verifica...
--------------------------------------------------------
-</pre>
-
+<app-ui-dialog-container dialogTitle="Partecipa a una missione esistente">
+  <p p-pulse-text>[ACCESSO ALLA SESSIONE ESISTENTE] .................... [OK]</p>
+  <p p-pulse-text>[CANALE SICURO STABILITO] ............................. [OK]</p>
+  <p p-pulse-text>[AZIONE RICHIESTA] Prego, inserire i dettagli della missione...</p>
+  <p>
+    ID Missione: l'identificativo univoco della missione a cui si desidera partecipare.<br />
+    Password: la chiave di accesso assegnata dall'host della missione.
+  </p>
   <form standard-form [formGroup]="form">
     <div form-field>
       <label for="id">ID Missione</label>
@@ -33,4 +23,4 @@ AGENTE, per unirti a un'operazione attiva devi fornire:
     <button standard-button type="button" [disabled]="form.invalid" (click)="confirm()">Partecipa</button>
     <button standard-button type="button" (click)="cancel()">ESC</button>
   </div>
-</div>
+</app-ui-dialog-container>

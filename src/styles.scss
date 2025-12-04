@@ -108,7 +108,7 @@ button[icon-button] {
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
     padding: 0;
     margin: 0;
 
@@ -159,7 +159,7 @@ div[standard-menu] {
     background-color: var(--bg-main-color);
     border: 1px solid var(--fg-color);
     box-shadow: 0 0 8px var(--fg-color);
-    
+
     &>button {
         width: 100% !important;
     }
@@ -185,8 +185,6 @@ select[standard-select] {
 
 .dialog-container {
     background-color: var(--bg-main-color);
-    border: 1px solid var(--fg-color);
-    padding: 16px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     overflow: auto;
     max-width: 600px !important;
@@ -198,26 +196,68 @@ select[standard-select] {
 }
 
 div[dialog-main-container] {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    display: grid;
+    grid-template-columns: 24px auto;
+    position: relative;
+    border: 1px solid var(--fg-color);
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        margin: 0;
-        text-transform: uppercase;
+    div[dialog-side-line] {
+        width: 100%;
+        background-color: var(--fg-color);
+        height: 100%;
+        background: repeating-linear-gradient(to right,
+                var(--fg-color) 1px,
+                var(--fg-color) 1px,
+                transparent 4px,
+                transparent 4px)
+    }
+
+    div[dialog-content-container] {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        max-height: 550px;
+        overflow-y: auto;
+        position: relative;
+
+        h1 {
+            position: sticky;
+            top: 0;
+            background-color: var(--bg-main-color);
+        }
     }
 
 
     div[dialog-actions-container] {
-        margin: 16px 0;
         display: flex;
         justify-content: flex-end;
-        gap: 8px;
+        gap: 12px;
+        position: sticky;
+        bottom: 16px;
+        margin-top: 16px;
+    }
+}
+
+// Special effects
+
+p[p-pulse-text] {
+    color: var(--fg-color) !important;
+    font-size: 1.2rem !important;
+    animation: pulseText 2s infinite;
+}
+
+@keyframes pulseText {
+    0% {
+        opacity: 1;
+        text-shadow: 0 0 4px var(--fg-color);
+    }
+    50% {
+        opacity: 0.7;
+        text-shadow: 0 0 12px var(--fg-color);
+    }
+    100% {
+        opacity: 1;
+        text-shadow: 0 0 4px var(--fg-color);
     }
 }
 

@@ -1,35 +1,26 @@
-<div dialog-main-container>
-    <h1>Aiuto</h1>
+<app-ui-dialog-container dialogTitle="Aiuto">
+    <p>
+        AGENTE,<br>
+        il sistema ALTEREGO ha verificato la tua identità.
+        Ora sei sotto costante osservazione.
+        <br>
+        Durante la missione, segui i protocolli operativi
+        assegnati dalla tua Divisione.
+        La collaborazione con altri agenti è
+        autorizzata — ma non raccomandata.
+        <br>
+        Ogni trasmissione è monitorata e archiviata
+        nel centro dati centrale. Deviazioni dalla
+        procedura attiveranno una risposta automatica.
+    </p>
+    <p p-pulse-text>MANTIENI LA CALMA, PRESERVA L'INTEGRITÀ DEL SISTEMA, SOPRAVVIVI.</p>
+    <hr style="width: 100%;">
+    <p>
+        <strong>ALTEREGO</strong> è un gioco semi-cooperativo di sopravvivenza e strategia ambientato su una nava in viaggio verso la
+        terra. Il cadavere di un membro dell'equipaggio viene rinvenuto all'inizio. Chi è stato ad ucciderlo?
 
-    <pre class="container-log">
-[TRASMISSIONE SICURA ATTIVA] .................... [OK]
-[CONFERMA IDENTITÀ] ............................. [OK]
--------------------------------------------------------
- AGENTE,
- il sistema ALTEREGO ha verificato la tua identità.
- Ora sei sotto costante osservazione.
-
- Durante la missione, segui i protocolli operativi
- assegnati dalla tua Divisione.
- La collaborazione con altri agenti è
- autorizzata — ma non raccomandata.
-
- Ogni trasmissione è monitorata e archiviata
- nel centro dati centrale. Deviazioni dalla
- procedura attiveranno una risposta automatica.
-
- RICORDA:
-    - Mantieni la disciplina nelle comunicazioni
-    - Preserva l'integrità del sistema
-    - Sopravvivi a ogni costo
-
-> Rimani vigile, Agente.
-> Il sistema ti sta osservando.
--------------------------------------------------------
- [Messaggio generato da ALTEREGO-COM // Livello di accesso 3]
-  </pre>
-
+    </p>
     <div dialog-actions-container>
         <button standard-button type="button" (click)="dialogRef.close()">ESC</button>
     </div>
-</div>
+</app-ui-dialog-container>

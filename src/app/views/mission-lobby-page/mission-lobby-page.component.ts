@@ -23,6 +23,7 @@ import { ConnectedPosition } from '@angular/cdk/overlay';
 import { HelpLobbyDialogComponent } from '../../components/dialogs/help-lobby-dialog/help-lobby-dialog.component';
 import { ChatComponent } from '../../components/chat/chat.component';
 import { UI_SOUNDS_DIRECTIVES } from '../../const/uiSounds';
+import { UiAgentImageComponent } from '../../ui';
 
 @Component({
   selector: 'app-mission-lobby-page',
@@ -38,6 +39,7 @@ import { UI_SOUNDS_DIRECTIVES } from '../../const/uiSounds';
     CdkMenuTrigger,
     CdkMenu,
     CdkMenuItem,
+    UiAgentImageComponent,
     UI_SOUNDS_DIRECTIVES
   ],
   templateUrl: './mission-lobby-page.component.html',

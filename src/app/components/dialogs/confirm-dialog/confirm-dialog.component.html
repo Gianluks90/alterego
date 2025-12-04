@@ -1,22 +1,18 @@
-<div dialog-main-container>
-    <h1>[stop] Conferma richiesta</h1>
-
-    <pre class="container-log">
-[AVVISO] Punto di controllo raggiunto.
-------------------------------------------------------------
-   L'operazione intrapresa richiede una conferma esplicita 
-   da parte dell'utente.
-
-   [ATTENZIONE] A seconda dell'operazione alcuni dati 
-   potrebbero andare persi o essere modificati in modo 
-   irreversibile.
-
-[STATO] In attesa della validazione finale dell'utente...
-------------------------------------------------------------
-    </pre>
-
+<app-ui-dialog-container dialogTitle="Conferma richiesta">
+    <p p-pulse-text>[ATTENZIONE] Punto di controllo raggiunto.</p>
+    <p>
+        L'operazione intrapresa richiede una conferma esplicita
+        da parte dell'utente. <br>
+    </p>
+    <hr style="width: 100%;">
+    <p>
+        [ATTENZIONE] A seconda dell'operazione alcuni dati
+        potrebbero andare persi o essere modificati in modo
+        irreversibile.
+    </p>
+    <p p-pulse-text>[STATO] In attesa della validazione finale dell'utente...</p>
     <div dialog-actions-container>
         <button standard-button type="button" (click)="confirm()">conferma</button>
         <button standard-button type="button" (click)="cancel()">annulla</button>
     </div>
-</div>
+</app-ui-dialog-container>

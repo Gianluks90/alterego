@@ -1,7 +1,47 @@
-<div dialog-main-container>
-    <h1>Aiuto</h1>
+<app-ui-dialog-container dialogTitle="Aiuto">
+  <p p-pulse-text>[SISTEMA LOBBY ONLINE] ........................ [OK]</p>
+  <p p-pulse-text>[CONNESSIONE AGENTE VERIFICATA] ................ [OK]</p>
+  <p>
+    AGENTE,<br />
+    sei entrato nell’area di preparazione della missione.<br /><br />
 
-    <pre class="container-log">
+    Qui puoi:<br />
+    • Comunicare tramite il CANALE PUBBLICO<br />
+    • Configurare la tua identità operativa<br />
+    • Attendere il tuo turno di attivazione assegnato<br /><br />
+
+    CAMPI DI CONFIGURAZIONE (PRIVATI):<br />
+    - Azienda      → irrilevante per la gerarchia di sistema<br />
+    - Nome/Cognome → usato solo per identificazione agente<br />
+    - Ruolo        → cosmetico, non validato da ALTEREGO<br />
+    - Archetippo   → UNICO parametro riconosciuto dal sistema<br /><br />
+
+    ORDINE DI TURNO:<br />
+    - Il tuo numero determina quando agirai<br />
+    - La scelta dell’archetipo è sequenziale: i numeri più bassi
+      scelgono per primi<br />
+    - Gli agenti con numeri più alti devono attendere il proprio turno<br /><br />
+
+    AZIONI:<br />
+    - SALVA   → blocca la configurazione in modo permanente<br />
+    - LASCIA  → ti rimuove dalla lista della missione<br />
+    - AVVIA   → disponibile solo all’Host quando tutti gli <br />
+                agenti sono PRONTI<br /><br />
+
+    &gt; Una volta confermata, nessuna modifica sarà più accettata.<br />
+    &gt; Scegli con attenzione, Agente.
+  </p>
+  <p p-pulse-text>[Messaggio generato da ALTEREGO-LOBBY // Livello 2]</p>
+
+  <div dialog-actions-container>
+    <button standard-button type="button" (click)="dialogRef.close()">OK</button>
+  </div>
+</app-ui-dialog-container>
+
+<!-- <div dialog-main-container>
+  <h1>Aiuto</h1>
+
+  <pre class="container-log">
 [SISTEMA LOBBY ONLINE] ........................ [OK]
 [CONNESSIONE AGENTE VERIFICATA] ................ [OK]
 -------------------------------------------------------
@@ -37,7 +77,7 @@
 [Messaggio generato da ALTEREGO-LOBBY // Livello 2]
   </pre>
 
-    <div dialog-actions-container>
-        <button standard-button type="button" (click)="dialogRef.close()">OK</button>
-    </div>
-</div>
+  <div dialog-actions-container>
+    <button standard-button type="button" (click)="dialogRef.close()">OK</button>
+  </div>
+</div> -->

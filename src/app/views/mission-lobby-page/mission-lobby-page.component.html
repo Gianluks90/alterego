@@ -17,6 +17,35 @@
             @if (player) {
                 <div class="agent-setup-content-container">
                 <div class="setup-options-container">
+                    @if (archetypesIcons && yourTurn) {
+                            <h3>Archetipo</h3>
+                            <div class="info-container">
+                                @for(archetype of randomArchetypes; track $index) {
+                                    <div class="archetype-container" (click)="selectArchetype(archetype)"
+                                        [class.selected]="form.value.archetype.name === archetype.name">
+                                        <h1>{{archetype.name}}</h1>
+                                        <span class="material-symbols-outlined">{{archetypesIcons[archetype.name]}}</span>
+                                    </div>
+                                }
+                                </div>
+                        }
+                        @if (yourTurn) {
+                            <h3>Ruolo</h3>
+                            <button standard-button menu-button type="button" [cdkMenuTriggerFor]="menu" [cdkMenuPosition]="centeredMenuPos"
+                                [disabled]="form.value.archetype === ''">{{ form.value.role || 'Seleziona un ruolo'
+                                }}</button>
+                            <ng-template #menu>
+                                <div standard-menu cdkMenu>
+                                    @for (role of roles; track $index) {
+                                    <button standard-button cdkMenuItem (click)="selectRole(role)">
+                                        {{ role }}
+                                    </button>
+                                    }
+                                </div>
+                            </ng-template>
+                            } @else {
+                            <p class="waiting-turn-message">[ IN ATTESA ] Il tuo turno non è attivo.</p>
+                        }
                     <h3>
                         Compagnia [
                         {{
@@ -52,43 +81,15 @@
                             </button>
                         </div>
                     </div>
+                    <h3>Volto</h3>
                     <div class="image-agent-container">
-                        @for(f of faces; track $index) {
-                            <div class="image-container" (click)="selectFace(f)" [class.image-selected]="form.value.face === f">
-                                <div class="image-overlay"></div>
-                                <img src="/people/{{f}}.jpg" alt="">
-                            </div>
+                        @for(faceId of faces; track $index) {
+                            <app-ui-agent-image [faceId]="faceId" (click)="selectFace(faceId)"
+                                [class.image-selected]="form.value.face === faceId">
+                            </app-ui-agent-image>
                         }
                     </div>
-                        @if (archetypesIcons && yourTurn) {
-                            <h3>Archetipo</h3>
-                            <div class="info-container">
-                                @for(archetype of randomArchetypes; track $index) {
-                                    <div class="archetype-container" (click)="selectArchetype(archetype)"
-                                        [class.selected]="form.value.archetype.name === archetype.name">
-                                        <h1>{{archetype.name}}</h1>
-                                        <span class="material-symbols-outlined">{{archetypesIcons[archetype.name]}}</span>
-                                    </div>
-                                }
-                                </div>
-                        }
-                        @if (yourTurn) {
-                            <h3>Ruolo</h3>
-                            <button standard-button menu-button type="button" [cdkMenuTriggerFor]="menu" [cdkMenuPosition]="centeredMenuPos"
-                                [disabled]="form.value.archetype === ''">{{ form.value.role || 'Seleziona un ruolo'
-                                }}</button>
-                            <ng-template #menu>
-                                <div standard-menu cdkMenu>
-                                    @for (role of roles; track $index) {
-                                    <button standard-button cdkMenuItem (click)="selectRole(role)">
-                                        {{ role }}
-                                    </button>
-                                    }
-                                </div>
-                            </ng-template>
-                            } @else {
-                            <p class="waiting-turn-message">[ IN ATTESA ] Il tuo turno non è attivo.</p>
-                        }
+                        
                     </div>
 
                 <!-- AGENT SETUP PREVIEW -->

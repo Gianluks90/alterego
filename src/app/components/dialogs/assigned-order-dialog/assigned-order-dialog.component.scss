@@ -26,10 +26,12 @@
 }
 
 .agent-order-container {
+  position: relative;
   display: flex;
   align-items: center;
   height: 48px;
   border: 1px solid var(--fg-color);
+  margin-bottom: 24px;
 
   h1 {
     margin: 0;

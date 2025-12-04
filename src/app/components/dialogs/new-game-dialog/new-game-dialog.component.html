@@ -1,21 +1,9 @@
-<div dialog-main-container>
-    <h1>Crea una nuova missione</h1>
-
-    <pre class="container-log">
-[INIZIALIZZAZIONE CREAZIONE MISSIONE] ............ [OK]
-[CANALI SICURI STABILITI] ........................ [OK]
--------------------------------------------------------
-AGENTE, inserisci i seguenti dettagli:
-
-- NOME             : scegli un identificativo per la missione
-- LIMITE GIOCATORI : imposta il numero massimo di agenti (2-6)
-- PASSWORD         : proteggi la tua sessione
-
-[AVVISO] Tutti i campi devono essere compilati per procedere.
-[STATO] In attesa di input...
--------------------------------------------------------
-  </pre>
-
+<app-ui-dialog-container dialogTitle="Crea nuova missione">
+    <p p-pulse-text>[AZIONE RICHIESTA] Prego, inserire i dettagli della missione...</p>
+    <p>Nome missione: un indetificativo per la missione che si sta creando.</p>
+    <p>Limite agenti: il numero massimo di agenti che possono partecipare alla missione.</p>
+    <p>Password: una password per proteggere l'accesso alla missione. ID e Password saranno necessari ad altri Agenti
+        per accedere al sistema.</p>
     <form standard-form [formGroup]="form">
         <div form-field>
             <label for="name">Nome missione</label>
@@ -33,9 +21,8 @@ AGENTE, inserisci i seguenti dettagli:
                 placeholder="Scrivi qui" />
         </div>
     </form>
-
     <div dialog-actions-container>
         <button standard-button type="button" [disabled]="form.invalid" (click)="confirm()">Crea</button>
         <button standard-button type="button" (click)="cancel()">ESC</button>
     </div>
-</div>
+</app-ui-dialog-container>

@@ -2,10 +2,11 @@ import { DialogRef } from '@angular/cdk/dialog';
 import { Component, inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogResult } from '../../../../models/dialogResult';
+import { UiDialogContainerComponent } from '../../../ui';
 
 @Component({
   selector: 'app-join-game-dialog',
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, UiDialogContainerComponent],
   templateUrl: './join-game-dialog.component.html',
   styleUrl: './join-game-dialog.component.scss'
 })

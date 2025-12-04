@@ -2,10 +2,11 @@ import { DialogRef } from '@angular/cdk/dialog';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DialogResult } from '../../../../models/dialogResult';
+import { UiDialogContainerComponent } from '../../../ui';
 
 @Component({
   selector: 'app-new-game-dialog',
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, UiDialogContainerComponent],
   templateUrl: './new-game-dialog.component.html',
   styleUrl: './new-game-dialog.component.scss'
 })
