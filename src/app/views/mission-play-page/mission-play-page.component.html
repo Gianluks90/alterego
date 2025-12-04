@@ -49,19 +49,20 @@
                 </div>
             </div>
         </div>
-        <app-tab-menu-container #tabMenu [$tabs]="['azioni', 'status', 'log/chat']">
-            @if (tabMenu.selectedTab === 'azioni') {
+        <app-tab-menu-container #tabMenu [$tabs]="['agente', 'missione', 'log/chat']">
+            @if (tabMenu.selectedTab === 'agente') {
             <div class="tab-content-container">
-                <p>Azioni disponibili</p>
+                 <app-health-container [$player]="player"></app-health-container>
+                 <app-actions-container [$player]="player"></app-actions-container>
             </div>
             }
-            @if (tabMenu.selectedTab === 'status') {
+            @if (tabMenu.selectedTab === 'missione') {
             <div class="tab-content-container">
                 <p>Status missione</p>
             </div>
             }
             @if (tabMenu.selectedTab === 'log/chat') {
-            <app-chat [$player]="player" [$mission]="mission" [$onPlay]="true"></app-chat>
+                <app-chat [$player]="player" [$mission]="mission" [$onPlay]="true"></app-chat>
             }
         </app-tab-menu-container>
     </div>
@@ -69,7 +70,6 @@
 
     @if (player) {
     <div class="mission-play-page-actions-container">
-        <button standard-button disabled>Vedi obbiettivo</button>
         <button standard-button type="button" disabled>{{player.actionPoints <= 1 ? 'Concludi' : 'Passa' }}</button>
                 <button standard-button (click)="confirmExit()">Esci</button>
     </div>

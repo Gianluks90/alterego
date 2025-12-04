@@ -76,6 +76,7 @@ export class MissionLobbyPageComponent {
   });
 
   public faces: string[] = [];
+  public takenFaces: string[] = [];
 
   public centeredMenuPos: ConnectedPosition[] = [
     {
@@ -152,7 +153,11 @@ export class MissionLobbyPageComponent {
       }
 
       this.faces = Array.from({ length: 10 }, (_, i) => `${(i + 1).toString().padStart(3, '0')}`);
+      const takenFaces = this.mission?.playersData
+        .filter(p => p.uid !== this.player?.uid && p.face)   // tutti gli altri che hanno scelto
+        .map(p => p.face);                                    // es: ["003", "007"]
 
+      this.takenFaces = takenFaces || [];
       this.readyToStart = this.mission?.playersData.every(p => p.status === 'ready');
     });
   }
@@ -357,6 +362,7 @@ export class MissionLobbyPageComponent {
 
   public selectFace(face: string): void {
     if (this.player?.status === 'ready') return;
+    if (this.takenFaces.includes(face)) return;
     this.form.get('face')?.setValue(face);
   }
 

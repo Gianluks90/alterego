@@ -21,7 +21,7 @@ export class ActionExecutorService {
 
     if (!this.validator.isUsable(action, actor, mission)) throw new Error('Action not usable');
 
-    const costAp = action.cost?.ap ?? 0;
+    const costAp = action.cost?.cards ?? 0;
     actor.actionPoints = (actor.actionPoints ?? 0) - costAp;
     await this.gameState.updatePlayerData({ uid: actorId, actionPoints: actor.actionPoints });
 

@@ -1,0 +1,36 @@
+@if ($player()) {
+    <div class="actions-main-container">
+        <div class="header-container">
+            <p>{{"Azioni disponibili" | uppercase}}</p>
+            <div class="action-points-container">
+                <div class="action-bar" [class.exhausted]="$player()!.actionPoints < 2"></div>
+                <div class="action-bar" [class.exhausted]="$player()!.actionPoints < 1"></div>
+            </div>
+        </div> 
+        <div class="actions-container">
+            <div class="actions-selection-container">
+                <div class="actions">
+                    @for (action of baseActions; track action.id) {
+                        <div class="action-item" [class.last-item]="$last" (click)="openInspector(action)">
+                            <span>{{action.title}} ({{action.cost!.cards}})</span>
+                            <span class="material-symbols-outlined">{{action.ui!.icon}}</span>
+                        </div>
+                    }
+                </div>
+                <div class="commands">
+                    <div class="action-selected-area">
+                        Rilascia qui
+                    </div>
+                    <div class="actions-discard-areas">
+                        <div class="discard-area" [class.disabled-area]="!selectedAction">Costo 1</div>
+                        <div class="discard-area" [class.disabled-area]="!selectedAction || selectedAction.cost!.cards < 2">Costo 2</div>
+                        <div class="discard-area" [class.disabled-area]="!selectedAction || selectedAction.cost!.cards < 3">Costo 3</div>
+                    </div>
+                </div>
+            </div>
+            <button standard-button>Esegui</button>
+        </div>
+    
+        <app-ui-diagonal-line position="bottom-right"></app-ui-diagonal-line>
+</div>
+}

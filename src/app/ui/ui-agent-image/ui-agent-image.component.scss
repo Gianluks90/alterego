@@ -39,3 +39,24 @@
     mix-blend-mode: overlay;
     pointer-events: none;
 }
+
+.not-available-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 300;
+    pointer-events: none;
+    background-color: var(--bg-main-color);
+    opacity: 0.6;
+
+    &::before {
+        content: "✕";
+        font-size: 4rem;
+        font-weight: 900;
+        color: var(--fg-color);
+        opacity: 1;
+        text-shadow: 0 0 4px black;
+    }
+}

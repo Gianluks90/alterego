@@ -1,0 +1,22 @@
+@if ($player()) {
+    <div class="health-main-container">
+        <div class="header-container">
+            <p>{{'Parametri vitali' | uppercase }}</p>
+            <p class="heavy-wounds-counter">
+                <span class="counter">{{$player()!.parameters.heavyWounds.length}}</span>
+                <span class="material-symbols-outlined">warning</span>
+            </p>
+        </div>
+        <div class="health-bar-container">
+            <span class="material-symbols-outlined" [class.pulse-icon]="$player()!.parameters.health <= 1">warning</span>
+            <app-progress-bar [current]="$player()!.parameters.health" [min]="0" [max]="3" [fullSize]="true"></app-progress-bar>
+        </div>
+        @if ($player()!.parameters.health <= 1 && $player()!.parameters.heavyWounds.length !== 2) {
+            <p p-pulse-text>[ATTENZIONE] Ferita grave imminente!</p>
+        }
+        @if ($player()!.parameters.heavyWounds.length >2 && $player()!.parameters.health <= 1 ) {
+            <p p-pulse-text>[CRITICO] Rischio di decesso!</p>
+        }
+        <app-ui-diagonal-line position="bottom-right"></app-ui-diagonal-line>
+    </div>
+} 

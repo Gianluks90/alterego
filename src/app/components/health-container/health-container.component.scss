@@ -1,0 +1,64 @@
+.health-main-container {
+    border: 1px solid var(--fg-color);
+    background-color: var(--bg-main-color);
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &>.heavy-wounds-counter {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        &>.material-symbols-outlined {
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        &>.counter {
+            margin: 0;
+            font-family: monospace;
+        }
+    }
+
+    &>p {
+        margin: 0;
+    }
+}
+
+.health-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    &>.material-symbols-outlined {
+        opacity: 0.2;
+    }
+
+    &>.pulse-icon {
+        animation: pulse-icon 2s infinite;
+    }
+}
+
+@keyframes pulse-icon {
+    0% {
+        opacity: 0.2;
+        text-shadow: 0 0 2px var(--fg-color);
+    }
+    50% {
+        opacity: 1;
+        text-shadow: 0 0 4px var(--fg-color);
+    }
+    100% {
+        opacity: 0.2;
+        text-shadow: 0 0 2px var(--fg-color);
+    }
+}

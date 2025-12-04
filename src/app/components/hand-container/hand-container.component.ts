@@ -1,8 +1,9 @@
 import { Component, input } from '@angular/core';
+import { UIDiagonalLineComponent } from '../../ui';
 
 @Component({
   selector: 'app-hand-container',
-  imports: [],
+  imports: [UIDiagonalLineComponent],
   templateUrl: './hand-container.component.html',
   styleUrl: './hand-container.component.scss'
 })

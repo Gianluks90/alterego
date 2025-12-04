@@ -19,6 +19,7 @@ export class ProgressBarComponent {
   public current = input<number>(0);
   public icon = input<string | null>(null);
   public label = input<string | null>(null);
+  public fullSize = input<boolean>(false);
 
   public iterableSegments: Segment[] = [];
 

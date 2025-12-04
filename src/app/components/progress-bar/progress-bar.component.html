@@ -5,9 +5,9 @@
     @if (label()) {
         <div class="bar-label">{{label() | uppercase}}</div>
     }
-    <div class="bar-container">
+    <div class="bar-container" [style.gap.px]="fullSize() ? 8 : 2">
         @for (s of iterableSegments; track $index) {
-            <div class="bar-segment" [class.filled-segment]="s.filled"></div>
+            <div class="bar-segment" [class.filled-segment]="s.filled" [class.full-size-segment]="fullSize()"></div>
         }
     </div>
 </div>

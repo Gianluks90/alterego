@@ -92,6 +92,24 @@
           </div>
         }
 
+        @case('action-clicked') {
+          <div class="action-header">
+            <span class="material-symbols-outlined">{{ d.ui?.icon || 'warning' }}</span>
+            <div class="action-data">
+              <p>
+                {{ d.title | uppercase }}
+              </p>
+              <p>
+                {{ d.description || 'Nessuna descrizione disponibile.' }}
+              </p>
+            </div>
+          </div>
+          <div class="r-01-container">
+            <p>Costo</p>
+            <p class="destination-code">{{ d.cost?.cards }}</p>
+          </div>
+        }
+
         @default {
         Default case
         }

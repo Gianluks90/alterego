@@ -13,7 +13,7 @@ import { GameAction } from '../../../models/gameAction';
 export class ActionValidatorService {
   isUsable(action: GameAction, player: Player, mission: Mission): boolean {
     if (!action) return false;
-    const costAp = action.cost?.ap ?? 0;
+    const costAp = action.cost?.cards ?? 0;
     if ((player.actionPoints ?? 0) < costAp) return false;
 
 

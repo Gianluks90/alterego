@@ -85,6 +85,7 @@
                     <div class="image-agent-container">
                         @for(faceId of faces; track $index) {
                             <app-ui-agent-image [faceId]="faceId" (click)="selectFace(faceId)"
+                            [notAvailable]="takenFaces.includes(faceId)"
                                 [class.image-selected]="form.value.face === faceId">
                             </app-ui-agent-image>
                         }

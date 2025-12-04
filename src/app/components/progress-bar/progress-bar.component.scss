@@ -33,6 +33,10 @@
     animation: fill-segment-slow-pulse 2s infinite;
 }
 
+.full-size-segment {
+    width: 100% !important;
+}
+
 @keyframes fill-segment-slow-pulse {
     0% {
         box-shadow: 0 0 4px var(--fg-color);

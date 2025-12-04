@@ -23,6 +23,8 @@ import { ConfirmDialogComponent } from '../../components/dialogs/confirm-dialog/
 import { UIDiagonalLineComponent } from '../../ui/ui-diagonal-line/ui-diagonal-line.component';
 import { HandContainerComponent } from '../../components/hand-container/hand-container.component';
 import { MapComponent } from '../../components/map/map.component';
+import { HealthContainerComponent } from '../../components/health-container/health-container.component';
+import { ActionsContainerComponent } from '../../components/actions-container/actions-container.component';
 
 @Component({
   selector: 'app-mission-play-page',
@@ -37,6 +39,8 @@ import { MapComponent } from '../../components/map/map.component';
     LegendContainerComponent,
     HandContainerComponent,
     MapComponent,
+    HealthContainerComponent,
+    ActionsContainerComponent,
     UIDiagonalLineComponent,
     UI_SOUNDS_DIRECTIVES
 ]

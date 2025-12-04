@@ -1,5 +1,8 @@
 <div class="image-container" [style.width.px]="width()" [style.height.px]="height()">
     <div class="image-overlay"></div>
+    @if (notAvailable()) {
+        <div class="not-available-overlay"></div>
+    }
     @if(faceId() !== '') {
     <img src="/people/{{faceId()}}.jpg" alt="">
     } @else {

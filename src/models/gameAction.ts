@@ -6,8 +6,8 @@ export interface GameAction {
   description: string; // testo templated
   source: ActionSource; // mano, stanza, oggetto, archetype, global
   tags?: string[]; // es: ["offensiva","mana"]
-  cost?: {
-    ap?: number;
+  cost: {
+    cards: number;
     useItemId?: string; // esempio
   };
   preconditions?: Precondition[]; // array di funzioni/descrizioni serializzabili

@@ -5,7 +5,7 @@ export const SAMPLE_ACTION_TEST: GameAction = {
   title: 'Test Action',
   description: 'Azione di test per debug',
   source: 'base',
-  cost: { ap: 0 },
+  cost: { cards: 0 },
   effects: [
     {
       type: 'customTestLog',

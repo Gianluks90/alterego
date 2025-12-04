@@ -11,7 +11,7 @@ export class AgentLabelPipe implements PipeTransform {
     const surname = formValue?.surname || '';
     const hasName = name.trim() || surname.trim();
 
-    const fullName = hasName ? `${name} ${surname}`.trim() : '[ NON ASSEGNATO ]';
+    const fullName = hasName ? `${name} ${surname}`.trim() : '[ SCONOSCIUTO ]';
     const orderPart = typeof player?.order === 'number' ? ` ${player.order}` : '';
 
     return `Agente${orderPart} ${fullName} [Sessione privata]`;
